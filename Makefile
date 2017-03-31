@@ -7,6 +7,10 @@ export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
 PALILIB=src/github.com/siongui/gopalilib/lib
 
+test_url: fmt
+	@echo "\033[92mTesting Url ...\033[0m"
+	@cd lib; go test -v url.go url_test.go
+
 test_symlink: fmt
 	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"
 	@cd dicutil; go test -v symlink.go symlink_test.go

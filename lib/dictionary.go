@@ -205,6 +205,7 @@ const HtmlTemplateSuggestedWords = `
 <div>{{$word}}</div>
 {{end}}`
 
+// Structure for the setting of Pāli Dictionary
 type PaliDictionarySetting struct {
 	IsShowWordPreview bool   `json:"isPreview"`
 	P2en              bool   `json:"p2en"`
