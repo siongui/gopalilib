@@ -1,0 +1,2 @@
+language: go
+script: cd lib && go test -v url.go url_test.go
