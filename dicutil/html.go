@@ -18,11 +18,7 @@ type TemplateData struct {
 // This method create HTML for SPA.
 // The first three parameters is the same as html/template.ExecuteTemplate
 // method.
-func CreateHTML(w io.Writer, name string, data *TemplateData, localeDir, tmplDir string, isdev bool) (err error) {
-	if isdev {
-		data.SiteUrl = ""
-	}
-
+func CreateHTML(w io.Writer, name string, data *TemplateData, localeDir, tmplDir string) (err error) {
 	gossg.SetupMessagesDomain(localeDir)
 
 	tmpl, err := gossg.ParseDirectoryWithGettextFunction(tmplDir)
