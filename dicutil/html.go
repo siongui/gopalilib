@@ -16,8 +16,8 @@ type TemplateData struct {
 
 // Pāli Dictionary is single page application (SPA).
 // This method create HTML for SPA.
-// The first three parameters is the same as html/template.ExecuteTemplate
-// method.
+// The first three parameters are the same as the parameters of
+// html/template.ExecuteTemplate method.
 func CreateHTML(w io.Writer, name string, data *TemplateData, localeDir, tmplDir string) (err error) {
 	gossg.SetupMessagesDomain(localeDir)
 
