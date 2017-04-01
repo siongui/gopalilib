@@ -57,6 +57,23 @@ func IsValidWordUrlPath(urlpath string) bool {
 	return true
 }
 
+// If urlpath is valid, return the word string embedded in the path of url.
+// Otherwise return empty string.
+//
+// For example,
+//
+// "/browse/s/sacca/" will return "sacca"
+//
+// "/browse/s/āpadā/" will return ""
+func GetWordFromUrlPath(urlpath string) string {
+	if IsValidWordUrlPath(urlpath) {
+		ss := strings.Split(urlpath, "/")
+		return ss[3]
+	}
+
+	return ""
+}
+
 // URL path of the Pāli word.
 //
 // Example:

@@ -48,6 +48,20 @@ func TestIsValidWordUrlPath(t *testing.T) {
 	}
 }
 
+func TestGetWordFromUrlPath(t *testing.T) {
+	if GetWordFromUrlPath("/browse/s/sacca/") != "sacca" {
+		t.Error("/browse/s/sacca/ should return sacca")
+	}
+
+	if GetWordFromUrlPath("/browse/s/āpadā/") != "" {
+		t.Error(`/browse/s/āpadā/ should return ""`)
+	}
+
+	if GetWordFromUrlPath("/about/") != "" {
+		t.Error(`/about/ should return ""`)
+	}
+}
+
 func TestWordUrlPath(t *testing.T) {
 	if WordUrlPath("sacca") != "/browse/s/sacca/" {
 		t.Error("error sacca path url")
