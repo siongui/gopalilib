@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"strings"
 	"unicode/utf8"
 )
 
@@ -22,8 +23,38 @@ func DeterminePageType(urlpath string) PageType {
 	if urlpath == "/about/" {
 		return AboutPage
 	}
+	if IsValidWordUrlPath(urlpath) {
+		return WordPage
+	}
 
-	return WordPage
+	return NoSuchPage
+}
+
+// Give the path of url, is it a possible valid path for a Pāli word?
+func IsValidWordUrlPath(urlpath string) bool {
+	ss := strings.Split(urlpath, "/")
+
+	if len(ss) != 5 {
+		return false
+	}
+
+	if ss[0] != "" {
+		return false
+	}
+
+	if ss[1] != "browse" {
+		return false
+	}
+
+	if ss[4] != "" {
+		return false
+	}
+
+	if !strings.HasPrefix(ss[3], ss[2]) {
+		return false
+	}
+
+	return true
 }
 
 // URL path of the Pāli word.
