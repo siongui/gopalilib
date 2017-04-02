@@ -6,10 +6,11 @@ import (
 )
 
 // Type of the webpage, determined according to path of URL
+//go:generate stringer -type=PageType
 type PageType int
 
 const (
-	RootPage = iota
+	RootPage PageType = iota
 	AboutPage
 	WordPage
 	NoSuchPage
