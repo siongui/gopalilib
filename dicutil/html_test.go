@@ -14,7 +14,7 @@ func TestGensite(t *testing.T) {
 		OgLocale:    "en_US",
 	}
 
-	err := CreateHTML(os.Stdout, "index.html", &data, "../../pali/common/locale", "../../pali/go/theme/template")
+	err := CreateHTML(os.Stdout, "index.html", &data, "../../pali/common/locale", "../../paligo/theme/template")
 	if err != nil {
 		t.Error(err)
 	}

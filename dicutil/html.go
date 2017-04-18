@@ -1,7 +1,7 @@
 package dicutil
 
 import (
-	"github.com/siongui/gotemplateutil"
+	"github.com/siongui/gotm"
 	"io"
 )
 
@@ -19,18 +19,15 @@ type TemplateData struct {
 // The first three parameters are the same as the parameters of
 // html/template.ExecuteTemplate method.
 func CreateHTML(w io.Writer, name string, data *TemplateData, localeDir, tmplDir string) (err error) {
-	gossg.SetupMessagesDomain(localeDir)
+	gotm.SetupMessagesDomain(localeDir)
 
-	tmpl, err := gossg.ParseDirectoryWithGettextFunction(tmplDir)
+	tm := gotm.NewTemplateManager(name)
+	err = tm.ParseDirectoryWithGettextFunction(tmplDir)
 	if err != nil {
 		return
 	}
 
-	gossg.SetLocale(data.OgLocale)
-	err = tmpl.ExecuteTemplate(w, name, data)
-	if err != nil {
-		return
-	}
-
+	gotm.SetLocale(data.OgLocale)
+	err = tm.ExecuteTemplate(w, name, data)
 	return
 }

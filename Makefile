@@ -24,8 +24,8 @@ generate:
 	@cd lib; go generate
 
 install: install_palilib
-	@echo "\033[92mInstalling Go template utility ...\033[0m"
-	go get -u github.com/siongui/gotemplateutil
+	@echo "\033[92mInstalling Go template manager ...\033[0m"
+	go get -u github.com/siongui/gotm
 
 install_palilib:
 	@echo "\033[92mInstall Pali lib locally ...\033[0m"
@@ -40,3 +40,6 @@ fmt:
 	@echo "\033[92mGo fmt source code...\033[0m"
 	@go fmt lib/*.go
 	@go fmt dicutil/*.go
+
+clean:
+	rm -rf pkg/ src/
