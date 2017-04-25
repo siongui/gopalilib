@@ -7,6 +7,10 @@ export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
 PALILIB=src/github.com/siongui/gopalilib/lib
 
+test_twpo2cn: fmt
+	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
+	@cd i18n; go test -v twpo2cn.go twpo2cn_test.go
+
 test_url: fmt
 	@echo "\033[92mTesting Url ...\033[0m"
 	@cd lib; go test -v url.go url_test.go
@@ -23,7 +27,13 @@ generate:
 	@echo "\033[92mlib/: go generate ...\033[0m"
 	@cd lib; go generate
 
-install: install_palilib
+install: install_palilib install_gotm install_gojianfan
+
+install_gojianfan:
+	@echo "\033[92mInstalling Go Chinese conversion package ...\033[0m"
+	go get -u github.com/siongui/gojianfan
+
+install_gotm:
 	@echo "\033[92mInstalling Go template manager ...\033[0m"
 	go get -u github.com/siongui/gotm
 
@@ -40,6 +50,7 @@ fmt:
 	@echo "\033[92mGo fmt source code...\033[0m"
 	@go fmt lib/*.go
 	@go fmt dicutil/*.go
+	@go fmt i18n/*.go
 
 clean:
 	rm -rf pkg/ src/
