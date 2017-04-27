@@ -6,6 +6,7 @@ export GOPATH=$(realpath .)
 export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
 PALILIB=src/github.com/siongui/gopalilib/lib
+PALIUTIL=src/github.com/siongui/gopalilib/util
 
 test_twpo2cn: fmt
 	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
@@ -38,9 +39,14 @@ install_gotm:
 	go get -u github.com/siongui/gotm
 
 install_palilib:
-	@echo "\033[92mInstall Pali lib locally ...\033[0m"
+	@echo "\033[92mInstall ${PALILIB} locally ...\033[0m"
+	@rm -rf ${PALILIB}
 	@mkdir -p ${PALILIB}
 	@cp -r lib/*.go ${PALILIB}/
+	@echo "\033[92mInstall ${PALIUTIL} locally ...\033[0m"
+	@rm -rf ${PALIUTIL}
+	@mkdir -p ${PALIUTIL}
+	@cp -r util/*.go ${PALIUTIL}/
 
 install_stringer:
 	@echo "\033[92mInstalling golang.org/x/tools/cmd/stringer ...\033[0m"
@@ -51,6 +57,7 @@ fmt:
 	@go fmt lib/*.go
 	@go fmt dicutil/*.go
 	@go fmt i18n/*.go
+	@go fmt util/*.go
 
 clean:
 	rm -rf pkg/ src/
