@@ -8,6 +8,10 @@ export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 PALILIB=src/github.com/siongui/gopalilib/lib
 PALIUTIL=src/github.com/siongui/gopalilib/util
 
+test_util: fmt
+	@echo "\033[92mTest utility func ...\033[0m"
+	@cd util; go test -v
+
 test_twpo2cn: fmt
 	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
 	@cd i18n; go test -v twpo2cn.go twpo2cn_test.go
