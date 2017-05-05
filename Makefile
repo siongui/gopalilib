@@ -22,7 +22,7 @@ test_url: fmt
 
 test_html: fmt
 	@echo "\033[92mTesting Pāli Dictionary HTML ...\033[0m"
-	@cd dicutil; go test -v html.go html_test.go
+	@cd dicutil; go test -v html.go html_test.go path_test.go
 
 test_symlink: fmt
 	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"
