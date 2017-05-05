@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestGensite(t *testing.T) {
+func TestCreateHTML(t *testing.T) {
 	data := TemplateData{
 		SiteUrl:     "http://dictionary.online-dhamma.net",
 		TipitakaURL: "http://tipitaka.online-dhamma.net",

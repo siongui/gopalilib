@@ -8,6 +8,10 @@ export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 PALILIB=src/github.com/siongui/gopalilib/lib
 PALIUTIL=src/github.com/siongui/gopalilib/util
 
+test_bookparser: fmt
+	@echo "\033[92mTesting parse CSV of dictionary books ...\033[0m"
+	@cd dicutil; go test -v bookparser.go bookparser_test.go path_test.go
+
 test_util: fmt
 	@echo "\033[92mTest utility func ...\033[0m"
 	@cd util; go test -v
