@@ -1,5 +1,7 @@
 package dicutil
 
+// Parse the two CSV files containing definitions of words.
+
 import (
 	"encoding/csv"
 	"github.com/siongui/gojianfan"
@@ -10,6 +12,7 @@ import (
 	"strings"
 )
 
+// Given dictionary book id, return if the dictionary book is Chinese.
 func isChineseDictionary(id string) bool {
 	// id of Chinese Dictionary: D G Z X H W F T J M
 	switch id {
@@ -20,6 +23,25 @@ func isChineseDictionary(id string) bool {
 	}
 }
 
+// The format of record in dict_words_1.csv and dict_words_2.csv:
+//
+// row = [cell1, cell2, cell3, cell4, cell5, cell6, cell7], each row represent
+// represents the explanation of a pali word in one dictionary.
+//
+// cell1: number of the row.
+//
+// cell2: the same as cell1 of dict-books.csv.
+// "C" means chinese dictionary, "E" means non-chinese dictionary.
+//
+// cell3: the same as cell2 of dict-books.csv.
+// id of the dictionary. Each dictionary has a unique value.
+//
+// cell4: fuzzy spelling of the pali word
+//
+// cell5 and cell6: the pali word. The first character of the cell may be
+// upper-case.
+//
+// cell7: the explanation of the pali word in one dictionary.
 func processWord(record []string, wordsJsonDir string) {
 	// number of the word, useless
 	num := record[0]
@@ -60,6 +82,7 @@ func processWord(record []string, wordsJsonDir string) {
 	}
 }
 
+// Parse dict_words_1.csv and dict_words_2.csv
 func processWordsCSV(csvPath, wordsJsonDir string) {
 	// open csv file
 	fcsv, err := os.Open(csvPath)

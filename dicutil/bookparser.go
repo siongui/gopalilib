@@ -16,6 +16,19 @@ import (
 )
 
 // Parse the record containing information of one dictionary book.
+//
+// The format of record in dict-books.csv:
+//
+// row = [cell1, cell2, cell3, cell4], each row represents one dictionary.
+//
+// cell1 (b_lang): "C" means chinese dictionary,
+// "E" means non-chinese dictionary.
+//
+// cell2 (b_num): id of the dictionary. Each dictionary has a unique value.
+//
+// cell3 (b_dict): name of the dictionary.
+//
+// cell4 (b_dictauthor): name and author of the dictionary.
 func parseRecord(record []string) (id string, dict lib.BookInfo) {
 	// language of the dictionary,
 	// "C" means Chinese and Japanese dictionary,
