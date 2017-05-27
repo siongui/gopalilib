@@ -8,6 +8,10 @@ export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 PALILIB=src/github.com/siongui/gopalilib/lib
 PALIUTIL=src/github.com/siongui/gopalilib/util
 
+test_triebuild: fmt
+	@echo "\033[92mTesting building succinct trie ...\033[0m"
+	@cd dicutil; go test -v triebuild.go triebuild_test.go path_test.go
+
 test_wordparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary words ...\033[0m"
 	@[ -d /tmp/paliwords/ ] || mkdir /tmp/paliwords/
@@ -41,7 +45,7 @@ generate:
 	@echo "\033[92mlib/: go generate ...\033[0m"
 	@cd lib; go generate
 
-install: install_palilib install_gotm install_gojianfan
+install: install_palilib install_gotm install_gojianfan lib_succinct_trie
 
 install_gojianfan:
 	@echo "\033[92mInstalling Go Chinese conversion package ...\033[0m"
@@ -64,6 +68,10 @@ install_palilib:
 install_stringer:
 	@echo "\033[92mInstalling golang.org/x/tools/cmd/stringer ...\033[0m"
 	go get -u golang.org/x/tools/cmd/stringer
+
+lib_succinct_trie:
+	@echo "\033[92mInstalling Go Succinct Trie library ...\033[0m"
+	go get -u github.com/siongui/go-succinct-data-structure-trie
 
 fmt:
 	@echo "\033[92mGo fmt source code...\033[0m"
