@@ -64,9 +64,9 @@ func processWord(record []string, wordsJsonDir string) {
 		wi := GetBookIdWordExps(word, wordsJsonDir)
 		if isChineseDictionary(bookId) {
 			// convert simplified chinese to traditional chinese
-			wi[bookId] = util.S2T(explanation)
+			wi = append(wi, [2]string{bookId, util.S2T(explanation)})
 		} else {
-			wi[bookId] = explanation
+			wi = append(wi, [2]string{bookId, explanation})
 		}
 		util.SaveJsonFile(wi, path)
 	} else {
@@ -74,9 +74,9 @@ func processWord(record []string, wordsJsonDir string) {
 		wi := lib.BookIdWordExps{}
 		if isChineseDictionary(bookId) {
 			// convert simplified chinese to traditional chinese
-			wi[bookId] = util.S2T(explanation)
+			wi = append(wi, [2]string{bookId, util.S2T(explanation)})
 		} else {
-			wi[bookId] = explanation
+			wi = append(wi, [2]string{bookId, explanation})
 		}
 		util.SaveJsonFile(wi, path)
 	}

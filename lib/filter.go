@@ -22,7 +22,10 @@ func BookIdWordExps2IdExpsAccordingToSetting(
 	var viIdExps []IdExp
 	var myIdExps []IdExp
 
-	for bookId, explanation := range wi {
+	for _, bookIdWordExp := range wi {
+		bookId := bookIdWordExp[0]
+		explanation := bookIdWordExp[1]
+
 		if di[bookId].Lang == "en" && setting.P2en {
 			enIdExps = append(enIdExps, IdExp{bookId, explanation})
 			continue

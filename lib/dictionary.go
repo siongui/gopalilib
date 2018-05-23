@@ -184,8 +184,25 @@ type BookInfo struct {
 //
 type BookIdAndInfos map[string]BookInfo
 
-// book id <-> word explanation
-type BookIdWordExps map[string]string
+// Array of ["book id", "word explanation"]
+//
+// Example:
+//
+//   [
+//      [
+//         "F",
+//         "dah\uff0c= =\u71d2\uff08burn\uff09\u3002cp\uff0e\uff08\u5df4dah\uff09\ufe50\u3010\u5b57\u6839I.\u3011\u6d41\u6d6a\u751f\u6d3b\u3001\u4e5e\u8a0e\uff08to bum\uff09\u3002"
+//      ],
+//      [
+//         "F",
+//         "dah\uff0c\ufe50\u3010\u5b57\u6839I.\u30111.\u5efa\u7acb\uff08to establish\uff09\u3001\u653e\u7f6e\uff08to place\uff09\u3002\u2192saddh\u0101\u2039\uff08sa\u1e41+dah\u5efa\u7acb\u3001\u653e\u7f6e\uff09\uff0c\u68b5sraddh\u0101\uff1bfaith \uff09\u30022.\u6d41\u6d6a\u751f\u6d3b\u3001\u4e5e\u8a0e\uff08to bum\uff09\u3002cp\uff0e\uff08\u68b5dah\uff09\uff0c\u71d2\uff08burn\uff09\u3002"
+//      ],
+//      [
+//         "F",
+//         "dah\uff0c\ufe50\u3010\u5b57\u6839I.\u3011\u6d41\u6d6a\u751f\u6d3b\u3001\u4e5e\u8a0e\uff08to bum\uff09\u3002cp\uff0e\uff08\u68b5dah\uff09\uff0c\u71d2\uff08burn\uff09\u3002"
+//      ]
+//   ]
+type BookIdWordExps [][2]string
 
 type BookNameWordExp struct {
 	BookName    string
