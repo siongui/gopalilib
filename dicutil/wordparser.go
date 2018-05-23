@@ -4,12 +4,12 @@ package dicutil
 
 import (
 	"encoding/csv"
-	"github.com/siongui/gojianfan"
-	"github.com/siongui/gopalilib/lib"
-	"github.com/siongui/gopalilib/util"
 	"io"
 	"os"
 	"strings"
+
+	"github.com/siongui/gopalilib/lib"
+	"github.com/siongui/gopalilib/util"
 )
 
 // Given dictionary book id, return if the dictionary book is Chinese.
@@ -64,7 +64,7 @@ func processWord(record []string, wordsJsonDir string) {
 		wi := GetBookIdWordExps(word, wordsJsonDir)
 		if isChineseDictionary(bookId) {
 			// convert simplified chinese to traditional chinese
-			wi[bookId] = gojianfan.S2T(explanation)
+			wi[bookId] = util.S2T(explanation)
 		} else {
 			wi[bookId] = explanation
 		}
@@ -74,7 +74,7 @@ func processWord(record []string, wordsJsonDir string) {
 		wi := lib.BookIdWordExps{}
 		if isChineseDictionary(bookId) {
 			// convert simplified chinese to traditional chinese
-			wi[bookId] = gojianfan.S2T(explanation)
+			wi[bookId] = util.S2T(explanation)
 		} else {
 			wi[bookId] = explanation
 		}

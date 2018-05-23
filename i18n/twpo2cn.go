@@ -2,11 +2,11 @@
 package i18n
 
 import (
-	"github.com/siongui/gojianfan"
-	"github.com/siongui/gopalilib/util"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/siongui/gopalilib/util"
 )
 
 // Create the zh_CN PO file from the given zh_TW PO file.
@@ -24,7 +24,7 @@ func TwPoToCN(twPOPath, cnPOPath string) {
 	}
 	for _, line := range lines {
 		if strings.HasPrefix(line, "msgstr") {
-			fo.Write([]byte(gojianfan.T2S(line)))
+			fo.Write([]byte(util.T2S(line)))
 		} else {
 			if strings.Contains(line, "zh_TW") {
 				fo.Write([]byte(strings.Replace(line, "zh_TW", "zh_CN", 1)))

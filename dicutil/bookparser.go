@@ -8,11 +8,11 @@ package dicutil
 
 import (
 	"encoding/csv"
-	"github.com/siongui/gojianfan"
-	"github.com/siongui/gopalilib/lib"
-	"github.com/siongui/gopalilib/util"
 	"io"
 	"os"
+
+	"github.com/siongui/gopalilib/lib"
+	"github.com/siongui/gopalilib/util"
 )
 
 // Parse the record containing information of one dictionary book.
@@ -72,8 +72,8 @@ func parseRecord(record []string) (id string, dict lib.BookInfo) {
 				dict.Separator = "。"
 			}
 
-			dict.Name = gojianfan.S2T(name)
-			dict.Author = gojianfan.S2T(author)
+			dict.Name = util.S2T(name)
+			dict.Author = util.S2T(author)
 		}
 	case "E":
 		// English, Vietnam, Myanmar dictionaries
