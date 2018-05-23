@@ -5,8 +5,8 @@ export GOROOT=$(realpath ../go)
 export GOPATH=$(realpath .)
 export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
-PALILIB=src/github.com/siongui/gopalilib/lib
-PALIUTIL=src/github.com/siongui/gopalilib/util
+PALILIB=$(GOPATH)/src/github.com/siongui/gopalilib/lib
+PALIUTIL=$(GOPATH)/src/github.com/siongui/gopalilib/util
 
 test_triebuild: fmt
 	@echo "\033[92mTesting building succinct trie ...\033[0m"
@@ -50,6 +50,10 @@ install: install_palilib install_gotm install_gojianfan lib_succinct_trie
 install_gojianfan:
 	@echo "\033[92mInstalling Go Chinese conversion package ...\033[0m"
 	go get -u github.com/siongui/gojianfan
+
+install_gocc:
+	@echo "\033[92mInstalling Golang version OpenCC package ...\033[0m"
+	go get -u github.com/liuzl/gocc
 
 install_gotm:
 	@echo "\033[92mInstalling Go template manager ...\033[0m"
