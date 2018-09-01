@@ -5,7 +5,7 @@ import (
 )
 
 func TestSymlinkToRootIndexHtml(t *testing.T) {
-	err := SymlinkToRootIndexHtml("../../pali/go/website/json/", "../../pali/go/website/")
+	err := SymlinkToRootIndexHtml(wordsJsonDir, wordsJsonDir)
 	if err != nil {
 		t.Error(err)
 	}

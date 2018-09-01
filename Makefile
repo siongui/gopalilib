@@ -39,13 +39,13 @@ test_html: fmt
 
 test_symlink: fmt
 	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"
-	@cd dicutil; go test -v symlink.go symlink_test.go
+	@cd dicutil; go test -v symlink.go symlink_test.go path_test.go
 
 generate:
 	@echo "\033[92mlib/: go generate ...\033[0m"
 	@cd lib; go generate
 
-install: install_palilib install_gotm install_gojianfan lib_succinct_trie
+install: install_palilib install_gotm install_gojianfan lib_succinct_trie install_goef
 
 install_gojianfan:
 	@echo "\033[92mInstalling Go Chinese conversion package ...\033[0m"
@@ -58,6 +58,10 @@ install_gocc:
 install_gotm:
 	@echo "\033[92mInstalling Go template manager ...\033[0m"
 	go get -u github.com/siongui/gotm
+
+install_goef:
+	@echo "\033[92mInstalling Go file embedder ...\033[0m"
+	go get -u github.com/siongui/goef
 
 install_palilib:
 	@echo "\033[92mInstall ${PALILIB} locally ...\033[0m"

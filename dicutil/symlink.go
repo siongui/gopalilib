@@ -6,24 +6,15 @@ package dicutil
 // hosted on GitHub Pages.
 
 import (
-	"github.com/siongui/gopalilib/lib"
 	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
-)
 
-// Similar to ``mkdir -p`` of shell command
-func CreateDirIfNotExist(path string) {
-	dir := filepath.Dir(path)
-	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		err = os.MkdirAll(dir, 0755)
-		if err != nil {
-			panic(err)
-		}
-	}
-}
+	"github.com/siongui/gopalilib/lib"
+	"github.com/siongui/gopalilib/util"
+)
 
 // The URL path of word:
 //
@@ -31,7 +22,7 @@ func CreateDirIfNotExist(path string) {
 //
 func CreateSymlink(word, root string) {
 	wh := path.Join(root, lib.WordUrlPath(word)+"index.html")
-	CreateDirIfNotExist(wh)
+	util.CreateDirIfNotExist(wh)
 
 	err := os.Chdir(root)
 	if err != nil {
