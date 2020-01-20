@@ -72,6 +72,10 @@ install_goef:
 	go get -u github.com/siongui/goef
 
 install_palilib:
+ifdef TRAVIS
+	go get -u github.com/siongui/gopalilib/lib
+	go get -u github.com/siongui/gopalilib/util
+else
 	@echo "\033[92mInstall ${PALILIB} locally ...\033[0m"
 	@rm -rf ${PALILIB}
 	@mkdir -p ${PALILIB}
@@ -80,6 +84,7 @@ install_palilib:
 	@rm -rf ${PALIUTIL}
 	@mkdir -p ${PALIUTIL}
 	@cp -r util/*.go ${PALIUTIL}/
+endif
 
 install_stringer:
 	@echo "\033[92mInstalling golang.org/x/tools/cmd/stringer ...\033[0m"
