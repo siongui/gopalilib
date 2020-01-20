@@ -1,12 +1,15 @@
 # cannot use relative path in GOROOT, otherwise 6g not found. For example,
 #   export GOROOT=../go  (=> 6g not found)
 # it is also not allowed to use relative path in GOPATH
-export GOROOT=$(realpath ../go)
-export GOPATH=$(realpath .)
-export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
+ifndef TRAVIS
+	export GOROOT=$(realpath ../go)
+	export GOPATH=$(realpath .)
+	export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
+endif
 
 PALILIB=$(GOPATH)/src/github.com/siongui/gopalilib/lib
 PALIUTIL=$(GOPATH)/src/github.com/siongui/gopalilib/util
+DATA_REPO_DIR=$(CURDIR)/data
 
 test_triebuild: fmt
 	@echo "\033[92mTesting building succinct trie ...\033[0m"
@@ -45,15 +48,20 @@ generate:
 	@echo "\033[92mlib/: go generate ...\033[0m"
 	@cd lib; go generate
 
+
+clone_pali_data:
+	@echo "\033[92mClone Pāli data Repo ...\033[0m"
+	@[ -d $(DATA_REPO_DIR) ] || git clone  --depth 1 https://github.com/siongui/data.git $(DATA_REPO_DIR)
+
 install: install_palilib install_gotm install_gojianfan lib_succinct_trie install_goef
 
 install_gojianfan:
 	@echo "\033[92mInstalling Go Chinese conversion package ...\033[0m"
 	go get -u github.com/siongui/gojianfan
 
-install_gocc:
-	@echo "\033[92mInstalling Golang version OpenCC package ...\033[0m"
-	go get -u github.com/liuzl/gocc
+#install_gocc:
+#	@echo "\033[92mInstalling Golang version OpenCC package ...\033[0m"
+#	go get -u github.com/liuzl/gocc
 
 install_gotm:
 	@echo "\033[92mInstalling Go template manager ...\033[0m"

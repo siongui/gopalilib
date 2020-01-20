@@ -1,2 +1,7 @@
 language: go
-script: cd lib && go test -v url.go url_test.go
+install:
+- make clone_pali_data
+- make install
+script:
+- make test_url
+- make test_bookparser
