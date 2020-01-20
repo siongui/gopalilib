@@ -56,7 +56,11 @@ func processWord(record []string, wordsJsonDir string) {
 	// explanation of the pali word in one dictionary
 	explanation := record[6]
 
-	println(num + " " + word)
+	// don't print word count on TRAVIS CI build
+	if _, ok := os.LookupEnv("TRAVIS"); !ok {
+		println(num + " " + word)
+	}
+
 	// Google search: golang check if file exists
 	path := GetWordPath(word, wordsJsonDir)
 	if _, err := os.Stat(path); err == nil {
