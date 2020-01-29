@@ -6,3 +6,4 @@ script:
 - make test_url
 - make test_bookparser
 - make test_wordparser
+- make test_vfsbuild

@@ -4,6 +4,7 @@ package dicutil
 
 import (
 	"encoding/csv"
+	"fmt"
 	"io"
 	"os"
 	"strings"
@@ -56,9 +57,9 @@ func processWord(record []string, wordsJsonDir string) {
 	// explanation of the pali word in one dictionary
 	explanation := record[6]
 
-	// don't print word count on TRAVIS CI build
+	// Do not print info on TRAVIS CI build to prevent log explosion
 	if _, ok := os.LookupEnv("TRAVIS"); !ok {
-		println(num + " " + word)
+		fmt.Println(num, word)
 	}
 
 	// Google search: golang check if file exists
