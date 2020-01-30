@@ -6,6 +6,7 @@ package dicutil
 // hosted on GitHub Pages.
 
 import (
+	"fmt"
 	"os"
 	"path"
 	"path/filepath"
@@ -40,7 +41,10 @@ func CreateSymlink(word, root string) {
 	if err != nil {
 		panic(err)
 	}
-	println(word)
+
+	if _, ok := os.LookupEnv("TRAVIS"); !ok {
+		fmt.Println(word)
+	}
 }
 
 // Only one page: ``/index.html``
