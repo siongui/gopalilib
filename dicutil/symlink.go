@@ -6,14 +6,13 @@ package dicutil
 // hosted on GitHub Pages.
 
 import (
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
-	"strings"
 
 	"github.com/siongui/gopalilib/lib"
 	"github.com/siongui/gopalilib/util"
+	vfs "github.com/siongui/gopaliwordvfs"
 )
 
 // The URL path of word:
@@ -47,24 +46,15 @@ func CreateSymlink(word, root string) {
 // Only one page: ``/index.html``
 //
 // All other webpages are symlinks to ``/index.html``
-func SymlinkToRootIndexHtml(jsondir, websiteroot string) (err error) {
-	jsondir, err = filepath.Abs(jsondir)
-	if err != nil {
-		return
-	}
+func SymlinkToRootIndexHtml(websiteroot string) (err error) {
 	websiteroot, err = filepath.Abs(websiteroot)
 	if err != nil {
 		return
 	}
 
-	files, err := ioutil.ReadDir(jsondir)
-	if err != nil {
-		return
-	}
-
-	for _, file := range files {
-		name := strings.TrimSuffix(file.Name(), ".json")
-		CreateSymlink(name, websiteroot)
+	words := vfs.MapKeys()
+	for _, word := range words {
+		CreateSymlink(word, websiteroot)
 	}
 
 	return
