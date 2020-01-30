@@ -7,3 +7,4 @@ script:
 - make test_bookparser
 - make test_wordparser
 - make test_vfsbuild
+- make test_symlink

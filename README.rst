@@ -26,6 +26,10 @@ This repository consist of two part:
 
 2. Offline data processing.
 
+   - test_bookparser
+   - test_wordparser
+   - test_vfsbuild needs test_wordparser
+   - test_symlink needs test_vfsbuild
 
 UNLICENSE
 +++++++++
