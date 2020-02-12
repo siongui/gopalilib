@@ -19,13 +19,13 @@ test_triebuild: fmt
 
 test_vfsbuild: fmt
 	@echo "\033[92mBuilding virtual file system of Pāli dictionary words ...\033[0m"
-	@[ -d $(VFSDIR) ] || mkdir -p $(VFSDIR)
+	#@[ -d $(VFSDIR) ] || mkdir -p $(VFSDIR)
 	@cd dicutil; go test -v vfsbuild.go vfsbuild_test.go path_test.go -args -pkgdir=$(VFSDIR)
 	@cd dicutil; go test -v vfs_test.go path_test.go
 
 test_wordparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary words ...\033[0m"
-	@[ -d /tmp/paliwords/ ] || mkdir /tmp/paliwords/
+	#@[ -d /tmp/paliwords/ ] || mkdir /tmp/paliwords/
 	@cd dicutil; go test -v wordparser.go wordparser_test.go lib.go path_test.go
 
 test_bookparser: fmt

@@ -111,6 +111,7 @@ func processWordsCSV(csvPath, wordsJsonDir string) {
 }
 
 func ParseDictionayWordCSV(csv1, csv2, outputdir string) {
+	util.CreateDirIfNotExist(outputdir)
 	processWordsCSV(csv1, outputdir)
 	processWordsCSV(csv2, outputdir)
 }

@@ -8,9 +8,11 @@ import (
 	"strings"
 
 	"github.com/siongui/goef"
+	"github.com/siongui/gopalilib/util"
 )
 
 func BuildVFS(pkgName, wordJsonDir, outputDir string) (err error) {
+	util.CreateDirIfNotExist(outputDir)
 	files, err := ioutil.ReadDir(wordJsonDir)
 	if err != nil {
 		return
