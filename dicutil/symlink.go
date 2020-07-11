@@ -16,6 +16,16 @@ import (
 	vfs "github.com/siongui/gopaliwordvfs"
 )
 
+func printWord(word string) {
+	dontPrintEnv := []string{"TRAVIS", "GITLAB_CI"}
+	for _, ev := range dontPrintEnv {
+		if _, ok := os.LookupEnv(ev); ok {
+			return
+		}
+	}
+	fmt.Println(word)
+}
+
 // The URL path of word:
 //
 //   /browse/{{first char of word}}/{{word}}/
@@ -42,9 +52,7 @@ func CreateSymlink(word, root string) {
 		panic(err)
 	}
 
-	if _, ok := os.LookupEnv("TRAVIS"); !ok {
-		fmt.Println(word)
-	}
+	printWord(word)
 }
 
 // Only one page: ``/index.html``

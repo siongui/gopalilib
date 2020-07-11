@@ -5,17 +5,17 @@ Pāli_ Library and Data Processing
 .. image:: https://img.shields.io/badge/Language-Go-blue.svg
    :target: https://golang.org/
 
-.. image:: https://godoc.org/github.com/siongui/gopalilib?status.png
+.. image:: https://godoc.org/github.com/siongui/gopalilib?status.svg
    :target: https://godoc.org/github.com/siongui/gopalilib
 
-.. image:: https://api.travis-ci.org/siongui/gopalilib.png?branch=master
+.. image:: https://api.travis-ci.org/siongui/gopalilib.svg?branch=master
    :target: https://travis-ci.org/siongui/gopalilib
 
 .. image:: https://goreportcard.com/badge/github.com/siongui/gopalilib
    :target: https://goreportcard.com/report/github.com/siongui/gopalilib
 
 .. image:: https://img.shields.io/badge/license-Unlicense-blue.svg
-   :target: https://raw.githubusercontent.com/siongui/gopalilib/master/UNLICENSE
+   :target: https://github.com/siongui/gopalilib/blob/master/UNLICENSE
 
 This repository consist of two part:
 

@@ -2,8 +2,8 @@
 #   export GOROOT=../go  (=> 6g not found)
 # it is also not allowed to use relative path in GOPATH
 ifndef TRAVIS
-	export GOROOT=$(realpath ../go)
-	export GOPATH=$(realpath .)
+	export GOROOT=$(realpath ../paligo/go)
+	export GOPATH=$(realpath ../paligo)
 	export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 endif
 
