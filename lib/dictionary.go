@@ -209,11 +209,17 @@ type BookNameWordExp struct {
 	Explanation template.HTML
 }
 
+// Message | Bulma
+// https://bulma.io/documentation/components/message/
 const HtmlTemplateBookNameWordExps = `
 {{range $bnwe := .}}
-<article class="word-explanation">
-  <header>{{$bnwe.BookName}}</header>
-  <p>{{$bnwe.Explanation}}</p>
+<article class="message">
+  <div class="message-header">
+    <p>{{$bnwe.BookName}}</p>
+  </div>
+  <div class="message-body">
+    {{$bnwe.Explanation}}
+  </div>
 </article>
 {{end}}`
 
