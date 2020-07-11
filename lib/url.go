@@ -12,6 +12,7 @@ type PageType int
 const (
 	RootPage PageType = iota
 	AboutPage
+	PrefixPage
 	WordPage
 	NoSuchPage
 )
@@ -24,11 +25,41 @@ func DeterminePageType(urlpath string) PageType {
 	if urlpath == "/about/" {
 		return AboutPage
 	}
+	if IsValidPrefixUrlPath(urlpath) {
+		return PrefixPage
+	}
 	if IsValidWordUrlPath(urlpath) {
 		return WordPage
 	}
 
 	return NoSuchPage
+}
+
+// something like '/browse/s/' or '/browse/ā/'
+func IsValidPrefixUrlPath(urlpath string) bool {
+	ss := strings.Split(urlpath, "/")
+
+	if len(ss) != 4 {
+		return false
+	}
+
+	if ss[0] != "" {
+		return false
+	}
+
+	if ss[1] != "browse" {
+		return false
+	}
+
+	if ss[3] != "" {
+		return false
+	}
+
+	if ss[2] != GetFirstCharacterOfWord(ss[2]) {
+		return false
+	}
+
+	return true
 }
 
 // Give the path of url, is it a possible valid path for a Pāli word?
@@ -88,6 +119,11 @@ func GetWordFromUrlPath(urlpath string) string {
 //   /browse/ā/āpadā/
 //
 func WordUrlPath(word string) string {
+	return "/browse/" + GetFirstCharacterOfWord(word) + "/" + word + "/"
+}
+
+// āpadā will return ā
+func GetFirstCharacterOfWord(word string) string {
 	runeValue, _ := utf8.DecodeRuneInString(word[0:])
-	return "/browse/" + string(runeValue) + "/" + word + "/"
+	return string(runeValue)
 }

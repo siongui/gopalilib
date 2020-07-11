@@ -32,6 +32,32 @@ func TestDeterminePageType(t *testing.T) {
 	if DeterminePageType("/about/something") != NoSuchPage {
 		t.Error("error no such page")
 	}
+
+	if DeterminePageType("/browse/s/") != PrefixPage {
+		t.Error("error prefix page type")
+	}
+
+	if DeterminePageType("/browse/āa/") == PrefixPage {
+		t.Error("error prefix page type")
+	}
+
+	if DeterminePageType("/browse/ā/") != PrefixPage {
+		t.Error("error prefix page type")
+	}
+}
+
+func TestIsValidPrefixUrlPath(t *testing.T) {
+	if !IsValidPrefixUrlPath("/browse/ā/") {
+		t.Error("/browse/ā/ should be true")
+	}
+
+	if IsValidPrefixUrlPath("/browse/āa/") {
+		t.Error("/browse/āa/ should be false")
+	}
+
+	if IsValidPrefixUrlPath("/about/") {
+		t.Error("/about/ should be false")
+	}
 }
 
 func TestIsValidWordUrlPath(t *testing.T) {
@@ -69,5 +95,19 @@ func TestWordUrlPath(t *testing.T) {
 
 	if WordUrlPath("āpadā") != "/browse/ā/āpadā/" {
 		t.Error("error āpadā path url")
+	}
+}
+
+func TestGetFirstCharacterOfWord(t *testing.T) {
+	if GetFirstCharacterOfWord("sacca") != "s" {
+		t.Error("sacca first char wrong")
+	}
+
+	if GetFirstCharacterOfWord("āpadā") != "ā" {
+		t.Error("āpadā first char wrong")
+	}
+
+	if GetFirstCharacterOfWord("ṭakāra") != "ṭ" {
+		t.Error("ṭakāra first char wrong")
 	}
 }
