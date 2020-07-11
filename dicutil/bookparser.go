@@ -1,7 +1,7 @@
 package dicutil
 
 // In this script, we will parse information about dictionaries and build the
-// type "BookIdAndInfos" struct, and save the infomation in JSON file.
+// type "BookIdAndInfos" struct, and save the information in JSON file.
 //
 // References:
 // https://www.google.com/search?q=golang+read+csv

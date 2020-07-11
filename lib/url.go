@@ -17,7 +17,8 @@ const (
 	NoSuchPage
 )
 
-// Determine the type of the webpage according to path of URL.
+// DeterminePageType determines the type of the webpage according to path of
+// URL.
 func DeterminePageType(urlpath string) PageType {
 	if urlpath == "/" {
 		return RootPage
@@ -35,7 +36,8 @@ func DeterminePageType(urlpath string) PageType {
 	return NoSuchPage
 }
 
-// something like '/browse/s/' or '/browse/ā/'
+// IsValidPrefixUrlPath will return true for url path such as '/browse/s/' or
+// '/browse/ā/'
 func IsValidPrefixUrlPath(urlpath string) bool {
 	ss := strings.Split(urlpath, "/")
 
@@ -62,7 +64,8 @@ func IsValidPrefixUrlPath(urlpath string) bool {
 	return true
 }
 
-// Give the path of url, is it a possible valid path for a Pāli word?
+// IsValidWordUrlPath will return true if the path of the url is a possible
+// valid Pāli word.
 func IsValidWordUrlPath(urlpath string) bool {
 	ss := strings.Split(urlpath, "/")
 
@@ -106,7 +109,7 @@ func GetWordFromUrlPath(urlpath string) string {
 	return ""
 }
 
-// URL path of the Pāli word.
+// WordUrlPath will return the url path of the given Pāli word.
 //
 // Example:
 //
@@ -122,6 +125,7 @@ func WordUrlPath(word string) string {
 	return "/browse/" + GetFirstCharacterOfWord(word) + "/" + word + "/"
 }
 
+// GetFirstCharacterOfWord returns first character of the word. For example,
 // āpadā will return ā
 func GetFirstCharacterOfWord(word string) string {
 	runeValue, _ := utf8.DecodeRuneInString(word[0:])
