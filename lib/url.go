@@ -121,6 +121,8 @@ func GetWordFromUrlPath(urlpath string) string {
 //
 //   /browse/ā/āpadā/
 //
+// Note that this method do not check the validity of the word. Use with
+// caution.
 func WordUrlPath(word string) string {
 	return "/browse/" + GetFirstCharacterOfWord(word) + "/" + word + "/"
 }
@@ -130,4 +132,22 @@ func WordUrlPath(word string) string {
 func GetFirstCharacterOfWord(word string) string {
 	runeValue, _ := utf8.DecodeRuneInString(word[0:])
 	return string(runeValue)
+}
+
+// PrefixUrlPath will return the url path of the given prefix.
+//
+// Example:
+//
+// URL path of prefix ``s`` is:
+//
+//   /browse/s/
+//
+// URL path of prefix ``ā`` is:
+//
+//   /browse/ā/
+//
+// Note that this method do not check the validity of the prefix. Use with
+// caution.
+func PrefixUrlPath(prefix string) string {
+	return "/browse/" + prefix + "/"
 }

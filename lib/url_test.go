@@ -111,3 +111,13 @@ func TestGetFirstCharacterOfWord(t *testing.T) {
 		t.Error("ṭakāra first char wrong")
 	}
 }
+
+func TestPrefixUrlPath(t *testing.T) {
+	if PrefixUrlPath("s") != "/browse/s/" {
+		t.Error("prefix s url path wrong")
+	}
+
+	if PrefixUrlPath("ā") != "/browse/ā/" {
+		t.Error("prefix ā url path wrong")
+	}
+}
