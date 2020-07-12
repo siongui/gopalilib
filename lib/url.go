@@ -36,8 +36,8 @@ func DeterminePageType(urlpath string) PageType {
 	return NoSuchPage
 }
 
-// IsValidPrefixUrlPath will return true for url path such as '/browse/s/' or
-// '/browse/ā/'
+// IsValidPrefixUrlPath will return true if the path of the url is a possible
+// prefix of Pāli words.
 func IsValidPrefixUrlPath(urlpath string) bool {
 	ss := strings.Split(urlpath, "/")
 
@@ -64,8 +64,8 @@ func IsValidPrefixUrlPath(urlpath string) bool {
 	return true
 }
 
-// IsValidWordUrlPath will return true if the path of the url is a possible
-// valid Pāli word.
+// IsValidWordUrlPath will return true if the path of the url is a possible Pāli
+// word.
 func IsValidWordUrlPath(urlpath string) bool {
 	ss := strings.Split(urlpath, "/")
 
@@ -92,8 +92,27 @@ func IsValidWordUrlPath(urlpath string) bool {
 	return true
 }
 
-// If urlpath is valid, return the word string embedded in the path of url.
-// Otherwise return empty string.
+// GetPrefixFromUrlPath will return the prefix string embedded in the path of
+// url if url path is valid. Otherwise return empty string. Note that this
+// method do not check if the prefix string is a valid prefix. Use with caution.
+//
+// For example,
+//
+// "/browse/s/" will return "s"
+//
+// "/browse/āā/" will return ""
+func GetPrefixFromUrlPath(urlpath string) string {
+	if IsValidPrefixUrlPath(urlpath) {
+		ss := strings.Split(urlpath, "/")
+		return ss[2]
+	}
+
+	return ""
+}
+
+// GetWordFromUrlPath will return the word string embedded in the path of url if
+// url path is valid. Otherwise return empty string. Note that this method do
+// not check if the word string is a valid word. Use with caution.
 //
 // For example,
 //

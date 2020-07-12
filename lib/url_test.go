@@ -74,6 +74,24 @@ func TestIsValidWordUrlPath(t *testing.T) {
 	}
 }
 
+func TestGetPrefixFromUrlPath(t *testing.T) {
+	if GetPrefixFromUrlPath("/browse/s/") != "s" {
+		t.Error("/browse/s/ should return s")
+	}
+
+	if GetPrefixFromUrlPath("/browse/āā/") != "" {
+		t.Error(`/browse/āā/ should return ""`)
+	}
+
+	if GetPrefixFromUrlPath("/browse/ā/") != "ā" {
+		t.Error(`/browse/ā/ should return "ā"`)
+	}
+
+	if GetPrefixFromUrlPath("/about/") != "" {
+		t.Error(`/about/ should return ""`)
+	}
+}
+
 func TestGetWordFromUrlPath(t *testing.T) {
 	if GetWordFromUrlPath("/browse/s/sacca/") != "sacca" {
 		t.Error("/browse/s/sacca/ should return sacca")
