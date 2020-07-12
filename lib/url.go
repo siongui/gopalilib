@@ -17,57 +17,6 @@ const (
 	NoSuchPage
 )
 
-// Do not handle utf8 string verion of DeterminePageType
-func DeterminePageTypeNoUtf(urlpath string) PageType {
-	if urlpath == "/" {
-		return RootPage
-	}
-	if urlpath == "/about/" {
-		return AboutPage
-	}
-	if IsValidPrefixUrlPathNoUtf(urlpath) {
-		return PrefixPage
-	}
-	if IsValidWordUrlPath(urlpath) {
-		return WordPage
-	}
-
-	return NoSuchPage
-}
-
-// Do not handle utf8 string verion of IsValidPrefixUrlPath
-func IsValidPrefixUrlPathNoUtf(urlpath string) bool {
-	ss := strings.Split(urlpath, "/")
-
-	if len(ss) != 4 {
-		return false
-	}
-
-	if ss[0] != "" {
-		return false
-	}
-
-	if ss[1] != "browse" {
-		return false
-	}
-
-	if ss[3] != "" {
-		return false
-	}
-
-	return true
-}
-
-// Do not handle utf8 string verion of GetPrefixFromUrlPath
-func GetPrefixFromUrlPathNoUtf(urlpath string) string {
-	if IsValidPrefixUrlPathNoUtf(urlpath) {
-		ss := strings.Split(urlpath, "/")
-		return ss[2]
-	}
-
-	return ""
-}
-
 // DeterminePageType determines the type of the webpage according to path of
 // URL.
 func DeterminePageType(urlpath string) PageType {
