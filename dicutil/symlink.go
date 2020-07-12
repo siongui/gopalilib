@@ -35,11 +35,31 @@ func conditionalPrint(word string) {
 //   /browse/{{first char of word}}/
 //
 // This page contains all Pali words starts with the prefix.
-func CreatePrefixSymlink(prefixs map[string]bool, root string) (err error) {
-	for prefix, _ := range prefixs {
-		conditionalPrint(prefix)
+func CreatePrefixSymlink(prefix, root string) (err error) {
+	err = os.Chdir(root)
+	if err != nil {
+		return
 	}
 
+	prefixIndex := filepath.Join(lib.PrefixUrlPath(prefix), "index.html")
+	// remove heading /
+	prefixIndex = prefixIndex[1:]
+	//fmt.Println("prefix index.html path:", prefixIndex)
+	err = os.Symlink("../../index.html", prefixIndex)
+	if os.IsExist(err) {
+		// If the symlink we want to create already exist, error will be
+		// raised. Remove the existing symlink and create new symlink.
+		os.Remove(prefixIndex)
+		err = os.Symlink("../../index.html", prefixIndex)
+		if err != nil {
+			return
+		}
+	}
+	if err != nil {
+		return
+	}
+
+	conditionalPrint(prefix)
 	return
 }
 
@@ -71,7 +91,7 @@ func CreateWordSymlink(word, root string) (err error) {
 	err = os.Symlink("../../../index.html", wordIndex)
 	if os.IsExist(err) {
 		// If the symlink we want to create already exist, error will be
-		// raised. Remove the existing symlink amd create new symlink.
+		// raised. Remove the existing symlink and create new symlink.
 		os.Remove(wordIndex)
 		err = os.Symlink("../../../index.html", wordIndex)
 		if err != nil {
@@ -116,5 +136,13 @@ func SymlinkToRootIndexHtml(websiteroot string) (err error) {
 			return
 		}
 	}
-	return CreatePrefixSymlink(prefixs, websiteroot)
+
+	for prefix, _ := range prefixs {
+		err = CreatePrefixSymlink(prefix, websiteroot)
+		if err != nil {
+			return
+		}
+	}
+
+	return
 }
