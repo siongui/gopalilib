@@ -58,6 +58,16 @@ func IsValidPrefixUrlPathNoUtf(urlpath string) bool {
 	return true
 }
 
+// Do not handle utf8 string verion of GetPrefixFromUrlPath
+func GetPrefixFromUrlPathNoUtf(urlpath string) string {
+	if IsValidPrefixUrlPathNoUtf(urlpath) {
+		ss := strings.Split(urlpath, "/")
+		return ss[2]
+	}
+
+	return ""
+}
+
 // DeterminePageType determines the type of the webpage according to path of
 // URL.
 func DeterminePageType(urlpath string) PageType {
