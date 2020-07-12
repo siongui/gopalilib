@@ -2,7 +2,6 @@ package lib
 
 import (
 	"strings"
-	"unicode/utf8"
 )
 
 // Type of the webpage, determined according to path of URL
@@ -149,8 +148,10 @@ func WordUrlPath(word string) string {
 // GetFirstCharacterOfWord returns first character of the word. For example,
 // āpadā will return ā
 func GetFirstCharacterOfWord(word string) string {
-	runeValue, _ := utf8.DecodeRuneInString(word[0:])
-	return string(runeValue)
+	for _, runeValue := range word {
+		return string(runeValue)
+	}
+	return ""
 }
 
 // PrefixUrlPath will return the url path of the given prefix.
