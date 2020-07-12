@@ -15,7 +15,7 @@ import (
 	vfs "github.com/siongui/gopaliwordvfs"
 )
 
-func printWord(word string) {
+func conditionalPrint(word string) {
 	dontPrintEnv := []string{"TRAVIS", "GITLAB_CI"}
 	for _, ev := range dontPrintEnv {
 		if _, ok := os.LookupEnv(ev); ok {
@@ -25,11 +25,35 @@ func printWord(word string) {
 	fmt.Println(word)
 }
 
+// CreatePrefixSymlink create symbolic links for pages of Pali words to the root
+// index.html of the website root directory. This is for deploying single page
+// application (SPA) on GitHub Pages or GitLab Pages, which serve only static
+// website content.
+//
+// The URL path of prefix:
+//
+//   /browse/{{first char of word}}/
+//
+// This page contains all Pali words starts with the prefix.
+func CreatePrefixSymlink(prefixs map[string]bool, root string) (err error) {
+	for prefix, _ := range prefixs {
+		conditionalPrint(prefix)
+	}
+
+	return
+}
+
+// CreateWordSymlink create symbolic links for pages of Pali words to the root
+// index.html of the website root directory. This is for deploying single page
+// application (SPA) on GitHub Pages or GitLab Pages, which serve only static
+// website content.
+//
 // The URL path of word:
 //
 //   /browse/{{first char of word}}/{{word}}/
 //
-func CreateSymlink(word, root string) (err error) {
+// This page contains the definition of the Pali word.
+func CreateWordSymlink(word, root string) (err error) {
 	// create dir of the word
 	wordIndexAbs := filepath.Join(root, lib.WordUrlPath(word), "index.html")
 	util.CreateDirIfNotExist(wordIndexAbs)
@@ -58,10 +82,15 @@ func CreateSymlink(word, root string) (err error) {
 		return
 	}
 
-	printWord(word)
+	conditionalPrint(word)
 	return
 }
 
+// SymlinkToRootIndexHtml creates symbolic links which points all pages of the
+// website to the root index.html in the root directory of the website. The
+// purpose is to deploy single page application (SPA) on GitHub Pages or GitLab
+// Pages, which serves only static website contents.
+//
 // Only one page: ``/index.html``
 //
 // All other webpages are symlinks to ``/index.html``
@@ -73,13 +102,19 @@ func SymlinkToRootIndexHtml(websiteroot string) (err error) {
 	//fmt.Println(websiteroot)
 	//return
 
+	prefixs := make(map[string]bool)
 	words := vfs.MapKeys()
 	for _, word := range words {
-		err = CreateSymlink(word, websiteroot)
+		// collect prefix of word
+		prefix := lib.GetFirstCharacterOfWord(word)
+		if _, ok := prefixs[prefix]; !ok {
+			prefixs[prefix] = true
+		}
+
+		err = CreateWordSymlink(word, websiteroot)
 		if err != nil {
 			return
 		}
 	}
-
-	return
+	return CreatePrefixSymlink(prefixs, websiteroot)
 }
