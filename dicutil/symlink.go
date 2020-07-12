@@ -8,7 +8,6 @@ package dicutil
 import (
 	"fmt"
 	"os"
-	"path"
 	"path/filepath"
 
 	"github.com/siongui/gopalilib/lib"
@@ -30,29 +29,37 @@ func printWord(word string) {
 //
 //   /browse/{{first char of word}}/{{word}}/
 //
-func CreateSymlink(word, root string) {
-	wh := path.Join(root, lib.WordUrlPath(word)+"index.html")
-	util.CreateDirIfNotExist(wh)
+func CreateSymlink(word, root string) (err error) {
+	// create dir of the word
+	wordIndexAbs := filepath.Join(root, lib.WordUrlPath(word), "index.html")
+	util.CreateDirIfNotExist(wordIndexAbs)
+	//fmt.Println("wordIndexAbs:", wordIndexAbs)
 
-	err := os.Chdir(root)
+	err = os.Chdir(root)
 	if err != nil {
-		panic(err)
+		return
 	}
 
-	rp := (lib.WordUrlPath(word) + "index.html")[1:]
-	err = os.Symlink("../../../index.html", rp)
+	wordIndex := filepath.Join(lib.WordUrlPath(word), "index.html")
+	// remove heading /
+	wordIndex = wordIndex[1:]
+	//fmt.Println("word index.html path:", wordIndex)
+	err = os.Symlink("../../../index.html", wordIndex)
 	if os.IsExist(err) {
-		os.Remove(rp)
-		err = os.Symlink("../../../index.html", rp)
+		// If the symlink we want to create already exist, error will be
+		// raised. Remove the existing symlink amd create new symlink.
+		os.Remove(wordIndex)
+		err = os.Symlink("../../../index.html", wordIndex)
 		if err != nil {
-			panic(err)
+			return
 		}
 	}
 	if err != nil {
-		panic(err)
+		return
 	}
 
 	printWord(word)
+	return
 }
 
 // Only one page: ``/index.html``
@@ -63,10 +70,15 @@ func SymlinkToRootIndexHtml(websiteroot string) (err error) {
 	if err != nil {
 		return
 	}
+	//fmt.Println(websiteroot)
+	//return
 
 	words := vfs.MapKeys()
 	for _, word := range words {
-		CreateSymlink(word, websiteroot)
+		err = CreateSymlink(word, websiteroot)
+		if err != nil {
+			return
+		}
 	}
 
 	return
