@@ -2,6 +2,7 @@ package lib
 
 import (
 	"strings"
+	"unicode/utf8"
 )
 
 // Type of the webpage, determined according to path of URL
@@ -159,10 +160,8 @@ func WordUrlPath(word string) string {
 //   GopherJS utf8 encoding problem
 //   https://gist.github.com/cryptix/054b955e55f144428f97/0ef91a71e286cc7f7334ac1c99ec78dc629db784
 func GetFirstCharacterOfWord(word string) string {
-	for _, runeValue := range word {
-		return string(runeValue)
-	}
-	return ""
+	runeValue, _ := utf8.DecodeRuneInString(word)
+	return string(runeValue)
 }
 
 // PrefixUrlPath will return the url path of the given prefix.
