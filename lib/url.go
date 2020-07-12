@@ -147,6 +147,9 @@ func WordUrlPath(word string) string {
 
 // GetFirstCharacterOfWord returns first character of the word. For example,
 // āpadā will return ā
+//
+// FIXME: this method will return incorrect output if compiled to JavaScript
+// via GopherJS. ḍ (%E1%B8%8D) will return % in JavaScript environment.
 func GetFirstCharacterOfWord(word string) string {
 	for _, runeValue := range word {
 		return string(runeValue)

@@ -128,6 +128,14 @@ func TestGetFirstCharacterOfWord(t *testing.T) {
 	if GetFirstCharacterOfWord("ṭakāra") != "ṭ" {
 		t.Error("ṭakāra first char wrong")
 	}
+
+	if GetFirstCharacterOfWord("ṭ") != "ṭ" {
+		t.Error("ṭ first char wrong")
+	}
+
+	if GetFirstCharacterOfWord("ḍ") != "ḍ" {
+		t.Error("ḍ first char wrong")
+	}
 }
 
 func TestPrefixUrlPath(t *testing.T) {
