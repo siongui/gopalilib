@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"net/url"
 	"strings"
 	"unicode/utf8"
 )
@@ -35,6 +36,9 @@ func SetSupportedLocales(locales []string) {
 // DeterminePageType determines the type of the webpage according to path of
 // URL.
 func DeterminePageType(urlpath string) PageType {
+	// handle url.PathUnescape error?
+	urlpath, _ = url.PathUnescape(urlpath)
+
 	if urlpath == "/" {
 		return RootPage
 	}
@@ -54,6 +58,9 @@ func DeterminePageType(urlpath string) PageType {
 // IsValidPrefixUrlPath will return true if the path of the url is a possible
 // prefix of Pāli words.
 func IsValidPrefixUrlPath(urlpath string) bool {
+	// handle url.PathUnescape error?
+	urlpath, _ = url.PathUnescape(urlpath)
+
 	ss := strings.Split(urlpath, "/")
 
 	if len(ss) != 4 {
@@ -82,6 +89,9 @@ func IsValidPrefixUrlPath(urlpath string) bool {
 // IsValidWordUrlPath will return true if the path of the url is a possible Pāli
 // word.
 func IsValidWordUrlPath(urlpath string) bool {
+	// handle url.PathUnescape error?
+	urlpath, _ = url.PathUnescape(urlpath)
+
 	ss := strings.Split(urlpath, "/")
 
 	if len(ss) != 5 {
@@ -117,6 +127,9 @@ func IsValidWordUrlPath(urlpath string) bool {
 //
 // "/browse/āā/" will return ""
 func GetPrefixFromUrlPath(urlpath string) string {
+	// handle url.PathUnescape error?
+	urlpath, _ = url.PathUnescape(urlpath)
+
 	if IsValidPrefixUrlPath(urlpath) {
 		ss := strings.Split(urlpath, "/")
 		return ss[2]
@@ -135,6 +148,9 @@ func GetPrefixFromUrlPath(urlpath string) string {
 //
 // "/browse/s/āpadā/" will return ""
 func GetWordFromUrlPath(urlpath string) string {
+	// handle url.PathUnescape error?
+	urlpath, _ = url.PathUnescape(urlpath)
+
 	if IsValidWordUrlPath(urlpath) {
 		ss := strings.Split(urlpath, "/")
 		return ss[3]

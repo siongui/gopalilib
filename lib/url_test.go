@@ -58,6 +58,22 @@ func TestDeterminePageType(t *testing.T) {
 	if DeterminePageType("/browse/ā/") != PrefixPage {
 		t.Error("error prefix page type")
 	}
+
+	if DeterminePageType("/browse/%E1%B8%8D/") != PrefixPage {
+		t.Error("error prefix page type")
+	}
+
+	if DeterminePageType("/browse/%E1%B8%8/") == PrefixPage {
+		t.Error("error prefix page type")
+	}
+
+	if DeterminePageType("/browse/%E1%B8%8D/%E1%B8%8Dibhi/") != WordPage {
+		t.Error("error word page type")
+	}
+
+	if DeterminePageType("/browse/%E1%B8%8/%E1%B8%8Dibhi/") == WordPage {
+		t.Error("error word page type")
+	}
 }
 
 func TestIsValidPrefixUrlPath(t *testing.T) {
@@ -72,6 +88,16 @@ func TestIsValidPrefixUrlPath(t *testing.T) {
 	if IsValidPrefixUrlPath("/about/") {
 		t.Error("/about/ should be false")
 	}
+
+	if !IsValidPrefixUrlPath("/browse/%E1%B8%8D/") {
+		println("/browse/%E1%B8%8D/ (%E1%B8%8D is ḍ) should be true")
+		t.Error("/browse/ḍ/ should be true")
+	}
+
+	if IsValidPrefixUrlPath("/browse/%E1%B8%8/") {
+		println("/browse/%E1%B8%8/ should be false")
+		t.Error("should be true")
+	}
 }
 
 func TestIsValidWordUrlPath(t *testing.T) {
@@ -85,6 +111,14 @@ func TestIsValidWordUrlPath(t *testing.T) {
 
 	if IsValidWordUrlPath("/about/") {
 		t.Error("/about/ should be false")
+	}
+
+	if !IsValidWordUrlPath("/browse/%E1%B8%8D/%E1%B8%8Dibhi/") {
+		t.Error("/browse/ḍ/ḍibhi/ should be true")
+	}
+
+	if IsValidWordUrlPath("/browse/%E1%B8%8/%E1%B8%8Dibhi/") {
+		t.Error("should be false")
 	}
 }
 
@@ -104,6 +138,16 @@ func TestGetPrefixFromUrlPath(t *testing.T) {
 	if GetPrefixFromUrlPath("/about/") != "" {
 		t.Error(`/about/ should return ""`)
 	}
+
+	if GetPrefixFromUrlPath("/browse/%E1%B8%8D/") != "ḍ" {
+		println("/browse/%E1%B8%8D/ should return ḍ")
+		t.Error("should return ḍ")
+	}
+
+	if GetPrefixFromUrlPath("/browse/%E1%B8%8/") != "" {
+		println(`/browse/%E1%B8%8/ should return ""`)
+		t.Error(`should return ""`)
+	}
 }
 
 func TestGetWordFromUrlPath(t *testing.T) {
@@ -117,6 +161,16 @@ func TestGetWordFromUrlPath(t *testing.T) {
 
 	if GetWordFromUrlPath("/about/") != "" {
 		t.Error(`/about/ should return ""`)
+	}
+
+	if GetWordFromUrlPath("/browse/%E1%B8%8D/%E1%B8%8Dibhi/") != "ḍibhi" {
+		println("/browse/%E1%B8%8D/%E1%B8%8Dibhi/ should return ḍibhi")
+		t.Error("should return ḍibhi")
+	}
+
+	if GetWordFromUrlPath("/browse/%E1%B8%8/%E1%B8%8Dibhi/") != "" {
+		println(`/browse/%E1%B8%8/%E1%B8%8Dibhi/ should ""`)
+		t.Error(`should return ""`)
 	}
 }
 
