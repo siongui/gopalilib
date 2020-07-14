@@ -4,6 +4,20 @@ import (
 	"testing"
 )
 
+func TestSetSiteUrl(t *testing.T) {
+	SetSiteUrl("https://dictionary.sutta.org/")
+	if siteurl != "https://dictionary.sutta.org/" {
+		t.Error(siteurl)
+	}
+}
+
+func TestSetSupportedLocales(t *testing.T) {
+	SetSupportedLocales([]string{"en_US", "zh_TW", "vi_VN", "fr_FR"})
+	if len(supportedLocales) != 4 {
+		t.Error(supportedLocales)
+	}
+}
+
 func TestDeterminePageType(t *testing.T) {
 	if DeterminePageType("/") != RootPage {
 		t.Error("error root page type")

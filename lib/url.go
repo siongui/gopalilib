@@ -17,6 +17,21 @@ const (
 	NoSuchPage
 )
 
+var siteurl = ""
+var supportedLocales []string
+
+// SetSiteUrl sets the website url. Used to check path validity and create path
+// for pages.
+func SetSiteUrl(u string) {
+	siteurl = u
+}
+
+// SetSupportedLocales sets supported locales of the website. Used to check path
+// validity and create path for pages.
+func SetSupportedLocales(locales []string) {
+	supportedLocales = locales
+}
+
 // DeterminePageType determines the type of the webpage according to path of
 // URL.
 func DeterminePageType(urlpath string) PageType {
