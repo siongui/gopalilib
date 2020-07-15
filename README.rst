@@ -24,7 +24,9 @@ This repository consist of two part:
    server-side (back-end server).
    The code is located in `lib <lib>`_ directory.
 
-2. Offline data processing.
+2. Bootstrap website (Offline data processing).
+   The code is located in `dicutil <dicutil>`_, `i18n <i18n>`_, and
+   `util <util>`_.
 
    - test_bookparser
    - test_wordparser
