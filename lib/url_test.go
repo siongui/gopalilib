@@ -6,12 +6,22 @@ import (
 
 func TestSetSiteUrl(t *testing.T) {
 	SetSiteUrl("https://dictionary.sutta.org/")
-	if rootPath != "/" {
+	if rootPath != "" {
 		t.Error(rootPath)
 	}
 
 	SetSiteUrl("https://dictionary.sutta.org")
 	if rootPath != "" {
+		t.Error(rootPath)
+	}
+
+	SetSiteUrl("https://siongui.gitlab.io/pali-dictionary/")
+	if rootPath != "/pali-dictionary" {
+		t.Error(rootPath)
+	}
+
+	SetSiteUrl("https://siongui.gitlab.io/pali-dictionary")
+	if rootPath != "/pali-dictionary" {
 		t.Error(rootPath)
 	}
 }

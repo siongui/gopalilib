@@ -42,6 +42,10 @@ func SetSiteUrl(rawurl string) {
 	}
 	siteurl = rawurl
 	rootPath = u.Path
+	if strings.HasSuffix(rootPath, "/") {
+		// to make process url path more easily later
+		rootPath = strings.TrimSuffix(rootPath, "/")
+	}
 }
 
 // SetCurrentLocale sets the current locale of the website. Used to check path
@@ -50,12 +54,22 @@ func SetCurrentLocale(locale string) {
 	currentLocale = locale
 }
 
+// The url of Pali dictionary website except about page will be
+//
+//   [rootPath][/][locale]/browse/[prefix]/[word]
+//
+// The about page will be
+//
+//   [rootPath][/]about/
+//
+// This method strip rootPath and locale, and return a "normalized" path for
+// furthur processing.
 func StripRootPathAndCurrentLocaleInUrlPath(urlpath string) string {
-	if len(siteurl) > 0 {
+	if len(currentLocale) > 0 {
 		// to be implemented
 	}
 
-	if len(currentLocale) > 0 {
+	if len(rootPath) > 0 {
 		// to be implemented
 	}
 
