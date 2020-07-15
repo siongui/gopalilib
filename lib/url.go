@@ -21,10 +21,27 @@ const (
 var siteurl = ""
 var currentLocale = ""
 
+// rootPath is not set directly. This is automatically derived from siteurl.
+var rootPath = ""
+
 // SetSiteUrl sets the website url. Used to check path validity and create path
-// for pages. Default is none. It's ok not to set this.
-func SetSiteUrl(u string) {
-	siteurl = u
+// for pages. Default is none. It's ok not to set this. If the root path of
+// deployed Pali dictionary website is "/", there is no need to set site url.
+// For example, if Pali dictionary website is deployed at
+// "https://dictionary.sutta.org/", there is no need to call this method to set
+// site url. However, if root path of deployed Pali dictionary website is other
+// than "/", This method must be called during the initialization/loading phase
+// of website such that the links in the website can be correctly set. For
+// example, if Pali dictionary website is deployed at
+// "https://siongui.gitlab.io/pali-dictionary/", it is a must to set site url
+// via this method during website initialization/loading.
+func SetSiteUrl(rawurl string) {
+	u, err := url.Parse(rawurl)
+	if err != nil {
+		return
+	}
+	siteurl = rawurl
+	rootPath = u.Path
 }
 
 // SetCurrentLocale sets the current locale of the website. Used to check path

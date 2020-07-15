@@ -6,8 +6,13 @@ import (
 
 func TestSetSiteUrl(t *testing.T) {
 	SetSiteUrl("https://dictionary.sutta.org/")
-	if siteurl != "https://dictionary.sutta.org/" {
-		t.Error(siteurl)
+	if rootPath != "/" {
+		t.Error(rootPath)
+	}
+
+	SetSiteUrl("https://dictionary.sutta.org")
+	if rootPath != "" {
+		t.Error(rootPath)
 	}
 }
 
