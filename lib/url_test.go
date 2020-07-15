@@ -92,6 +92,42 @@ func TestDeterminePageType(t *testing.T) {
 	if DeterminePageType("/browse/%E1%B8%8/%E1%B8%8Dibhi/") == WordPage {
 		t.Error("error word page type")
 	}
+
+	SetSiteUrl("https://siongui.gitlab.io/pali-dictionary/")
+
+	if DeterminePageType("/pali-dictionary/") != RootPage {
+		t.Error("error root page type")
+	}
+
+	if DeterminePageType("/pali-dictionary/about/") != AboutPage {
+		t.Error("error about page type")
+	}
+
+	if DeterminePageType("/pali-dictionary/browse/ā/") != PrefixPage {
+		t.Error("error prefix page type")
+	}
+
+	if DeterminePageType("/pali-dictionary/browse/ā/āpadā/") != WordPage {
+		t.Error("error prefix page type")
+	}
+
+	SetCurrentLocale("zh_TW")
+
+	if DeterminePageType("/pali-dictionary/zh_TW/") != RootPage {
+		t.Error("error root page type")
+	}
+
+	if DeterminePageType("/pali-dictionary/zh_TW/about/") != AboutPage {
+		t.Error("error about page type")
+	}
+
+	if DeterminePageType("/pali-dictionary/zh_TW/browse/ā/") != PrefixPage {
+		t.Error("error prefix page type")
+	}
+
+	if DeterminePageType("/pali-dictionary/zh_TW/browse/ā/āpadā/") != WordPage {
+		t.Error("error prefix page type")
+	}
 }
 
 func TestIsValidPrefixUrlPath(t *testing.T) {
@@ -118,6 +154,42 @@ func TestIsValidPrefixUrlPath(t *testing.T) {
 	if IsValidPrefixUrlPath("/browse/%E1%B8%8/") {
 		println("/browse/%E1%B8%8/ should be false")
 		t.Error("should be true")
+	}
+
+	SetSiteUrl("https://siongui.gitlab.io/pali-dictionary/")
+
+	if IsValidPrefixUrlPath("/pali-dictionary/") {
+		t.Error("/pali-dictionary/ should be false")
+	}
+
+	if IsValidPrefixUrlPath("/pali-dictionary/about/") {
+		t.Error("/pali-dictionary/about/ should be false")
+	}
+
+	if !IsValidPrefixUrlPath("/pali-dictionary/browse/ā/") {
+		t.Error("/pali-dictionary/browse/ā/ should be true")
+	}
+
+	if IsValidPrefixUrlPath("/pali-dictionary/browse/ā/āpadā/") {
+		t.Error("/pali-dictionary/browse/ā/āpadā/ should be false")
+	}
+
+	SetCurrentLocale("zh_TW")
+
+	if IsValidPrefixUrlPath("/pali-dictionary/zh_TW/") {
+		t.Error("/pali-dictionary/ should be false")
+	}
+
+	if IsValidPrefixUrlPath("/pali-dictionary/zh_TW/about/") {
+		t.Error("/pali-dictionary/zh_TW/about/ should be false")
+	}
+
+	if !IsValidPrefixUrlPath("/pali-dictionary/zh_TW/browse/ā/") {
+		t.Error("/pali-dictionary/zh_TW/browse/ā/ should be true")
+	}
+
+	if IsValidPrefixUrlPath("/pali-dictionary/zh_TW/browse/ā/āpadā/") {
+		t.Error("/pali-dictionary/zh_TW/browse/ā/āpadā/ should be false")
 	}
 }
 
