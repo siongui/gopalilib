@@ -11,10 +11,10 @@ func TestSetSiteUrl(t *testing.T) {
 	}
 }
 
-func TestSetSupportedLocales(t *testing.T) {
-	SetSupportedLocales([]string{"en_US", "zh_TW", "vi_VN", "fr_FR"})
-	if len(supportedLocales) != 4 {
-		t.Error(supportedLocales)
+func TestSetCurrentLocale(t *testing.T) {
+	SetCurrentLocale("zh_TW")
+	if currentLocale != "zh_TW" {
+		t.Error(currentLocale)
 	}
 }
 

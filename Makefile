@@ -12,6 +12,7 @@ PALIUTIL=$(GOPATH)/src/github.com/siongui/gopalilib/util
 DATA_REPO_DIR=$(CURDIR)/data
 VFSDIR=$(GOPATH)/src/github.com/siongui/gopaliwordvfs
 
+default: test_url
 
 test_triebuild: fmt
 	@echo "\033[92mTesting building succinct trie ...\033[0m"

@@ -19,18 +19,35 @@ const (
 )
 
 var siteurl = ""
-var supportedLocales []string
+var currentLocale = ""
 
 // SetSiteUrl sets the website url. Used to check path validity and create path
-// for pages.
+// for pages. Default is none. It's ok not to set this.
 func SetSiteUrl(u string) {
 	siteurl = u
 }
 
-// SetSupportedLocales sets supported locales of the website. Used to check path
-// validity and create path for pages.
-func SetSupportedLocales(locales []string) {
-	supportedLocales = locales
+// SetCurrentLocale sets the current locale of the website. Used to check path
+// validity and create path for pages. Default is none. It's ok not to set this.
+func SetCurrentLocale(locale string) {
+	currentLocale = locale
+}
+
+func StripRootPathAndCurrentLocaleInUrlPath(urlpath string) string {
+	if len(siteurl) > 0 {
+		// to be implemented
+	}
+
+	if len(currentLocale) > 0 {
+		// to be implemented
+	}
+
+	return urlpath
+}
+
+func AddRootPathAndCurrentLocaleToUrlPath(urlpath string) string {
+	// to be implemented
+	return urlpath
 }
 
 // DeterminePageType determines the type of the webpage according to path of
@@ -38,6 +55,7 @@ func SetSupportedLocales(locales []string) {
 func DeterminePageType(urlpath string) PageType {
 	// handle url.PathUnescape error?
 	urlpath, _ = url.PathUnescape(urlpath)
+	urlpath = StripRootPathAndCurrentLocaleInUrlPath(urlpath)
 
 	if urlpath == "/" {
 		return RootPage
@@ -60,6 +78,7 @@ func DeterminePageType(urlpath string) PageType {
 func IsValidPrefixUrlPath(urlpath string) bool {
 	// handle url.PathUnescape error?
 	urlpath, _ = url.PathUnescape(urlpath)
+	urlpath = StripRootPathAndCurrentLocaleInUrlPath(urlpath)
 
 	ss := strings.Split(urlpath, "/")
 
@@ -91,6 +110,7 @@ func IsValidPrefixUrlPath(urlpath string) bool {
 func IsValidWordUrlPath(urlpath string) bool {
 	// handle url.PathUnescape error?
 	urlpath, _ = url.PathUnescape(urlpath)
+	urlpath = StripRootPathAndCurrentLocaleInUrlPath(urlpath)
 
 	ss := strings.Split(urlpath, "/")
 
@@ -129,6 +149,7 @@ func IsValidWordUrlPath(urlpath string) bool {
 func GetPrefixFromUrlPath(urlpath string) string {
 	// handle url.PathUnescape error?
 	urlpath, _ = url.PathUnescape(urlpath)
+	urlpath = StripRootPathAndCurrentLocaleInUrlPath(urlpath)
 
 	if IsValidPrefixUrlPath(urlpath) {
 		ss := strings.Split(urlpath, "/")
@@ -150,6 +171,7 @@ func GetPrefixFromUrlPath(urlpath string) string {
 func GetWordFromUrlPath(urlpath string) string {
 	// handle url.PathUnescape error?
 	urlpath, _ = url.PathUnescape(urlpath)
+	urlpath = StripRootPathAndCurrentLocaleInUrlPath(urlpath)
 
 	if IsValidWordUrlPath(urlpath) {
 		ss := strings.Split(urlpath, "/")
@@ -174,7 +196,9 @@ func GetWordFromUrlPath(urlpath string) string {
 // Note that this method do not check the validity of the word. Use with
 // caution.
 func WordUrlPath(word string) string {
-	return "/browse/" + GetFirstCharacterOfWord(word) + "/" + word + "/"
+	urlpath := "/browse/" + GetFirstCharacterOfWord(word) + "/" + word + "/"
+	urlpath = AddRootPathAndCurrentLocaleToUrlPath(urlpath)
+	return urlpath
 }
 
 // GetFirstCharacterOfWord returns first character of the word. For example,
@@ -199,5 +223,7 @@ func GetFirstCharacterOfWord(word string) string {
 // Note that this method do not check the validity of the prefix. Use with
 // caution.
 func PrefixUrlPath(prefix string) string {
-	return "/browse/" + prefix + "/"
+	urlpath := "/browse/" + prefix + "/"
+	urlpath = AddRootPathAndCurrentLocaleToUrlPath(urlpath)
+	return urlpath
 }
