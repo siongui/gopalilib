@@ -1,3 +1,11 @@
+// The url of Pali dictionary website except about page will be
+//
+//   [rootPath]/[locale]/browse/[prefix]/[word]
+//
+// The about page (all locales share one about page) will be
+//
+//   [rootPath]/about/
+//
 package lib
 
 import (
@@ -56,28 +64,47 @@ func SetCurrentLocale(locale string) {
 
 // The url of Pali dictionary website except about page will be
 //
-//   [rootPath][/][locale]/browse/[prefix]/[word]
+//   [rootPath]/[locale]/browse/[prefix]/[word]
 //
-// The about page will be
+// The about page (all locales share one about page) will be
 //
-//   [rootPath][/]about/
+//   [rootPath]/about/
 //
 // This method strip rootPath and locale, and return a "normalized" path for
 // furthur processing.
 func StripRootPathAndCurrentLocaleInUrlPath(urlpath string) string {
 	if len(currentLocale) > 0 {
-		// to be implemented
+		ss := strings.Split(urlpath, currentLocale)
+		if len(ss) == 2 {
+			return ss[1]
+		}
 	}
 
 	if len(rootPath) > 0 {
-		// to be implemented
+		return strings.TrimPrefix(urlpath, rootPath)
 	}
 
 	return urlpath
 }
 
+// The url of Pali dictionary website except about page will be
+//
+//   [rootPath]/[locale]/browse/[prefix]/[word]
+//
+// The about page will be
+//
+//   [rootPath]/about/
+//
+// This method add rootPath and locale to /browse/[prefix]/[word]
 func AddRootPathAndCurrentLocaleToUrlPath(urlpath string) string {
-	// to be implemented
+	if len(currentLocale) > 0 {
+		urlpath = "/" + currentLocale
+	}
+
+	if len(rootPath) > 0 {
+		urlpath = rootPath + urlpath
+	}
+
 	return urlpath
 }
 

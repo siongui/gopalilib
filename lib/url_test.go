@@ -34,6 +34,9 @@ func TestSetCurrentLocale(t *testing.T) {
 }
 
 func TestDeterminePageType(t *testing.T) {
+	SetSiteUrl("")
+	SetCurrentLocale("")
+
 	if DeterminePageType("/") != RootPage {
 		t.Error("error root page type")
 	}
@@ -92,6 +95,9 @@ func TestDeterminePageType(t *testing.T) {
 }
 
 func TestIsValidPrefixUrlPath(t *testing.T) {
+	SetSiteUrl("")
+	SetCurrentLocale("")
+
 	if !IsValidPrefixUrlPath("/browse/ā/") {
 		t.Error("/browse/ā/ should be true")
 	}
@@ -116,6 +122,9 @@ func TestIsValidPrefixUrlPath(t *testing.T) {
 }
 
 func TestIsValidWordUrlPath(t *testing.T) {
+	SetSiteUrl("")
+	SetCurrentLocale("")
+
 	if !IsValidWordUrlPath("/browse/ā/āpadā/") {
 		t.Error("/browse/ā/āpadā/ should be true")
 	}
@@ -138,6 +147,9 @@ func TestIsValidWordUrlPath(t *testing.T) {
 }
 
 func TestGetPrefixFromUrlPath(t *testing.T) {
+	SetSiteUrl("")
+	SetCurrentLocale("")
+
 	if GetPrefixFromUrlPath("/browse/s/") != "s" {
 		t.Error("/browse/s/ should return s")
 	}
@@ -166,6 +178,9 @@ func TestGetPrefixFromUrlPath(t *testing.T) {
 }
 
 func TestGetWordFromUrlPath(t *testing.T) {
+	SetSiteUrl("")
+	SetCurrentLocale("")
+
 	if GetWordFromUrlPath("/browse/s/sacca/") != "sacca" {
 		t.Error("/browse/s/sacca/ should return sacca")
 	}
@@ -190,6 +205,9 @@ func TestGetWordFromUrlPath(t *testing.T) {
 }
 
 func TestWordUrlPath(t *testing.T) {
+	SetSiteUrl("")
+	SetCurrentLocale("")
+
 	if WordUrlPath("sacca") != "/browse/s/sacca/" {
 		t.Error("error sacca path url")
 	}
@@ -222,6 +240,9 @@ func TestGetFirstCharacterOfWord(t *testing.T) {
 }
 
 func TestPrefixUrlPath(t *testing.T) {
+	SetSiteUrl("")
+	SetCurrentLocale("")
+
 	if PrefixUrlPath("s") != "/browse/s/" {
 		t.Error("prefix s url path wrong")
 	}
