@@ -216,6 +216,42 @@ func TestIsValidWordUrlPath(t *testing.T) {
 	if IsValidWordUrlPath("/browse/%E1%B8%8/%E1%B8%8Dibhi/") {
 		t.Error("should be false")
 	}
+
+	SetSiteUrl("https://siongui.gitlab.io/pali-dictionary/")
+
+	if IsValidWordUrlPath("/pali-dictionary/") {
+		t.Error("/pali-dictionary/ should be false")
+	}
+
+	if IsValidWordUrlPath("/pali-dictionary/about/") {
+		t.Error("/pali-dictionary/about/ should be false")
+	}
+
+	if IsValidWordUrlPath("/pali-dictionary/browse/ā/") {
+		t.Error("/pali-dictionary/browse/ā/ should be false")
+	}
+
+	if !IsValidWordUrlPath("/pali-dictionary/browse/ā/āpadā/") {
+		t.Error("/pali-dictionary/browse/ā/āpadā/ should be true")
+	}
+
+	SetCurrentLocale("zh_TW")
+
+	if IsValidWordUrlPath("/pali-dictionary/zh_TW/") {
+		t.Error("/pali-dictionary/ should be false")
+	}
+
+	if IsValidWordUrlPath("/pali-dictionary/zh_TW/about/") {
+		t.Error("/pali-dictionary/zh_TW/about/ should be false")
+	}
+
+	if IsValidWordUrlPath("/pali-dictionary/zh_TW/browse/ā/") {
+		t.Error("/pali-dictionary/zh_TW/browse/ā/ should be false")
+	}
+
+	if !IsValidWordUrlPath("/pali-dictionary/zh_TW/browse/ā/āpadā/") {
+		t.Error("/pali-dictionary/zh_TW/browse/ā/āpadā/ should be true")
+	}
 }
 
 func TestGetPrefixFromUrlPath(t *testing.T) {
@@ -247,6 +283,26 @@ func TestGetPrefixFromUrlPath(t *testing.T) {
 		println(`/browse/%E1%B8%8/ should return ""`)
 		t.Error(`should return ""`)
 	}
+
+	SetSiteUrl("https://siongui.gitlab.io/pali-dictionary/")
+
+	if GetPrefixFromUrlPath("/pali-dictionary/browse/s/") != "s" {
+		t.Error("/pali-dictionary/browse/s/ should return s")
+	}
+
+	if GetPrefixFromUrlPath("/pali-dictionary/browse/ā/") != "ā" {
+		t.Error(`/pali-dictionary/browse/ā/ should return "ā"`)
+	}
+
+	SetCurrentLocale("zh_TW")
+
+	if GetPrefixFromUrlPath("/pali-dictionary/zh_TW/browse/s/") != "s" {
+		t.Error("/pali-dictionary/zh_TW/browse/s/ should return s")
+	}
+
+	if GetPrefixFromUrlPath("/pali-dictionary/zh_TW/browse/ā/") != "ā" {
+		t.Error(`/pali-dictionary/zh_TW/browse/ā/ should return "ā"`)
+	}
 }
 
 func TestGetWordFromUrlPath(t *testing.T) {
@@ -274,6 +330,28 @@ func TestGetWordFromUrlPath(t *testing.T) {
 		println(`/browse/%E1%B8%8/%E1%B8%8Dibhi/ should ""`)
 		t.Error(`should return ""`)
 	}
+
+	SetSiteUrl("https://siongui.gitlab.io/pali-dictionary/")
+
+	if GetWordFromUrlPath("/pali-dictionary/browse/s/sacca/") != "sacca" {
+		t.Error("/pali-dictionary/browse/s/sacca/ should return sacca")
+	}
+
+	if GetWordFromUrlPath("/pali-dictionary/browse/%E1%B8%8D/%E1%B8%8Dibhi/") != "ḍibhi" {
+		println("/pali-dictionary/browse/%E1%B8%8D/%E1%B8%8Dibhi/ should return ḍibhi")
+		t.Error("should return ḍibhi")
+	}
+
+	SetCurrentLocale("zh_TW")
+
+	if GetWordFromUrlPath("/pali-dictionary/zh_TW/browse/s/sacca/") != "sacca" {
+		t.Error("/pali-dictionary/zh_TW/browse/s/sacca/ should return sacca")
+	}
+
+	if GetWordFromUrlPath("/pali-dictionary/zh_TW/browse/%E1%B8%8D/%E1%B8%8Dibhi/") != "ḍibhi" {
+		println("/pali-dictionary/zh_TW/browse/%E1%B8%8D/%E1%B8%8Dibhi/ should return ḍibhi")
+		t.Error("should return ḍibhi")
+	}
 }
 
 func TestWordUrlPath(t *testing.T) {
@@ -286,6 +364,26 @@ func TestWordUrlPath(t *testing.T) {
 
 	if WordUrlPath("āpadā") != "/browse/ā/āpadā/" {
 		t.Error("error āpadā path url")
+	}
+
+	SetSiteUrl("https://siongui.gitlab.io/pali-dictionary/")
+
+	if WordUrlPath("sacca") != "/pali-dictionary/browse/s/sacca/" {
+		t.Error("error sacca path url")
+	}
+
+	if WordUrlPath("āpadā") != "/pali-dictionary/browse/ā/āpadā/" {
+		t.Error("error āpadā path url")
+	}
+
+	SetCurrentLocale("zh_TW")
+
+	if WordUrlPath("sacca") != "/pali-dictionary/zh_TW/browse/s/sacca/" {
+		t.Error(WordUrlPath("sacca"))
+	}
+
+	if WordUrlPath("āpadā") != "/pali-dictionary/zh_TW/browse/ā/āpadā/" {
+		t.Error(WordUrlPath("āpadā"))
 	}
 }
 
@@ -320,6 +418,26 @@ func TestPrefixUrlPath(t *testing.T) {
 	}
 
 	if PrefixUrlPath("ā") != "/browse/ā/" {
+		t.Error("prefix ā url path wrong")
+	}
+
+	SetCurrentLocale("zh_TW")
+
+	if PrefixUrlPath("s") != "/zh_TW/browse/s/" {
+		t.Error("prefix s url path wrong")
+	}
+
+	if PrefixUrlPath("ā") != "/zh_TW/browse/ā/" {
+		t.Error("prefix ā url path wrong")
+	}
+
+	SetSiteUrl("https://siongui.gitlab.io/pali-dictionary/")
+
+	if PrefixUrlPath("s") != "/pali-dictionary/zh_TW/browse/s/" {
+		t.Error("prefix s url path wrong")
+	}
+
+	if PrefixUrlPath("ā") != "/pali-dictionary/zh_TW/browse/ā/" {
 		t.Error("prefix ā url path wrong")
 	}
 }

@@ -98,7 +98,7 @@ func StripRootPathAndCurrentLocaleInUrlPath(urlpath string) string {
 // This method add rootPath and locale to /browse/[prefix]/[word]
 func AddRootPathAndCurrentLocaleToUrlPath(urlpath string) string {
 	if len(currentLocale) > 0 {
-		urlpath = "/" + currentLocale
+		urlpath = "/" + currentLocale + urlpath
 	}
 
 	if len(rootPath) > 0 {
