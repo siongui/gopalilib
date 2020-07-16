@@ -12,7 +12,10 @@ PALIUTIL=$(GOPATH)/src/github.com/siongui/gopalilib/util
 DATA_REPO_DIR=$(CURDIR)/data
 VFSDIR=$(GOPATH)/src/github.com/siongui/gopaliwordvfs
 
-default: test_url
+
+test_symlink: fmt
+	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"
+	@cd dicutil; go test -v symlink.go symlink_test.go path_test.go
 
 test_triebuild: fmt
 	@echo "\033[92mTesting building succinct trie ...\033[0m"
@@ -45,13 +48,6 @@ test_url: fmt
 	@echo "\033[92mTesting Url ...\033[0m"
 	@cd lib; go test -v url.go url_test.go
 
-test_html: fmt
-	@echo "\033[92mTesting Pāli Dictionary HTML ...\033[0m"
-	@cd dicutil; go test -v html.go html_test.go path_test.go
-
-test_symlink: fmt
-	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"
-	@cd dicutil; go test -v symlink.go symlink_test.go path_test.go
 
 generate:
 	@echo "\033[92mlib/: go generate ...\033[0m"
@@ -62,7 +58,7 @@ clone_pali_data:
 	@echo "\033[92mClone Pāli data Repo ...\033[0m"
 	@[ -d $(DATA_REPO_DIR) ] || git clone  --depth 1 https://github.com/siongui/data.git $(DATA_REPO_DIR)
 
-install: install_palilib install_gotm install_gojianfan lib_succinct_trie install_goef
+install: install_palilib install_gojianfan lib_succinct_trie install_goef
 
 install_gojianfan:
 	@echo "\033[92mInstalling Go Chinese conversion package ...\033[0m"
@@ -71,10 +67,6 @@ install_gojianfan:
 #install_gocc:
 #	@echo "\033[92mInstalling Golang version OpenCC package ...\033[0m"
 #	go get -u github.com/liuzl/gocc
-
-install_gotm:
-	@echo "\033[92mInstalling Go template manager ...\033[0m"
-	go get -u github.com/siongui/gotm
 
 install_goef:
 	@echo "\033[92mInstalling Go file embedder ...\033[0m"

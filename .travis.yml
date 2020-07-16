@@ -7,7 +7,10 @@ install:
 - make install
 script:
 - make test_url
+- make test_twpo2cn
+- make test_util
 - make test_bookparser
 - make test_wordparser
 - make test_vfsbuild
+- make test_triebuild
 - make test_symlink
