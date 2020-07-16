@@ -18,3 +18,16 @@ func SaveJsonFile(v interface{}, path string) {
 		panic(err)
 	}
 }
+
+// LoadJsonConfig loads map[string]string data from json file
+func LoadJsonConfig(fp string) (conf map[string]string, err error) {
+	f, err := os.Open(fp)
+	if err != nil {
+		return
+	}
+	defer f.Close()
+
+	dec := json.NewDecoder(f)
+	err = dec.Decode(&conf)
+	return
+}
