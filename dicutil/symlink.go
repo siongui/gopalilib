@@ -115,6 +115,10 @@ func CreateWordSymlink(word, root string) (err error) {
 //
 // All other webpages are symlinks to ``/index.html``
 func SymlinkToRootIndexHtml(websiteroot string) (err error) {
+	wd, err := os.Getwd()
+	if err != nil {
+		return
+	}
 	websiteroot, err = filepath.Abs(websiteroot)
 	if err != nil {
 		return
@@ -144,5 +148,7 @@ func SymlinkToRootIndexHtml(websiteroot string) (err error) {
 		}
 	}
 
-	return
+	// change back to original directory to prevent causing unwanted results
+	// if users call this methods multiple times in program
+	return os.Chdir(wd)
 }
