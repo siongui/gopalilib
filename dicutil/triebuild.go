@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/siongui/go-succinct-data-structure-trie"
+	"github.com/siongui/gopalilib/util"
 )
 
 func BuildSuccinctTrie(wordsJsonDir, trieDataPath, trieNodeCountPath, rankDirectoryDataPath string) {
@@ -21,9 +22,11 @@ func BuildSuccinctTrie(wordsJsonDir, trieDataPath, trieNodeCountPath, rankDirect
 	filepath.Walk(wordsJsonDir, func(path string, info os.FileInfo, err error) error {
 		if !info.IsDir() {
 			word := info.Name()[:len(info.Name())-5]
-			print(i)
-			print(" ")
-			println(word)
+			if !util.IsRunOnTravisCI() {
+				print(i)
+				print(" ")
+				println(word)
+			}
 			// encode: insert words
 			te.Insert(word)
 			i++

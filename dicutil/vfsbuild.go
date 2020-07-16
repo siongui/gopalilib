@@ -27,11 +27,11 @@ func BuildVFS(pkgName, wordJsonDir, outputDir string) (err error) {
 			if err != nil {
 				return
 			}
-			if _, ok := os.LookupEnv("TRAVIS"); !ok {
+			if !util.IsRunOnTravisCI() {
 				fmt.Println(i, "convert", oldpath, "to", newpath)
 			}
 		} else {
-			if _, ok := os.LookupEnv("TRAVIS"); !ok {
+			if !util.IsRunOnTravisCI() {
 				fmt.Println(i, "unchanged", file.Name())
 			}
 		}
