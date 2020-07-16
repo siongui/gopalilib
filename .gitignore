@@ -2,3 +2,5 @@ bin/
 pkg/
 src/
 data/
+*.mo
+locale/zh_CN/
