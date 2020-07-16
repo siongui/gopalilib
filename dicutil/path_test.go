@@ -4,10 +4,9 @@ import (
 	"path"
 )
 
-const PaligoDir = "../../paligo/"
 const DataRepoDir = "../"
 
-var LocaleDir = path.Join(PaligoDir, "locale")
+var LocaleDir = path.Join("../locale")
 var BookCSV = path.Join(DataRepoDir, "data/dictionary/dict-books.csv")
 var WordCSV1 = path.Join(DataRepoDir, "data/dictionary/dict_words_1.csv")
 var WordCSV2 = path.Join(DataRepoDir, "data/dictionary/dict_words_2.csv")

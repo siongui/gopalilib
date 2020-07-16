@@ -17,15 +17,16 @@ test_symlink: fmt
 	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"
 	@cd dicutil; go test -v symlink.go symlink_test.go path_test.go
 
-test_triebuild: fmt
-	@echo "\033[92mTesting building succinct trie ...\033[0m"
-	@cd dicutil; go test -v triebuild.go triebuild_test.go path_test.go
-
 test_vfsbuild: fmt
 	@echo "\033[92mBuilding virtual file system of Pāli dictionary words ...\033[0m"
 	#@[ -d $(VFSDIR) ] || mkdir -p $(VFSDIR)
 	@cd dicutil; go test -v vfsbuild.go vfsbuild_test.go path_test.go -args -pkgdir=$(VFSDIR)
 	@cd dicutil; go test -v vfs_test.go path_test.go
+
+# test_triebuild must run before test_vfsbuild. Or re-run test_wordparser
+test_triebuild: fmt
+	@echo "\033[92mTesting building succinct trie ...\033[0m"
+	@cd dicutil; go test -v triebuild.go triebuild_test.go path_test.go
 
 test_wordparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary words ...\033[0m"
