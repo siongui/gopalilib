@@ -12,7 +12,7 @@ type IdExp struct {
 func BookIdWordExps2IdExpsAccordingToSetting(
 	wi BookIdWordExps,
 	di BookIdAndInfos,
-	setting PaliDictionarySetting,
+	setting PaliSetting,
 	navigatorLanguages string) []IdExp {
 	var result []IdExp
 

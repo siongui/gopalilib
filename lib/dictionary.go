@@ -228,8 +228,8 @@ const HtmlTemplateSuggestedWords = `
 <div>{{$word}}</div>
 {{end}}`
 
-// Structure for the setting of Pāli Dictionary
-type PaliDictionarySetting struct {
+// Common structure for the setting of Pāli Dictionary and Tipiṭaka
+type PaliSetting struct {
 	IsShowWordPreview bool   `json:"isPreview"`
 	P2en              bool   `json:"p2en"`
 	P2ja              bool   `json:"p2ja"`
