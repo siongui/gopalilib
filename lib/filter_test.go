@@ -17,21 +17,21 @@ func TestShortExplanation(t *testing.T) {
 
 	// https://www.google.com/search?q=golang+two+dimensional+literal
 	// https://stackoverflow.com/questions/39804861/what-is-a-concise-way-to-create-a-2d-slice-in-go
-	var biwes = [][2]string{
+	var ies = []IdExp{
 		{"Z", "Hello World。This is a test string for short explanation"},
 		{"Z", "Hello World.This is a test string for short explanation......................................................................................................................................................................."},
 	}
 
-	biwes2 := ShortExplanation(biwes, di)
+	ies2 := ShortExplanation(ies, di)
 
-	if biwes2[0][1] != "Hello World" {
-		t.Error(biwes2[0][1])
+	if ies2[0].Exp != "Hello World" {
+		t.Error(ies2[0].Exp)
 		return
 	}
 
-	if biwes2[1][1] != "Hello World.This is a test string for short explanation...................................................................................................................................................." {
-		t.Error(biwes2[1][1])
-		t.Error(len(biwes2[1][1]))
+	if ies2[1].Exp != "Hello World.This is a test string for short explanation...................................................................................................................................................." {
+		t.Error(ies2[1].Exp)
+		t.Error(len(ies2[1].Exp))
 		return
 	}
 }

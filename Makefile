@@ -54,7 +54,7 @@ test_twpo2cn: fmt
 	@cd i18n; go test -v twpo2cn.go twpo2cn_test.go
 
 test_url: fmt
-	@echo "\033[92mTesting Url ...\033[0m"
+	@echo "\033[92mTesting url methods in common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v url.go url_test.go
 
 

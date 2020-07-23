@@ -114,11 +114,11 @@ func BookIdWordExps2IdExpsAccordingToSetting(
 }
 
 // ShortExplanation shortens the string of Word Explanation
-func ShortExplanation(biwes BookIdWordExps, di BookIdAndInfos) BookIdWordExps {
-	var result BookIdWordExps
-	for _, biwe := range biwes {
-		bookId := biwe[0]
-		wordExplanation := biwe[1]
+func ShortExplanation(ies []IdExp, di BookIdAndInfos) []IdExp {
+	var result []IdExp
+	for _, ie := range ies {
+		bookId := ie.Id
+		wordExplanation := ie.Exp
 		ss := strings.Split(wordExplanation, di[bookId].Separator)
 		if len(ss) == 2 {
 			// replace original explanation with short explanation
@@ -129,7 +129,7 @@ func ShortExplanation(biwes BookIdWordExps, di BookIdAndInfos) BookIdWordExps {
 			wordExplanation = wordExplanation[:200] + "..."
 		}
 
-		result = append(result, [2]string{bookId, wordExplanation})
+		result = append(result, IdExp{bookId, wordExplanation})
 	}
 
 	return result
