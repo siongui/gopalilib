@@ -13,9 +13,13 @@ DATA_REPO_DIR=$(CURDIR)/data
 VFSDIR=$(GOPATH)/src/github.com/siongui/gopaliwordvfs
 
 
-test_lib: test_url
+test_lib: test_url test_filter
 	@echo "\033[92mTesting common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v dictionary.go filter.go json.go url.go url_test.go
+
+test_filter:
+	@echo "\033[92mTesting filter methods in common library for online/offline dictionary/tipitaka ...\033[0m"
+	@cd lib; go test -v dictionary.go filter.go filter_test.go
 
 test_symlink: fmt
 	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"
