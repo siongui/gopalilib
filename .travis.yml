@@ -6,7 +6,7 @@ install:
 - make clone_pali_data
 - make install
 script:
-- make test_url
+- make test_lib
 - make test_twpo2cn
 - make test_util
 - make test_bookparser

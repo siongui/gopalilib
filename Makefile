@@ -13,6 +13,9 @@ DATA_REPO_DIR=$(CURDIR)/data
 VFSDIR=$(GOPATH)/src/github.com/siongui/gopaliwordvfs
 
 
+##########################################################
+# Common library for online/offline, dictionary/tipitaka #
+##########################################################
 test_lib: test_url test_filter
 	@echo "\033[92mTesting common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v dictionary.go filter.go json.go url.go url_test.go
@@ -20,6 +23,14 @@ test_lib: test_url test_filter
 test_filter:
 	@echo "\033[92mTesting filter methods in common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v dictionary.go filter.go filter_test.go
+
+test_url: fmt
+	@echo "\033[92mTesting url methods in common library for online/offline dictionary/tipitaka ...\033[0m"
+	@cd lib; go test -v url.go url_test.go
+#################################################################
+# End of Common library for online/offline, dictionary/tipitaka #
+#################################################################
+
 
 test_symlink: fmt
 	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"
@@ -53,11 +64,10 @@ test_twpo2cn: fmt
 	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
 	@cd i18n; go test -v twpo2cn.go twpo2cn_test.go
 
-test_url: fmt
-	@echo "\033[92mTesting url methods in common library for online/offline dictionary/tipitaka ...\033[0m"
-	@cd lib; go test -v url.go url_test.go
 
-
+########
+# Misc #
+########
 generate:
 	@echo "\033[92mlib/: go generate ...\033[0m"
 	@cd lib; go generate
