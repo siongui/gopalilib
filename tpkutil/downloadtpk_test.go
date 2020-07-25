@@ -5,7 +5,7 @@ import (
 )
 
 func TestDownloadTipitaka(t *testing.T) {
-	err := DownloadTipitaka("/tmp/")
+	err := DownloadTipitaka("/tmp/", false)
 	if err != nil {
 		t.Error(err)
 		return

@@ -36,7 +36,7 @@ This repository consist of two part:
    - test_symlink needs test_vfsbuild
 
 2. Bootstrap/setup Tipiṭaka (Offline data processing).
-   The code is located in `tpkutil <tpkutil>`.
+   The code is located in `tpkutil <tpkutil>`_.
 
    - test_download_tpk
 
