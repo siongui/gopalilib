@@ -24,14 +24,22 @@ This repository consist of two part:
    server-side (back-end server).
    The code is located in `lib <lib>`_ directory.
 
-2. Bootstrap website (Offline data processing).
+2. Bootstrap/setup Dictionary (Offline data processing).
    The code is located in `dicutil <dicutil>`_, `i18n <i18n>`_, and
    `util <util>`_.
 
    - test_bookparser
    - test_wordparser
+   - test_triebuild needs test_wordparser
+   - test_triebuild must run before test_vfsbuild. Or re-run test_wordparser
    - test_vfsbuild needs test_wordparser
    - test_symlink needs test_vfsbuild
+
+2. Bootstrap/setup Tipiṭaka (Offline data processing).
+   The code is located in `tpkutil <tpkutil>`.
+
+   - test_download_tpk
+
 
 UNLICENSE
 +++++++++

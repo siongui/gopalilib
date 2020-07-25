@@ -13,6 +13,8 @@ DATA_REPO_DIR=$(CURDIR)/data
 VFSDIR=$(GOPATH)/src/github.com/siongui/gopaliwordvfs
 
 
+current_working_target: test_download_tpk
+
 ##########################################################
 # Common library for online/offline, dictionary/tipitaka #
 ##########################################################
@@ -63,6 +65,20 @@ test_symlink: fmt
 #####################################
 
 
+############################
+# Bootstrap/Setup Tipiṭaka #
+############################
+test_download_tpk: fmt
+	@echo "\033[92mTesting download Tipiṭaka xml from https://www.tipitaka.org/romn/ ...\033[0m"
+	@cd tpkutil; go test -v downloadtpk.go downloadtpk_test.go
+###################################
+# End of Bootstrap/Setup Tipiṭaka #
+###################################
+
+
+##############
+# Misc Tools #
+##############
 test_util: fmt
 	@echo "\033[92mTest utility func ...\033[0m"
 	@cd util; go test -v
@@ -70,6 +86,9 @@ test_util: fmt
 test_twpo2cn: fmt
 	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
 	@cd i18n; go test -v twpo2cn.go twpo2cn_test.go
+#####################
+# End of Misc Tools #
+#####################
 
 
 ########
@@ -127,6 +146,7 @@ fmt:
 	@go fmt dicutil/*.go
 	@go fmt i18n/*.go
 	@go fmt util/*.go
+	@go fmt tpkutil/*.go
 
 clean:
 	rm -rf pkg/ src/
