@@ -6,12 +6,15 @@ install:
 - make clone_pali_data
 - make install
 script:
+# test common library for online/offline, dictionary/tipitaka
 - make test_lib
-- make test_twpo2cn
-- make test_util
+# test bootstrap/setup dictionary
 - make test_bookparser
 - make test_wordparser
-# test_triebuild must run before test_vfsbuild. Or ru-run test_wordparser
+  # test_triebuild must run before test_vfsbuild. Or ru-run test_wordparser
 - make test_triebuild
 - make test_vfsbuild
 - make test_symlink
+# misc
+- make test_util
+- make test_twpo2cn
