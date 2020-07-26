@@ -4,7 +4,6 @@ package tpkutil
 
 import (
 	"encoding/xml"
-	"fmt"
 	"io/ioutil"
 	"path"
 
@@ -16,6 +15,21 @@ type Tree struct {
 	Trees   []Tree   `xml:"tree"`
 	Text    string   `xml:"text,attr"`
 	Src     string   `xml:"src,attr"`
+}
+
+func GetXml(srcUrl, dstPath string, overwrite bool) (t Tree, err error) {
+	err = util.CheckDownload(srcUrl, dstPath, overwrite)
+	if err != nil {
+		return
+	}
+
+	b, err := ioutil.ReadFile(dstPath)
+	if err != nil {
+		return
+	}
+
+	err = xml.Unmarshal(b, &t)
+	return
 }
 
 // DownloadTipitaka downloads all Tipiṭaka XMLs from
@@ -31,27 +45,14 @@ func DownloadTipitaka(dir string, overwrite bool) (err error) {
 	urlPrefix := "https://www.tipitaka.org/romn/"
 	rootTocXmlSrc := "tipitaka_toc.xml"
 
-	srcXml := urlPrefix + rootTocXmlSrc
-	//fmt.Println(srcXml)
-	dstXml := path.Join(dir, rootTocXmlSrc)
-	//fmt.Println(dstXml)
+	srcUrl := urlPrefix + rootTocXmlSrc
+	dstPath := path.Join(dir, rootTocXmlSrc)
 
-	err = util.CheckDownload(srcXml, dstXml, overwrite)
+	tree, err := GetXml(srcUrl, dstPath, overwrite)
 	if err != nil {
 		return
 	}
-	b, err := ioutil.ReadFile(dstXml)
-	if err != nil {
-		return
-	}
-
-	tree := Tree{}
-	err = xml.Unmarshal(b, &tree)
-	if err != nil {
-		return
-	}
-
-	fmt.Println(tree)
 	util.PrettyPrint(tree)
+
 	return
 }
