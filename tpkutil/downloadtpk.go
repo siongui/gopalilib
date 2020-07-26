@@ -18,6 +18,7 @@ type Tree struct {
 }
 
 func GetXml(srcUrl, dstPath string, overwrite bool) (t Tree, err error) {
+	util.CreateDirIfNotExist(dstPath)
 	err = util.CheckDownload(srcUrl, dstPath, overwrite)
 	if err != nil {
 		return
