@@ -33,6 +33,29 @@ func GetXml(srcUrl, dstPath string, overwrite bool) (t Tree, err error) {
 	return
 }
 
+func GetAllXml(urlPrefix, xmlSrc, dir string, overwrite bool) (err error) {
+	srcUrl := urlPrefix + xmlSrc
+	dstPath := path.Join(dir, xmlSrc)
+
+	xmlTree, err := GetXml(srcUrl, dstPath, overwrite)
+	if err != nil {
+		return
+	}
+
+	for _, subtree := range xmlTree.Trees {
+		util.PrettyPrint(subtree)
+		//util.PrettyPrint(subtree.Src)
+		if subtree.Src != "" {
+			err = GetAllXml(urlPrefix, subtree.Src, dir, overwrite)
+			if err != nil {
+				return
+			}
+		}
+	}
+	//util.PrettyPrint(xmlTree)
+	return
+}
+
 // DownloadTipitaka downloads all Tipiṭaka XMLs from
 // https://www.tipitaka.org/romn/ to dir. This method will overwrite existing
 // XMLs if overwrite set to true.
@@ -46,14 +69,6 @@ func DownloadTipitaka(dir string, overwrite bool) (err error) {
 	urlPrefix := "https://www.tipitaka.org/romn/"
 	rootTocXmlSrc := "tipitaka_toc.xml"
 
-	srcUrl := urlPrefix + rootTocXmlSrc
-	dstPath := path.Join(dir, rootTocXmlSrc)
-
-	tree, err := GetXml(srcUrl, dstPath, overwrite)
-	if err != nil {
-		return
-	}
-	util.PrettyPrint(tree)
-
+	err = GetAllXml(urlPrefix, rootTocXmlSrc, dir, overwrite)
 	return
 }
