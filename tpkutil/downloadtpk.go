@@ -4,7 +4,7 @@ package tpkutil
 
 import (
 	"encoding/xml"
-	"io/ioutil"
+	"os"
 	"path"
 
 	"github.com/siongui/gopalilib/util"
@@ -15,21 +15,42 @@ type Tree struct {
 	Trees   []Tree   `xml:"tree"`
 	Text    string   `xml:"text,attr"`
 	Src     string   `xml:"src,attr"`
+	Action  string   `xml:"action,attr"`
 }
 
 func GetXml(srcUrl, dstPath string, overwrite bool) (t Tree, err error) {
-	util.CreateDirIfNotExist(dstPath)
 	err = util.CheckDownload(srcUrl, dstPath, overwrite)
 	if err != nil {
 		return
 	}
 
-	b, err := ioutil.ReadFile(dstPath)
+	f16, err := os.Open(dstPath)
 	if err != nil {
 		return
 	}
 
-	err = xml.Unmarshal(b, &t)
+	err = util.DecodeUtf16XML(f16, &t)
+	return
+}
+
+func ParseXmlTree(xmlTree Tree, urlPrefix, dir string, overwrite bool) (err error) {
+	if xmlTree.Src != "" {
+		// not leaf node, recursive get remaining xml
+		return GetAllXml(urlPrefix, xmlTree.Src, dir, overwrite)
+	}
+	if xmlTree.Action != "" {
+		// leaf node
+		util.PrettyPrint(xmlTree.Action)
+		// TODO: call GetXml
+		return
+	}
+
+	for _, subtree := range xmlTree.Trees {
+		err = ParseXmlTree(subtree, urlPrefix, dir, overwrite)
+		if err != nil {
+			return
+		}
+	}
 	return
 }
 
@@ -41,19 +62,8 @@ func GetAllXml(urlPrefix, xmlSrc, dir string, overwrite bool) (err error) {
 	if err != nil {
 		return
 	}
-
-	for _, subtree := range xmlTree.Trees {
-		util.PrettyPrint(subtree)
-		//util.PrettyPrint(subtree.Src)
-		if subtree.Src != "" {
-			err = GetAllXml(urlPrefix, subtree.Src, dir, overwrite)
-			if err != nil {
-				return
-			}
-		}
-	}
 	//util.PrettyPrint(xmlTree)
-	return
+	return ParseXmlTree(xmlTree, urlPrefix, dir, overwrite)
 }
 
 // DownloadTipitaka downloads all Tipiṭaka XMLs from
