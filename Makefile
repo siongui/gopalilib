@@ -18,17 +18,21 @@ current_working_target: test_download_tpk
 ##########################################################
 # Common library for online/offline, dictionary/tipitaka #
 ##########################################################
-test_lib: test_url test_filter
+test_lib: test_url test_filter test_string
 	@echo "\033[92mTesting common library for online/offline dictionary/tipitaka ...\033[0m"
-	@cd lib; go test -v dictionary.go filter.go json.go url.go url_test.go
+	@cd lib; go test -v dictionary.go filter.go json.go string.go url.go url_test.go
 
-test_filter:
+test_filter: fmt
 	@echo "\033[92mTesting filter methods in common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v dictionary.go filter.go filter_test.go
 
 test_url: fmt
 	@echo "\033[92mTesting url methods in common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v url.go url_test.go
+
+test_string: fmt
+	@echo "\033[92mTesting string methods in common library for online/offline dictionary/tipitaka ...\033[0m"
+	@cd lib; go test -v string.go string_test.go
 #################################################################
 # End of Common library for online/offline, dictionary/tipitaka #
 #################################################################
