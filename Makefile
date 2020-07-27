@@ -103,7 +103,7 @@ clone_pali_data:
 	@echo "\033[92mClone Pāli data Repo ...\033[0m"
 	@[ -d $(DATA_REPO_DIR) ] || git clone  --depth 1 https://github.com/siongui/data.git $(DATA_REPO_DIR)
 
-install: install_palilib install_gojianfan lib_succinct_trie install_goef
+install: install_palilib install_gojianfan lib_succinct_trie install_goef install_charset
 
 install_gojianfan:
 	@echo "\033[92mInstalling Go Chinese conversion package ...\033[0m"
@@ -116,6 +116,10 @@ install_gojianfan:
 install_goef:
 	@echo "\033[92mInstalling Go file embedder ...\033[0m"
 	go get -u github.com/siongui/goef
+
+install_charset:
+	@echo "\033[92mInstalling golang.org/x/net/html/charset ...\033[0m"
+	go get -u golang.org/x/net/html/charset
 
 install_palilib:
 ifdef TRAVIS

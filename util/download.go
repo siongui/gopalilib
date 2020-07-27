@@ -8,6 +8,7 @@ import (
 )
 
 func Download(url, filePath string) (err error) {
+	CreateDirIfNotExist(filePath)
 	fmt.Println("Downloading ", url, " to ", filePath)
 
 	resp, err := http.Get(url)
