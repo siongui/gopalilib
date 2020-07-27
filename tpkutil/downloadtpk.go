@@ -4,6 +4,7 @@ package tpkutil
 
 import (
 	"encoding/xml"
+	"fmt"
 	"os"
 	"path"
 
@@ -18,7 +19,12 @@ type Tree struct {
 	Action  string   `xml:"action,attr"`
 }
 
-func GetXml(srcUrl, dstPath string, overwrite bool) (t Tree, err error) {
+func PrintTreeInfo(t Tree) {
+	fmt.Printf("Text: %s, Src: %s, Action: %s. Child #: %d\n",
+		t.Text, t.Src, t.Action, len(t.Trees))
+}
+
+func DownloadAndParseXml(srcUrl, dstPath string, overwrite bool) (t Tree, err error) {
 	err = util.CheckDownload(srcUrl, dstPath, overwrite)
 	if err != nil {
 		return
@@ -34,14 +40,17 @@ func GetXml(srcUrl, dstPath string, overwrite bool) (t Tree, err error) {
 }
 
 func ParseXmlTree(xmlTree Tree, urlPrefix, dir string, overwrite bool) (err error) {
+	PrintTreeInfo(xmlTree)
+
 	if xmlTree.Src != "" {
 		// not leaf node, recursive get remaining xml
 		return GetAllXml(urlPrefix, xmlTree.Src, dir, overwrite)
 	}
 	if xmlTree.Action != "" {
 		// leaf node
-		util.PrettyPrint(xmlTree.Action)
-		// TODO: call GetXml
+		srcUrl := urlPrefix + xmlTree.Action
+		dstPath := path.Join(dir, xmlTree.Action)
+		err = util.CheckDownload(srcUrl, dstPath, overwrite)
 		return
 	}
 
@@ -58,7 +67,7 @@ func GetAllXml(urlPrefix, xmlSrc, dir string, overwrite bool) (err error) {
 	srcUrl := urlPrefix + xmlSrc
 	dstPath := path.Join(dir, xmlSrc)
 
-	xmlTree, err := GetXml(srcUrl, dstPath, overwrite)
+	xmlTree, err := DownloadAndParseXml(srcUrl, dstPath, overwrite)
 	if err != nil {
 		return
 	}
@@ -80,5 +89,16 @@ func DownloadTipitaka(dir string, overwrite bool) (err error) {
 	rootTocXmlSrc := "tipitaka_toc.xml"
 
 	err = GetAllXml(urlPrefix, rootTocXmlSrc, dir, overwrite)
+	if err != nil {
+		return
+	}
+
+	xsl := "cscd/tipitaka-latn.xsl"
+	err = util.CheckDownload(urlPrefix+xsl, path.Join(dir, xsl), overwrite)
+	if err != nil {
+		return
+	}
+	css := "cscd/tipitaka-latn.css"
+	err = util.CheckDownload(urlPrefix+css, path.Join(dir, css), overwrite)
 	return
 }
