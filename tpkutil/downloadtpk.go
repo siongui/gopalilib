@@ -12,16 +12,16 @@ import (
 )
 
 type Tree struct {
-	XMLName xml.Name `xml:"tree"`
-	Trees   []Tree   `xml:"tree"`
-	Text    string   `xml:"text,attr"`
-	Src     string   `xml:"src,attr"`
-	Action  string   `xml:"action,attr"`
+	XMLName  xml.Name `xml:"tree"`
+	SubTrees []Tree   `xml:"tree"`
+	Text     string   `xml:"text,attr"`
+	Src      string   `xml:"src,attr"`
+	Action   string   `xml:"action,attr"`
 }
 
 func PrintTreeInfo(t Tree) {
 	fmt.Printf("Text: %s, Src: %s, Action: %s. Child #: %d\n",
-		t.Text, t.Src, t.Action, len(t.Trees))
+		t.Text, t.Src, t.Action, len(t.SubTrees))
 }
 
 func DownloadAndParseXml(srcUrl, dstPath string, overwrite bool) (t Tree, err error) {
@@ -54,7 +54,7 @@ func ParseXmlTree(xmlTree Tree, urlPrefix, dir string, overwrite bool) (err erro
 		return
 	}
 
-	for _, subtree := range xmlTree.Trees {
+	for _, subtree := range xmlTree.SubTrees {
 		err = ParseXmlTree(subtree, urlPrefix, dir, overwrite)
 		if err != nil {
 			return

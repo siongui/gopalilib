@@ -13,7 +13,7 @@ DATA_REPO_DIR=$(CURDIR)/data
 VFSDIR=$(GOPATH)/src/github.com/siongui/gopaliwordvfs
 
 
-current_working_target: test_download_tpk
+current_working_target: test_build_tpk_tree
 
 ##########################################################
 # Common library for online/offline, dictionary/tipitaka #
@@ -75,6 +75,10 @@ test_symlink: fmt
 test_download_tpk: fmt
 	@echo "\033[92mTesting download Tipiṭaka xml from https://www.tipitaka.org/romn/ ...\033[0m"
 	@cd tpkutil; go test -v downloadtpk.go downloadtpk_test.go
+
+test_build_tpk_tree: fmt
+	@echo "\033[92mTesting build Tipiṭaka tree ...\033[0m"
+	@cd tpkutil; go test -v buildtpktree.go downloadtpk.go buildtpktree_test.go
 ###################################
 # End of Bootstrap/Setup Tipiṭaka #
 ###################################

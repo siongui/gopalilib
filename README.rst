@@ -39,6 +39,7 @@ This repository consist of two part:
    The code is located in `tpkutil <tpkutil>`_.
 
    - test_download_tpk
+   - test_build_tpk_tree
 
 
 UNLICENSE
