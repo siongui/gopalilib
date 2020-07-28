@@ -20,7 +20,7 @@ current_working_target: test_build_tpk_tree
 ##########################################################
 test_lib: test_url test_filter test_string
 	@echo "\033[92mTesting common library for online/offline dictionary/tipitaka ...\033[0m"
-	@cd lib; go test -v dictionary.go filter.go json.go string.go url.go url_test.go
+	@cd lib; go test -v dictionary.go filter.go json.go string.go tipitaka.go url.go url_test.go
 
 test_filter: fmt
 	@echo "\033[92mTesting filter methods in common library for online/offline dictionary/tipitaka ...\033[0m"
@@ -78,7 +78,7 @@ test_download_tpk: fmt
 
 test_build_tpk_tree: fmt
 	@echo "\033[92mTesting build Tipiṭaka tree ...\033[0m"
-	@cd tpkutil; go test -v buildtpktree.go downloadtpk.go buildtpktree_test.go
+	@cd tpkutil; go test -v buildtpktree.go buildtpktree_test.go
 ###################################
 # End of Bootstrap/Setup Tipiṭaka #
 ###################################

@@ -5,10 +5,11 @@ import (
 	"os"
 	"path"
 
+	"github.com/siongui/gopalilib/lib"
 	"github.com/siongui/gopalilib/util"
 )
 
-func ReadXml(filePath string) (t Tree, err error) {
+func ReadXml(filePath string) (t lib.Tree, err error) {
 	f16, err := os.Open(filePath)
 	if err != nil {
 		return
@@ -18,7 +19,7 @@ func ReadXml(filePath string) (t Tree, err error) {
 	return
 }
 
-func TraverseTree(t *Tree, dir string) (err error) {
+func TraverseTree(t *lib.Tree, dir string) (err error) {
 	for i, subtree := range t.SubTrees {
 		if subtree.Src != "" {
 			xmlSrc := path.Join(dir, subtree.Src)
@@ -40,6 +41,7 @@ func TraverseTree(t *Tree, dir string) (err error) {
 	return
 }
 
+// BuildTipitakaTree create ToC (Table of Content) tree of Tipiṭaka
 func BuildTipitakaTree(dir string) (err error) {
 	rootTocXmlSrc := "tipitaka_toc.xml"
 	//fmt.Println(dir)

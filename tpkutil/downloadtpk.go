@@ -3,28 +3,20 @@ package tpkutil
 // Download Tipiṭaka xml from https://www.tipitaka.org/romn/
 
 import (
-	"encoding/xml"
 	"fmt"
 	"os"
 	"path"
 
+	"github.com/siongui/gopalilib/lib"
 	"github.com/siongui/gopalilib/util"
 )
 
-type Tree struct {
-	XMLName  xml.Name `xml:"tree"`
-	SubTrees []Tree   `xml:"tree"`
-	Text     string   `xml:"text,attr"`
-	Src      string   `xml:"src,attr"`
-	Action   string   `xml:"action,attr"`
-}
-
-func PrintTreeInfo(t Tree) {
+func PrintTreeInfo(t lib.Tree) {
 	fmt.Printf("Text: %s, Src: %s, Action: %s. Child #: %d\n",
 		t.Text, t.Src, t.Action, len(t.SubTrees))
 }
 
-func DownloadAndParseXml(srcUrl, dstPath string, overwrite bool) (t Tree, err error) {
+func DownloadAndParseXml(srcUrl, dstPath string, overwrite bool) (t lib.Tree, err error) {
 	err = util.CheckDownload(srcUrl, dstPath, overwrite)
 	if err != nil {
 		return
@@ -39,7 +31,7 @@ func DownloadAndParseXml(srcUrl, dstPath string, overwrite bool) (t Tree, err er
 	return
 }
 
-func ParseXmlTree(xmlTree Tree, urlPrefix, dir string, overwrite bool) (err error) {
+func ParseXmlTree(xmlTree lib.Tree, urlPrefix, dir string, overwrite bool) (err error) {
 	PrintTreeInfo(xmlTree)
 
 	if xmlTree.Src != "" {
