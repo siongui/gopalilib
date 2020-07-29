@@ -5,9 +5,10 @@ import (
 )
 
 func TestBuildTipitakaTree(t *testing.T) {
-	err := BuildTipitakaTree("/tmp/tpkxml/")
+	tree, err := BuildTipitakaTree("/tmp/tpkxml/")
 	if err != nil {
 		t.Error(err)
 		return
 	}
+	t.Log(tree)
 }

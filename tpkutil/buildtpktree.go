@@ -42,17 +42,17 @@ func TraverseTree(t *lib.Tree, dir string) (err error) {
 }
 
 // BuildTipitakaTree create ToC (Table of Content) tree of Tipiṭaka
-func BuildTipitakaTree(dir string) (err error) {
+func BuildTipitakaTree(dir string) (t lib.Tree, err error) {
 	rootTocXmlSrc := "tipitaka_toc.xml"
 	//fmt.Println(dir)
 	xmlSrc := path.Join(dir, rootTocXmlSrc)
 	fmt.Println(xmlSrc)
 
-	t, err := ReadXml(xmlSrc)
+	t, err = ReadXml(xmlSrc)
 	if err != nil {
 		return
 	}
 	err = TraverseTree(&t, dir)
-	util.PrettyPrint(t)
+	//util.PrettyPrint(t)
 	return
 }
