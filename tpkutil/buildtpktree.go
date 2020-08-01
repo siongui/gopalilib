@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/siongui/gopalilib/lib"
 	"github.com/siongui/gopalilib/util"
@@ -19,25 +20,37 @@ func ReadXml(filePath string) (t lib.Tree, err error) {
 	return
 }
 
-func TraverseTree(t *lib.Tree, dir string) (err error) {
-	for i, subtree := range t.SubTrees {
-		if subtree.Src != "" {
-			xmlSrc := path.Join(dir, subtree.Src)
-			subt, err := ReadXml(xmlSrc)
-			if err != nil {
-				return err
-			}
-			fmt.Printf("Text: %s, Src: %s, Action: %s, Child #: %d\n", subt.Text, subt.Src, subt.Action, len(subt.SubTrees))
-			t.SubTrees[i].SubTrees = append(t.SubTrees[i].SubTrees, subt.SubTrees...)
-			for j, _ := range t.SubTrees[i].SubTrees {
-				err = TraverseTree(&t.SubTrees[i].SubTrees[j], dir)
-				if err != nil {
-					return err
-				}
+func TraverseTree(t *lib.Tree, dir string, layer int) (err error) {
+	if t.Text == "" {
+		for i, _ := range t.SubTrees {
+			TraverseTree(&t.SubTrees[i], dir, layer+2)
+		}
+		return
+	}
+
+	if t.Src == "" {
+		fmt.Printf("%sText: %s, Action: %s\n", strings.Repeat(" ", layer), t.Text, t.Action)
+		for i, _ := range t.SubTrees {
+			TraverseTree(&t.SubTrees[i], dir, layer+2)
+		}
+		return
+	}
+
+	if t.Src != "" {
+		fmt.Printf("%sText: %s, Src: %s\n", strings.Repeat(" ", layer), t.Text, t.Src)
+		xmlSrc := path.Join(dir, t.Src)
+		newtree, err := ReadXml(xmlSrc)
+		if err != nil {
+			return err
+		}
+
+		if newtree.Text == "" {
+			t.SubTrees = newtree.SubTrees
+			for i, _ := range t.SubTrees {
+				TraverseTree(&t.SubTrees[i], dir, layer+2)
 			}
 		}
 	}
-	//fmt.Println(t)
 	return
 }
 
@@ -52,7 +65,7 @@ func BuildTipitakaTree(dir string) (t lib.Tree, err error) {
 	if err != nil {
 		return
 	}
-	err = TraverseTree(&t, dir)
+	err = TraverseTree(&t, dir, 0)
 	//util.PrettyPrint(t)
 	return
 }
