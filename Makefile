@@ -101,18 +101,9 @@ test_util: fmt
 #####################
 
 
-########
-# Misc #
-########
-generate:
-	@echo "\033[92mlib/: go generate ...\033[0m"
-	@cd lib; go generate
-
-
-clone_pali_data:
-	@echo "\033[92mClone Pāli data Repo ...\033[0m"
-	@[ -d $(DATA_REPO_DIR) ] || git clone  --depth 1 https://github.com/siongui/data.git $(DATA_REPO_DIR)
-
+###################
+# Install Library #
+###################
 install: install_palilib install_gojianfan lib_succinct_trie install_goef install_charset
 
 install_gojianfan:
@@ -146,14 +137,17 @@ else
 	@cp -r util/*.go ${PALIUTIL}/
 endif
 
-install_stringer:
-	@echo "\033[92mInstalling golang.org/x/tools/cmd/stringer ...\033[0m"
-	go get -u golang.org/x/tools/cmd/stringer
-
 lib_succinct_trie:
 	@echo "\033[92mInstalling Go Succinct Trie library ...\033[0m"
 	go get -u github.com/siongui/go-succinct-data-structure-trie
+##########################
+# End of Install Library #
+##########################
 
+
+########
+# Misc #
+########
 fmt:
 	@echo "\033[92mGo fmt source code...\033[0m"
 	@go fmt lib/*.go
@@ -163,6 +157,10 @@ fmt:
 
 clean:
 	rm -rf pkg/ src/
+
+clone_pali_data:
+	@echo "\033[92mClone Pāli data Repo ...\033[0m"
+	@[ -d $(DATA_REPO_DIR) ] || git clone  --depth 1 https://github.com/siongui/data.git $(DATA_REPO_DIR)
 
 download_go:
 	@echo "\033[92mDownloading and Installing Go ...\033[0m"
