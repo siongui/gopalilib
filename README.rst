@@ -17,7 +17,7 @@ Pāli_ Library and Data Processing
 .. image:: https://img.shields.io/badge/license-Unlicense-blue.svg
    :target: https://github.com/siongui/gopalilib/blob/master/UNLICENSE
 
-This repository consist of two part:
+This repository consist of:
 
 1. Common Go_ code (library of `Pāli project`_) to be shared and used by
    client-side (front-end browser) and
@@ -25,8 +25,7 @@ This repository consist of two part:
    The code is located in `lib <lib>`_ directory.
 
 2. Bootstrap/setup Dictionary (Offline data processing).
-   The code is located in `dicutil <dicutil>`_, `i18n <i18n>`_, and
-   `util <util>`_.
+   The code is located in `dicutil <dicutil>`_.
 
    - test_bookparser
    - test_wordparser

@@ -1,3 +1,4 @@
+// Package tpkutil provides methods to process Pāli Tipiṭaka data.
 package tpkutil
 
 // Download Tipiṭaka xml from https://www.tipitaka.org/romn/

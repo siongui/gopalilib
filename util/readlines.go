@@ -1,4 +1,4 @@
-// Package util provides utility func.
+// Package util provides helper methods for development.
 package util
 
 import (
