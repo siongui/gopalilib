@@ -1,7 +1,7 @@
 language: go
 go:
   - 1.12.17
-  - 1.14.4
+  - 1.14.6
 install:
 - make clone_pali_data
 - make install
@@ -17,4 +17,3 @@ script:
 - make test_symlink
 # misc
 - make test_util
-- make test_twpo2cn
