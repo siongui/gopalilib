@@ -47,9 +47,13 @@ test_string: fmt
 ##############################
 # Bootstrap/Setup Dictionary #
 ##############################
+# variables for testing
+BookCSV=$(DATA_REPO_DIR)/dictionary/dict-books.csv
+OUTPUT_DIR=/tmp
+OutputBookJSON=$(OUTPUT_DIR)/BookIdAndInfos.json
 test_bookparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary books ...\033[0m"
-	@cd dicutil; go test -v bookparser.go bookparser_test.go path_test.go
+	@cd dicutil; go test -v bookparser.go bookparser_test.go -args -BookCSV=$(BookCSV) -OutputBookJSON=$(OutputBookJSON)
 
 test_wordparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary words ...\033[0m"
@@ -160,7 +164,7 @@ clean:
 
 clone_pali_data:
 	@echo "\033[92mClone Pāli data Repo ...\033[0m"
-	@[ -d $(DATA_REPO_DIR) ] || git clone  --depth 1 https://github.com/siongui/data.git $(DATA_REPO_DIR)
+	@[ -d $(DATA_REPO_DIR) ] || git clone https://github.com/siongui/data.git $(DATA_REPO_DIR) --depth=1
 
 download_go:
 	@echo "\033[92mDownloading and Installing Go ...\033[0m"
