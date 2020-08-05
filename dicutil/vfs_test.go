@@ -8,6 +8,7 @@ import (
 	"path"
 	"testing"
 
+	"github.com/siongui/gopalilib/util"
 	vfs "github.com/siongui/gopaliwordvfs"
 )
 
@@ -37,7 +38,7 @@ func TestVFS(t *testing.T) {
 			return
 		}
 
-		if _, ok := os.LookupEnv("TRAVIS"); !ok {
+		if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
 			fmt.Println(i, file.Name(), "ok")
 		}
 
@@ -54,7 +55,7 @@ func TestVFS(t *testing.T) {
 	for _, filename := range filenames {
 		p := path.Join(wordsJsonDir, filename)
 		if _, err := os.Stat(p); err == nil {
-			if _, ok := os.LookupEnv("TRAVIS"); !ok {
+			if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
 				fmt.Println(p, "exist")
 			}
 

@@ -22,7 +22,7 @@ func BuildSuccinctTrie(wordsJsonDir, trieDataPath, trieNodeCountPath, rankDirect
 	filepath.Walk(wordsJsonDir, func(path string, info os.FileInfo, err error) error {
 		if !info.IsDir() {
 			word := info.Name()[:len(info.Name())-5]
-			if !util.IsRunOnTravisCI() {
+			if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
 				print(i)
 				print(" ")
 				println(word)

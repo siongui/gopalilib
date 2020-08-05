@@ -27,11 +27,11 @@ func BuildVFS(pkgName, wordJsonDir, outputDir string) (err error) {
 			if err != nil {
 				return
 			}
-			if !util.IsRunOnTravisCI() {
+			if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
 				fmt.Println(i, "convert", oldpath, "to", newpath)
 			}
 		} else {
-			if !util.IsRunOnTravisCI() {
+			if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
 				fmt.Println(i, "unchanged", file.Name())
 			}
 		}
