@@ -16,7 +16,7 @@ endif
 PALILIB=$(GOPATH)/src/github.com/siongui/gopalilib/lib
 PALIUTIL=$(GOPATH)/src/github.com/siongui/gopalilib/util
 DATA_REPO_DIR=$(CURDIR)/data
-VFSDIR=$(GOPATH)/src/github.com/siongui/gopaliwordvfs
+VFSDIR=$(GOPATH)/src/pali/words/vfspkg
 
 
 current_working_target: test_build_tpk_tree

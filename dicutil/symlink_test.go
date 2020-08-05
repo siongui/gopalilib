@@ -4,13 +4,13 @@ import (
 	"flag"
 	"testing"
 
-	vfs "github.com/siongui/gopaliwordvfs"
+	"pali/words/vfspkg"
 )
 
 var outputDir = flag.String("outputDir", ".", "output dir")
 
 func TestSymlinkToRootIndexHtml(t *testing.T) {
-	err := SymlinkToRootIndexHtml(*outputDir, vfs.MapKeys())
+	err := SymlinkToRootIndexHtml(*outputDir, vfspkg.MapKeys())
 	if err != nil {
 		t.Error(err)
 	}
