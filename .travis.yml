@@ -8,8 +8,7 @@ install:
 script:
 # test common library for online/offline, dictionary/tipitaka
 - make test_lib
+# test dictionary
 - make test_dictionary
-- make test_vfsbuild
-- make test_symlink
 # misc
 - make test_util
