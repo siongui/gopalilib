@@ -79,8 +79,8 @@ test_triebuild: fmt
 test_vfsbuild: fmt
 	@echo "\033[92mBuilding virtual file system of Pāli dictionary words ...\033[0m"
 	#@[ -d $(VFSDIR) ] || mkdir -p $(VFSDIR)
-	@cd dicutil; go test -v vfsbuild.go vfsbuild_test.go path_test.go -args -pkgdir=$(VFSDIR)
-	@cd dicutil; go test -v vfs_test.go path_test.go
+	@cd dicutil; go test -v vfsbuild.go vfsbuild_test.go -args -pkgdir=$(VFSDIR) -wordsJsonDir=$(OUTPUT_PALI_WORDS_JSON_DIR)
+	@cd dicutil; go test -v vfs_test.go -args -wordsJsonDir=$(OUTPUT_PALI_WORDS_JSON_DIR)
 
 test_symlink: fmt
 	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"

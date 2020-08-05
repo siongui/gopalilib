@@ -2,6 +2,7 @@ package dicutil
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -12,8 +13,10 @@ import (
 	vfs "github.com/siongui/gopaliwordvfs"
 )
 
+var wordsJsonDir = flag.String("wordsJsonDir", ".", "output dir of json files of pali words")
+
 func TestVFS(t *testing.T) {
-	files, err := ioutil.ReadDir(wordsJsonDir)
+	files, err := ioutil.ReadDir(*wordsJsonDir)
 	if err != nil {
 		t.Error(err)
 		return
@@ -27,7 +30,7 @@ func TestVFS(t *testing.T) {
 			return
 		}
 
-		bReal, err := ioutil.ReadFile(path.Join(wordsJsonDir, file.Name()))
+		bReal, err := ioutil.ReadFile(path.Join(*wordsJsonDir, file.Name()))
 		if err != nil {
 			t.Error(err)
 			return
@@ -53,7 +56,7 @@ func TestVFS(t *testing.T) {
 		return
 	}
 	for _, filename := range filenames {
-		p := path.Join(wordsJsonDir, filename)
+		p := path.Join(*wordsJsonDir, filename)
 		if _, err := os.Stat(p); err == nil {
 			if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
 				fmt.Println(p, "exist")
