@@ -6,7 +6,6 @@ package dicutil
 // hosted on GitHub Pages.
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 
@@ -14,16 +13,6 @@ import (
 	"github.com/siongui/gopalilib/util"
 	vfs "github.com/siongui/gopaliwordvfs"
 )
-
-func conditionalPrint(word string) {
-	if util.IsRunOnTravisCI() {
-		return
-	}
-	if util.IsRunOnGitLabCI() {
-		return
-	}
-	fmt.Println(word)
-}
 
 // CreatePrefixSymlink create symbolic links for pages of Pali words to the root
 // index.html of the website root directory. This is for deploying single page
@@ -59,7 +48,7 @@ func CreatePrefixSymlink(prefix, root string) (err error) {
 		return
 	}
 
-	conditionalPrint(prefix)
+	util.LocalPrintln(prefix)
 	return
 }
 
@@ -102,7 +91,7 @@ func CreateWordSymlink(word, root string) (err error) {
 		return
 	}
 
-	conditionalPrint(word)
+	util.LocalPrintln(word)
 	return
 }
 

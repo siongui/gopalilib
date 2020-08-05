@@ -13,3 +13,14 @@ func PrettyPrint(v interface{}) (err error) {
 	}
 	return
 }
+
+// LocalPrintln will not print on Travis CI or GitLab CI/CD environment.
+func LocalPrintln(a ...interface{}) {
+	if IsRunOnTravisCI() {
+		return
+	}
+	if IsRunOnGitLabCI() {
+		return
+	}
+	fmt.Println(a...)
+}

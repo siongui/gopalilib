@@ -43,9 +43,7 @@ func TestVFS(t *testing.T) {
 			return
 		}
 
-		if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
-			fmt.Println(i, file.Name(), "ok")
-		}
+		util.LocalPrintln(i, file.Name(), "ok")
 
 		total++
 	}
@@ -60,9 +58,7 @@ func TestVFS(t *testing.T) {
 	for _, wordname := range wordnames {
 		p := path.Join(*wordsJsonDir, wordname+".json")
 		if _, err := os.Stat(p); err == nil {
-			if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
-				fmt.Println(p, "exist")
-			}
+			util.LocalPrintln(p, "exist")
 		} else {
 			t.Error(p)
 			return

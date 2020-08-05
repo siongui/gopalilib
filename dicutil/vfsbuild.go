@@ -1,7 +1,6 @@
 package dicutil
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path"
@@ -31,9 +30,7 @@ func BuildVFS(pkgName, wordJsonDir, outputDir string) (err error) {
 		if err != nil {
 			return
 		}
-		if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
-			fmt.Println(i+1, "hard link to", oldpath, "from", newpath)
-		}
+		util.LocalPrintln(i+1, "hard link to", oldpath, "from", newpath)
 	}
 	err = goef.GenerateGoPackagePlainTextWithMaxFileSize(pkgName, tmpdir, outputDir, 31000000)
 	return
