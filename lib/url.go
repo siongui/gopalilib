@@ -1,11 +1,3 @@
-// The url of Pali dictionary website except about page will be
-//
-//   [rootPath]/[locale]/browse/[prefix]/[word]
-//
-// The about page (all locales share one about page) will be
-//
-//   [rootPath]/about/
-//
 package lib
 
 import (
@@ -14,7 +6,17 @@ import (
 	"unicode/utf8"
 )
 
-// Type of the webpage, determined according to path of URL
+// The url of Pali dictionary website except about page will be
+//
+//   [rootPath]/[locale]/browse/[prefix]/[word]
+//
+// The about page (all locales share one about page) will be
+//
+//   [rootPath]/about/
+//
+
+// PageType represents the type of the webpage, determined according to path of
+// URL.
 //go:generate stringer -type=PageType
 type PageType int
 

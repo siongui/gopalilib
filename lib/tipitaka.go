@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 )
 
-// Table of Content (ToC) node of Tipiṭaka
+// Tree struct represents Table of Content (ToC) node of Tipiṭaka
 type Tree struct {
 	XMLName  xml.Name `xml:"tree"`
 	SubTrees []Tree   `xml:"tree"`

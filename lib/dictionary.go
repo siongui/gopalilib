@@ -7,6 +7,8 @@ import (
 	"html/template"
 )
 
+// BookInfo stores information of a dictionary book.
+//
 // Lang: language of the dictionary book.
 //
 //   zh: Chinese

@@ -1,4 +1,4 @@
-// Package dicuitl provides methods for offline processing to build Pāli
+// Package dicutil provides methods for offline processing to build Pāli
 // Dictionary.
 package dicutil
 

@@ -10,6 +10,9 @@ import (
 	"github.com/siongui/gopalilib/util"
 )
 
+// ReadXml decodes UTF-16 encoded XML file of Pāli Tipiṭaka and return lib.Tree
+// struct. This method is used by BuildTipitakaTree method and TraverseTree
+// method.
 func ReadXml(filePath string) (t lib.Tree, err error) {
 	f16, err := os.Open(filePath)
 	if err != nil {
@@ -20,6 +23,8 @@ func ReadXml(filePath string) (t lib.Tree, err error) {
 	return
 }
 
+// TraverseTree traverses lib.Tree struct and constructs the Tipiṭaka ToC
+// (Table of Content) tree. This method is used by BuildTipitakaTree method.
 func TraverseTree(t *lib.Tree, dir string, layer int) (err error) {
 	if t.Text == "" {
 		for i, _ := range t.SubTrees {
