@@ -84,7 +84,7 @@ test_vfsbuild: fmt
 
 test_symlink: fmt
 	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"
-	@cd dicutil; go test -v symlink.go symlink_test.go path_test.go
+	@cd dicutil; go test -v symlink.go symlink_test.go -args -outputDir=$(OUTPUT_DIR)
 #####################################
 # End of Bootstrap/Setup Dictionary #
 #####################################
