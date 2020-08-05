@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"strings"
 	"testing"
 
 	"github.com/siongui/gopalilib/util"
@@ -24,7 +25,8 @@ func TestVFS(t *testing.T) {
 
 	total := 0
 	for i, file := range files {
-		bVfs, err := vfs.ReadFile(file.Name())
+		wordname := strings.TrimSuffix(file.Name(), ".json")
+		bVfs, err := vfs.ReadFile(wordname)
 		if err != nil {
 			t.Error(err)
 			return
@@ -37,7 +39,7 @@ func TestVFS(t *testing.T) {
 		}
 
 		if !bytes.Equal(bVfs, bReal) {
-			t.Error(file.Name())
+			t.Error(file.Name(), "content not equal")
 			return
 		}
 
@@ -48,20 +50,19 @@ func TestVFS(t *testing.T) {
 		total++
 	}
 
-	filenames := vfs.MapKeys()
-	if len(filenames) == total {
+	wordnames := vfs.MapKeys()
+	if len(wordnames) == total {
 		fmt.Println("total number of json file correct")
 	} else {
 		t.Error("total number of json files not correct")
 		return
 	}
-	for _, filename := range filenames {
-		p := path.Join(*wordsJsonDir, filename)
+	for _, wordname := range wordnames {
+		p := path.Join(*wordsJsonDir, wordname+".json")
 		if _, err := os.Stat(p); err == nil {
 			if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
 				fmt.Println(p, "exist")
 			}
-
 		} else {
 			t.Error(p)
 			return

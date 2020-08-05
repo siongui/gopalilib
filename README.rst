@@ -33,7 +33,6 @@ This repository consist of:
    - test_bookparser
    - test_wordparser
    - test_triebuild needs test_wordparser
-   - test_triebuild must run before test_vfsbuild. Or re-run test_wordparser
    - test_vfsbuild needs test_wordparser
    - test_symlink needs test_vfsbuild
 

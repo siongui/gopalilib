@@ -18,25 +18,23 @@ func BuildVFS(pkgName, wordJsonDir, outputDir string) (err error) {
 		return
 	}
 
-	i := 0
-	for _, file := range files {
-		if strings.HasSuffix(file.Name(), ".json") {
-			oldpath := path.Join(wordJsonDir, file.Name())
-			newpath := path.Join(wordJsonDir, file.Name()[0:len(file.Name())-5])
-			err = os.Rename(oldpath, newpath)
-			if err != nil {
-				return
-			}
-			if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
-				fmt.Println(i, "convert", oldpath, "to", newpath)
-			}
-		} else {
-			if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
-				fmt.Println(i, "unchanged", file.Name())
-			}
-		}
-		i++
+	tmpdir, err := ioutil.TempDir("", "vfsbuild-tmp-dir")
+	if err != nil {
+		return
 	}
-	err = goef.GenerateGoPackagePlainTextWithMaxFileSize(pkgName, wordJsonDir, outputDir, 31000000)
+	defer os.RemoveAll(tmpdir) // clean up
+
+	for i, file := range files {
+		oldpath := path.Join(wordJsonDir, file.Name())
+		newpath := path.Join(tmpdir, strings.TrimSuffix(file.Name(), ".json"))
+		err = os.Link(oldpath, newpath)
+		if err != nil {
+			return
+		}
+		if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
+			fmt.Println(i+1, "hard link to", oldpath, "from", newpath)
+		}
+	}
+	err = goef.GenerateGoPackagePlainTextWithMaxFileSize(pkgName, tmpdir, outputDir, 31000000)
 	return
 }
