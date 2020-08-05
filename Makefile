@@ -121,25 +121,21 @@ test_util: fmt
 ###################
 # Install Library #
 ###################
-install: install_palilib install_gojianfan lib_succinct_trie install_goef install_charset
+install: install_palilib lib_succinct_trie install_goef
 
-install_gojianfan:
-	@echo "\033[92mInstalling Go Chinese conversion package ...\033[0m"
-	go get -u github.com/siongui/gojianfan
+install_palilib:
+	go get -u github.com/siongui/gopalilib/lib
+	go get -u github.com/siongui/gopalilib/util
 
 install_goef:
 	@echo "\033[92mInstalling Go file embedder ...\033[0m"
 	go get -u github.com/siongui/goef
 
-install_charset:
-	@echo "\033[92mInstalling golang.org/x/net/html/charset ...\033[0m"
-	go get -u golang.org/x/net/html/charset
+lib_succinct_trie:
+	@echo "\033[92mInstalling Go Succinct Trie library ...\033[0m"
+	go get -u github.com/siongui/go-succinct-data-structure-trie
 
-install_palilib:
-ifdef TRAVIS
-	go get -u github.com/siongui/gopalilib/lib
-	go get -u github.com/siongui/gopalilib/util
-else
+install_local:
 	@echo "\033[92mInstall ${PALILIB} locally ...\033[0m"
 	@rm -rf ${PALILIB}
 	@mkdir -p ${PALILIB}
@@ -148,11 +144,16 @@ else
 	@rm -rf ${PALIUTIL}
 	@mkdir -p ${PALIUTIL}
 	@cp -r util/*.go ${PALIUTIL}/
-endif
 
-lib_succinct_trie:
-	@echo "\033[92mInstalling Go Succinct Trie library ...\033[0m"
-	go get -u github.com/siongui/go-succinct-data-structure-trie
+# installed by go get -u github.com/siongui/gopalilib/util (install_palilib)
+install_gojianfan:
+	@echo "\033[92mInstalling Go Chinese conversion package ...\033[0m"
+	go get -u github.com/siongui/gojianfan
+
+# installed by go get -u github.com/siongui/gopalilib/util (install_palilib)
+install_charset:
+	@echo "\033[92mInstalling golang.org/x/net/html/charset ...\033[0m"
+	go get -u golang.org/x/net/html/charset
 ##########################
 # End of Install Library #
 ##########################
