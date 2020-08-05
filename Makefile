@@ -60,6 +60,8 @@ TrieData=$(OUTPUT_METADATA_DIR)/trie-data.txt
 TrieNodeCount=$(OUTPUT_METADATA_DIR)/trie-node-count.txt
 TrieRankDirectoryData=$(OUTPUT_METADATA_DIR)/trie-rank-directory-data.txt
 
+test_dictionary: test_bookparser test_wordparser test_triebuild
+
 test_bookparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary books ...\033[0m"
 	@cd dicutil; go test -v bookparser.go bookparser_test.go -args -BookCSV=$(BookCSV) -OutputBookJSON=$(OutputBookJSON)

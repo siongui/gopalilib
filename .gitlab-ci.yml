@@ -20,11 +20,7 @@ test:
   - make install
   # test common library for online/offline, dictionary/tipitaka
   - make test_lib
-  # test bootstrap/setup dictionary
-  - make test_bookparser
-  - make test_wordparser
-  # test_triebuild must run before test_vfsbuild. Or ru-run test_wordparser
-  - make test_triebuild
+  - make test_dictionary
   - make test_vfsbuild
   - make test_symlink
   # misc
