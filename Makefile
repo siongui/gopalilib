@@ -56,6 +56,9 @@ OUTPUT_DIR=/tmp/pali/
 OUTPUT_METADATA_DIR=$(OUTPUT_DIR)/metadata/
 OutputBookJSON=$(OUTPUT_METADATA_DIR)/BookIdAndInfos.json
 OUTPUT_PALI_WORDS_JSON_DIR=$(OUTPUT_DIR)/json/
+TrieData=$(OUTPUT_METADATA_DIR)/trie-data.txt
+TrieNodeCount=$(OUTPUT_METADATA_DIR)/trie-node-count.txt
+TrieRankDirectoryData=$(OUTPUT_METADATA_DIR)/trie-rank-directory-data.txt
 
 test_bookparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary books ...\033[0m"
@@ -69,7 +72,7 @@ test_wordparser: fmt
 # test_triebuild must run before test_vfsbuild. Or re-run test_wordparser
 test_triebuild: fmt
 	@echo "\033[92mTesting building succinct trie ...\033[0m"
-	@cd dicutil; go test -v triebuild.go triebuild_test.go path_test.go
+	@cd dicutil; go test -v triebuild.go triebuild_test.go -args -wordsJsonDir=$(OUTPUT_PALI_WORDS_JSON_DIR) -trieData=$(TrieData) -trieNodeCount=$(TrieNodeCount) -trieRankDirectoryData=$(TrieRankDirectoryData)
 
 test_vfsbuild: fmt
 	@echo "\033[92mBuilding virtual file system of Pāli dictionary words ...\033[0m"
