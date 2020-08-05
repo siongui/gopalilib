@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// Pretty print Go variable (struct, map, array, slice, etc.).
+// PrettyPrint pretty-prints Go variable (struct, map, array, slice, etc.).
 func PrettyPrint(v interface{}) (err error) {
 	b, err := json.MarshalIndent(v, "", "  ")
 	if err == nil {

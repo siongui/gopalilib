@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-// Read lines from file.
+// ReadlinesFromFile reads lines from the file.
 func ReadlinesFromFile(filePath string) (lines []string, err error) {
 	f, err := os.Open(filePath)
 	if err != nil {

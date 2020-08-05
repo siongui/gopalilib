@@ -7,10 +7,19 @@ import (
 	"golang.org/x/net/html/charset"
 )
 
+// BypassReader is a workaround to process UTF-16 XML. See
+//
+//   https://groups.google.com/forum/#!topic/golang-nuts/tXcECEKC2rs
+//   https://stackoverflow.com/a/50812725
+//
+// for more information.
 func BypassReader(label string, input io.Reader) (io.Reader, error) {
 	return input, nil
 }
 
+// DecodeUtf16XML decodes UTF-16 encoded XML. The first argument could be an
+// UTF-16 encoded XML file opened by os.Open method. The seconde argument is the
+// struct used to decode the XML.
 func DecodeUtf16XML(r io.Reader, v interface{}) (err error) {
 	// Fail to decode: https://www.tipitaka.org/romn/cscd/vin01m.mul.toc.xml
 	// The Tipiṭaka XML is encoded in UTF-16

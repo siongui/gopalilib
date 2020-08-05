@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-// Save JSON data in file.
+// SaveJsonFile saves the data to JSON file.
 func SaveJsonFile(v interface{}, path string) {
 	fo, err := os.Create(path)
 	if err != nil {
@@ -19,7 +19,8 @@ func SaveJsonFile(v interface{}, path string) {
 	}
 }
 
-// LoadJsonConfig loads map[string]string data from json file
+// LoadJsonConfig loads map[string]string data from the json file. Make sure the
+// given JSON file is of the struct map[string]string.
 func LoadJsonConfig(fp string) (conf map[string]string, err error) {
 	f, err := os.Open(fp)
 	if err != nil {
