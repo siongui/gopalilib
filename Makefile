@@ -83,6 +83,7 @@ test_vfsbuild: fmt
 	@cd dicutil; go test -v vfsbuild.go vfsbuild_test.go -args -pkgdir=$(VFSDIR) -wordsJsonDir=$(OUTPUT_PALI_WORDS_JSON_DIR)
 	@cd dicutil; go test -v vfs_test.go -args -wordsJsonDir=$(OUTPUT_PALI_WORDS_JSON_DIR)
 
+# test_symlink must run after test_vfsbuild
 test_symlink: fmt
 	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"
 	@cd dicutil; go test -v symlink.go symlink_test.go -args -outputDir=$(OUTPUT_DIR)
@@ -125,10 +126,6 @@ install: install_palilib install_gojianfan lib_succinct_trie install_goef instal
 install_gojianfan:
 	@echo "\033[92mInstalling Go Chinese conversion package ...\033[0m"
 	go get -u github.com/siongui/gojianfan
-
-#install_gocc:
-#	@echo "\033[92mInstalling Golang version OpenCC package ...\033[0m"
-#	go get -u github.com/liuzl/gocc
 
 install_goef:
 	@echo "\033[92mInstalling Go file embedder ...\033[0m"
