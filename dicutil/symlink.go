@@ -16,11 +16,11 @@ import (
 )
 
 func conditionalPrint(word string) {
-	dontPrintEnv := []string{"TRAVIS", "GITLAB_CI"}
-	for _, ev := range dontPrintEnv {
-		if _, ok := os.LookupEnv(ev); ok {
-			return
-		}
+	if util.IsRunOnTravisCI() {
+		return
+	}
+	if util.IsRunOnGitLabCI() {
+		return
 	}
 	fmt.Println(word)
 }

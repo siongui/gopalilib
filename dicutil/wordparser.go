@@ -57,8 +57,8 @@ func processWord(record []string, wordsJsonDir string) {
 	// explanation of the pali word in one dictionary
 	explanation := record[6]
 
-	// Do not print info on TRAVIS CI build to prevent log explosion
-	if _, ok := os.LookupEnv("TRAVIS"); !ok {
+	// Do not print info on TRAVIS CI/GitLab CI build to prevent log explosion
+	if !util.IsRunOnTravisCI() && !util.IsRunOnGitLabCI() {
 		fmt.Println(num, word)
 	}
 
