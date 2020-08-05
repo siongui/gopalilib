@@ -47,10 +47,16 @@ test_string: fmt
 ##############################
 # Bootstrap/Setup Dictionary #
 ##############################
-# variables for testing
+# input file path for testing
 BookCSV=$(DATA_REPO_DIR)/dictionary/dict-books.csv
-OUTPUT_DIR=/tmp
-OutputBookJSON=$(OUTPUT_DIR)/BookIdAndInfos.json
+WordCSV1=$(DATA_REPO_DIR)/dictionary/dict_words_1.csv
+WordCSV2=$(DATA_REPO_DIR)/dictionary/dict_words_2.csv
+# output file path for testing
+OUTPUT_DIR=/tmp/pali/
+OUTPUT_METADATA_DIR=$(OUTPUT_DIR)/metadata/
+OutputBookJSON=$(OUTPUT_METADATA_DIR)/BookIdAndInfos.json
+OUTPUT_PALI_WORDS_JSON_DIR=$(OUTPUT_DIR)/json/
+
 test_bookparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary books ...\033[0m"
 	@cd dicutil; go test -v bookparser.go bookparser_test.go -args -BookCSV=$(BookCSV) -OutputBookJSON=$(OutputBookJSON)
@@ -58,7 +64,7 @@ test_bookparser: fmt
 test_wordparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary words ...\033[0m"
 	#@[ -d /tmp/paliwords/ ] || mkdir /tmp/paliwords/
-	@cd dicutil; go test -v wordparser.go wordparser_test.go lib.go path_test.go
+	@cd dicutil; go test -v wordparser.go wordparser_test.go lib.go -args -WordCSV1=$(WordCSV1) -WordCSV2=$(WordCSV2) -wordsJsonDir=$(OUTPUT_PALI_WORDS_JSON_DIR)
 
 # test_triebuild must run before test_vfsbuild. Or re-run test_wordparser
 test_triebuild: fmt
