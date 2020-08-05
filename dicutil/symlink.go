@@ -11,7 +11,6 @@ import (
 
 	"github.com/siongui/gopalilib/lib"
 	"github.com/siongui/gopalilib/util"
-	vfs "github.com/siongui/gopaliwordvfs"
 )
 
 // CreatePrefixSymlink create symbolic links for pages of Pali words to the root
@@ -103,7 +102,7 @@ func CreateWordSymlink(word, root string) (err error) {
 // Only one page: ``/index.html``
 //
 // All other webpages are symlinks to ``/index.html``
-func SymlinkToRootIndexHtml(websiteroot string) (err error) {
+func SymlinkToRootIndexHtml(websiteroot string, words []string) (err error) {
 	wd, err := os.Getwd()
 	if err != nil {
 		return
@@ -116,7 +115,6 @@ func SymlinkToRootIndexHtml(websiteroot string) (err error) {
 	//return
 
 	prefixs := make(map[string]bool)
-	words := vfs.MapKeys()
 	for _, word := range words {
 		// collect prefix of word
 		prefix := lib.GetFirstCharacterOfWord(word)
