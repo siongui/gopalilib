@@ -1,9 +1,15 @@
 # cannot use relative path in GOROOT, otherwise 6g not found. For example,
 #   export GOROOT=../go  (=> 6g not found)
 # it is also not allowed to use relative path in GOPATH
+GO_VERSION=1.12.17
+PRJDIR=$(CURDIR)
+ifndef GITLAB_CI
+PRJDIR=../paligo/
+endif
 ifndef TRAVIS
-	export GOROOT=$(realpath ../paligo/go)
-	export GOPATH=$(realpath ../paligo)
+	# set environment variables on local machine or GitLab CI
+	export GOROOT=$(realpath $(PRJDIR)/go)
+	export GOPATH=$(realpath $(PRJDIR))
 	export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 endif
 
@@ -157,3 +163,9 @@ fmt:
 
 clean:
 	rm -rf pkg/ src/
+
+download_go:
+	@echo "\033[92mDownloading and Installing Go ...\033[0m"
+	@wget https://golang.org/dl/go$(GO_VERSION).linux-amd64.tar.gz
+	@tar -xvzf go$(GO_VERSION).linux-amd64.tar.gz
+	@rm go$(GO_VERSION).linux-amd64.tar.gz

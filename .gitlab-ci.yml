@@ -1,0 +1,33 @@
+# https://hub.docker.com/_/ubuntu
+# The ubuntu:latest tag points to the "latest LTS"
+image: ubuntu:latest
+
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+  # https://rtfm.co.ua/en/docker-configure-tzdata-and-timezone-during-build/
+  # https://askubuntu.com/a/1098881
+  - export TZ=Asia/Taipei
+  - ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+  # https://stackoverflow.com/a/58072486
+  - apt-get update
+  - apt-get install -y wget make git gettext
+  - make clone_pali_data
+  - make download_go
+  - make install
+  # test common library for online/offline, dictionary/tipitaka
+  - make test_lib
+  # test bootstrap/setup dictionary
+  - make test_bookparser
+  - make test_wordparser
+  # test_triebuild must run before test_vfsbuild. Or ru-run test_wordparser
+  - make test_triebuild
+  - make test_vfsbuild
+  - make test_symlink
+  # misc
+  - make test_util
+  only:
+  - master
