@@ -139,6 +139,7 @@ func ParseDictionayBookCSV(inBookCsv, outJson string) {
 	}
 
 	// save parsed result in JSON file
+	util.CreateDirIfNotExist(outJson)
 	util.SaveJsonFile(di, outJson)
 
 	util.PrettyPrint(di)
