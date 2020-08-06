@@ -26,11 +26,11 @@ current_working_target: test_lib
 ##########################################################
 test_lib: test_filter test_string test_lib_url_dictionary test_lib_trie
 	@echo "\033[92mTesting common library for online/offline dictionary/tipitaka ...\033[0m"
-	@cd lib; go test -v dictionary.go filter.go json.go string.go tipitaka.go filter_test.go
+	@cd lib; go test -v $(shell cd lib; ls *.go)
 
 test_filter: fmt
 	@echo "\033[92mTesting filter methods in common library for online/offline dictionary/tipitaka ...\033[0m"
-	@cd lib; go test -v dictionary.go filter.go filter_test.go
+	@cd lib; go test -v dictionary.go filter.go setting.go filter_test.go
 
 test_string: fmt
 	@echo "\033[92mTesting string methods in common library for online/offline dictionary/tipitaka ...\033[0m"
