@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/siongui/gopalilib/lib"
+	"github.com/siongui/gopalilib/lib/trie"
 	"github.com/siongui/gopalilib/util"
 )
 
@@ -23,7 +23,7 @@ func BuildSuccinctTrieFromDir(wordsJsonDir, trieJsonPath string) (err error) {
 		}
 	}
 
-	b, err := lib.BuildPaliTrieData(words)
+	b, err := trie.BuildPaliTrieData(words)
 	if err != nil {
 		return
 	}

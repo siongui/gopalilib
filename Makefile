@@ -129,6 +129,8 @@ install: install_palilib install_goef
 
 install_palilib:
 	go get -u github.com/siongui/gopalilib/lib
+	go get -u github.com/siongui/gopalilib/lib/dictionary
+	go get -u github.com/siongui/gopalilib/lib/trie
 	go get -u github.com/siongui/gopalilib/util
 
 install_goef:
@@ -139,11 +141,11 @@ install_local:
 	@echo "\033[92mInstall ${PALILIB} locally ...\033[0m"
 	@rm -rf ${PALILIB}
 	@mkdir -p ${PALILIB}
-	@cp -r lib/*.go ${PALILIB}/
+	@cp -r lib/* ${PALILIB}/
 	@echo "\033[92mInstall ${PALIUTIL} locally ...\033[0m"
 	@rm -rf ${PALIUTIL}
 	@mkdir -p ${PALIUTIL}
-	@cp -r util/*.go ${PALIUTIL}/
+	@cp -r util/* ${PALIUTIL}/
 
 # installed by go get -u github.com/siongui/gopalilib/lib (install_palilib)
 lib_succinct_trie:

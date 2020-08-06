@@ -9,7 +9,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/siongui/gopalilib/lib"
+	dic "github.com/siongui/gopalilib/lib/dictionary"
 	"github.com/siongui/gopalilib/util"
 )
 
@@ -29,7 +29,7 @@ func CreatePrefixSymlink(prefix, root string) (err error) {
 		return
 	}
 
-	prefixIndex := filepath.Join(lib.PrefixUrlPath(prefix), "index.html")
+	prefixIndex := filepath.Join(dic.PrefixUrlPath(prefix), "index.html")
 	// remove heading /
 	prefixIndex = prefixIndex[1:]
 	//fmt.Println("prefix index.html path:", prefixIndex)
@@ -63,7 +63,7 @@ func CreatePrefixSymlink(prefix, root string) (err error) {
 // This page contains the definition of the Pali word.
 func CreateWordSymlink(word, root string) (err error) {
 	// create dir of the word
-	wordIndexAbs := filepath.Join(root, lib.WordUrlPath(word), "index.html")
+	wordIndexAbs := filepath.Join(root, dic.WordUrlPath(word), "index.html")
 	util.CreateDirIfNotExist(wordIndexAbs)
 	//fmt.Println("wordIndexAbs:", wordIndexAbs)
 
@@ -72,7 +72,7 @@ func CreateWordSymlink(word, root string) (err error) {
 		return
 	}
 
-	wordIndex := filepath.Join(lib.WordUrlPath(word), "index.html")
+	wordIndex := filepath.Join(dic.WordUrlPath(word), "index.html")
 	// remove heading /
 	wordIndex = wordIndex[1:]
 	//fmt.Println("word index.html path:", wordIndex)
@@ -117,7 +117,7 @@ func SymlinkToRootIndexHtml(websiteroot string, words []string) (err error) {
 	prefixs := make(map[string]bool)
 	for _, word := range words {
 		// collect prefix of word
-		prefix := lib.GetFirstCharacterOfWord(word)
+		prefix := dic.GetFirstCharacterOfWord(word)
 		if _, ok := prefixs[prefix]; !ok {
 			prefixs[prefix] = true
 		}
