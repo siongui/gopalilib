@@ -1,5 +1,3 @@
-// Package dicutil provides methods for offline processing to build Pāli
-// Dictionary.
 package dicutil
 
 // This file make symlinks for Pāli Dictionary SPA (Single Page Application)

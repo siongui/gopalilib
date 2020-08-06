@@ -1,4 +1,5 @@
 // Package tpkutil provides methods to process Pāli Tipiṭaka data.
+// This package is for offline processing and not used in frontend code.
 package tpkutil
 
 // Download Tipiṭaka xml from https://www.tipitaka.org/romn/

@@ -1,3 +1,5 @@
+// Package util provides helper methods for development.
+// This package is for offline processing and not used in frontend code.
 package util
 
 import (

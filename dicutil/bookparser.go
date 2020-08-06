@@ -1,3 +1,6 @@
+// Package dicutil provides methods for offline processing to build Pāli
+// Dictionary.
+// This package is for offline processing and not used in frontend code.
 package dicutil
 
 // In this script, we will parse information about dictionaries and build the

@@ -143,9 +143,9 @@ test_util: fmt
 install: install_palilib install_goef
 
 install_palilib:
-	go get -u github.com/siongui/gopalilib/lib
+	#go get -u github.com/siongui/gopalilib/lib
+	#go get -u github.com/siongui/gopalilib/lib/trie
 	go get -u github.com/siongui/gopalilib/lib/dictionary
-	go get -u github.com/siongui/gopalilib/lib/trie
 	go get -u github.com/siongui/gopalilib/lib/dicmgr
 	go get -u github.com/siongui/gopalilib/util
 
