@@ -12,7 +12,13 @@ type TrieData struct {
 	RankDirectoryData string
 }
 
-// TODO: add func to set allowed characters
+var allowedCharacters = "abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -"
+
+// SetAllowedCharacters sets allowed alphabet of trie. Note that " "
+// (whitespace) must be included in the alphabet even if it is not used.
+func SetAllowedCharacters(alphabet string) {
+	allowedCharacters = alphabet
+}
 
 // TrieToJson outputs JSON []byte of TrieData struct.
 func TrieToJson(t bits.Trie) ([]byte, error) {
@@ -37,7 +43,7 @@ func JsonToTrie(b []byte) (td TrieData, err error) {
 // BuildPaliTrieData outputs JSON format trie data.
 func BuildPaliTrieData(paliwords []string) ([]byte, error) {
 	// set alphabet of words
-	bits.SetAllowedCharacters("abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -")
+	bits.SetAllowedCharacters(allowedCharacters)
 	// encode: build succinct trie
 	t := bits.Trie{}
 	t.Init()
@@ -53,7 +59,7 @@ func BuildPaliTrieData(paliwords []string) ([]byte, error) {
 // LoadPaliTrieData returns frozen trie from JSON []byte of TrieData struct.
 func LoadPaliTrieData(b []byte) (ft bits.FrozenTrie, err error) {
 	// set alphabet of words
-	bits.SetAllowedCharacters("abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -")
+	bits.SetAllowedCharacters(allowedCharacters)
 
 	td, err := JsonToTrie(b)
 	if err != nil {
