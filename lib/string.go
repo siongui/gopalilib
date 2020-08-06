@@ -12,3 +12,14 @@ func RemoveLastChar(str string) string {
 	}
 	return str
 }
+
+// GetFirstCharacter returns first character of input string. For example, āpadā
+// will return ā
+func GetFirstCharacter(word string) string {
+	result := ""
+	if len(word) > 0 {
+		runeValue, _ := utf8.DecodeRuneInString(word)
+		result = string(runeValue)
+	}
+	return result
+}
