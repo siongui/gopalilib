@@ -1,4 +1,3 @@
-// Package dicmgr provides high-level methods to access dictionary data.
 package dicmgr
 
 // Message | Bulma

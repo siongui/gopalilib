@@ -35,6 +35,7 @@ This repository consist of:
    - test_triebuild needs test_wordparser
    - test_vfsbuild needs test_wordparser
    - test_symlink needs test_vfsbuild
+   - test_embedmetadata needs test_bookparser and test_triebuild
 
 2. Bootstrap/setup Tipiṭaka (Offline data processing).
    The code is located in `tpkutil <tpkutil>`_.

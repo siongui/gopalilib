@@ -19,12 +19,12 @@ DATA_REPO_DIR=$(CURDIR)/data
 VFSDIR=$(GOPATH)/src/pali/words/vfspkg
 
 
-current_working_target: test_lib
+current_working_target: test_dicmgr
 
 ##########################################################
 # Common library for online/offline, dictionary/tipitaka #
 ##########################################################
-test_lib: test_filter test_string test_lib_url_dictionary test_lib_trie
+test_lib: test_filter test_string test_lib_url_dictionary test_lib_trie test_dicmgr
 	@echo "\033[92mTesting common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v $(shell cd lib; ls *.go)
 
@@ -45,6 +45,10 @@ test_lib_trie: fmt
 test_lib_url_dictionary: fmt
 	@echo "\033[92mTesting url methods in common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib/dictionary; go test -v url.go url_test.go
+
+test_dicmgr: fmt
+	@echo "\033[92mTesting dictionary manager in common library for online/offline dictionary/tipitaka ...\033[0m"
+	@cd lib/dicmgr/; go test -v
 #################################################################
 # End of Common library for online/offline, dictionary/tipitaka #
 #################################################################
