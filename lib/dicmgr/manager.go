@@ -11,7 +11,7 @@ import (
 	"github.com/siongui/gopalilib/lib/trie"
 )
 
-var di lib.BookIdAndInfos
+var bookIdAndInfos lib.BookIdAndInfos
 var ft bits.FrozenTrie
 
 func init() {
@@ -19,7 +19,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	err = json.Unmarshal(b, &di)
+	err = json.Unmarshal(b, &bookIdAndInfos)
 	if err != nil {
 		panic(err)
 	}
