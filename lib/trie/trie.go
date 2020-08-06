@@ -1,4 +1,4 @@
-package lib
+package trie
 
 import (
 	"encoding/json"
