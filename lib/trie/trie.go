@@ -1,3 +1,5 @@
+// Package trie provides methods for building and loading succinct data
+// structure trie for Pāli Dictionary.
 package trie
 
 import (
@@ -6,6 +8,7 @@ import (
 	bits "github.com/siongui/go-succinct-data-structure-trie"
 )
 
+// TrieData struct stores data of the constructed succinct trie.
 type TrieData struct {
 	EncodedData       string
 	NodeCount         uint
