@@ -1,6 +1,6 @@
-// Package lib is common library for Pāli Dictionary and Pāli Tipiṭaka. This
-// package consists of common data structures and methods to be shared and used
-// in front-end (browser), back-end (server), and offline data processing.
+// Package lib is common library for Pāli Dictionary and Pāli Tipiṭaka.
+// This package consists of common data structures and methods to be shared and
+// used in front-end (browser), back-end (server), and offline data processing.
 package lib
 
 import (

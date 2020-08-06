@@ -1,4 +1,6 @@
 // Package dicmgr provides high-level methods to access dictionary data.
+// This package consists of common data structures and methods to be shared and
+// used in front-end (browser), back-end (server), and offline data processing.
 package dicmgr
 
 import (

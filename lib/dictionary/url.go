@@ -1,4 +1,6 @@
 // Package dictionary provides dictionary-specific methods for Pāli Dictionary.
+// This package consists of common data structures and methods to be shared and
+// used in front-end (browser), back-end (server), and offline data processing.
 package dictionary
 
 import (

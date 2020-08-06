@@ -1,5 +1,7 @@
 // Package trie provides methods for building and loading succinct data
 // structure trie for Pāli Dictionary.
+// This package consists of common data structures and methods to be shared and
+// used in front-end (browser), back-end (server), and offline data processing.
 package trie
 
 import (
