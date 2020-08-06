@@ -131,6 +131,7 @@ install_palilib:
 	go get -u github.com/siongui/gopalilib/lib
 	go get -u github.com/siongui/gopalilib/lib/dictionary
 	go get -u github.com/siongui/gopalilib/lib/trie
+	go get -u github.com/siongui/gopalilib/lib/dicmgr
 	go get -u github.com/siongui/gopalilib/util
 
 install_goef:
@@ -174,6 +175,7 @@ fmt:
 	@go fmt lib/*.go
 	@go fmt lib/dictionary/*.go
 	@go fmt lib/trie/*.go
+	@go fmt lib/dicmgr/*.go
 	@go fmt dicutil/*.go
 	@go fmt tpkutil/*.go
 	@go fmt util/*.go
