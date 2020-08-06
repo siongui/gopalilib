@@ -1,4 +1,4 @@
-package lib
+package dictionary
 
 import (
 	"testing"

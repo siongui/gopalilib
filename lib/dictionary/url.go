@@ -1,4 +1,5 @@
-package lib
+// Package dictionary provides dictionary-specific methods for Pāli Dictionary.
+package dictionary
 
 import (
 	"net/url"
