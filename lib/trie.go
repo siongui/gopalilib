@@ -12,6 +12,8 @@ type TrieData struct {
 	RankDirectoryData string
 }
 
+// TODO: add func to set allowed characters
+
 // TrieToJson outputs JSON []byte of TrieData struct.
 func TrieToJson(t bits.Trie) ([]byte, error) {
 	// encode: build cache for quick lookup

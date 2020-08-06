@@ -62,9 +62,7 @@ OUTPUT_DIR=/tmp/pali/
 OUTPUT_METADATA_DIR=$(OUTPUT_DIR)/metadata/
 OutputBookJSON=$(OUTPUT_METADATA_DIR)/BookIdAndInfos.json
 OUTPUT_PALI_WORDS_JSON_DIR=$(OUTPUT_DIR)/json/
-TrieData=$(OUTPUT_METADATA_DIR)/trie-data.txt
-TrieNodeCount=$(OUTPUT_METADATA_DIR)/trie-node-count.txt
-TrieRankDirectoryData=$(OUTPUT_METADATA_DIR)/trie-rank-directory-data.txt
+TrieJSON=$(OUTPUT_METADATA_DIR)/trie.json
 
 test_dictionary: test_bookparser test_wordparser test_triebuild test_vfsbuild test_symlink
 
@@ -80,7 +78,7 @@ test_wordparser: fmt
 # test_triebuild must run after test_wordparser
 test_triebuild: fmt
 	@echo "\033[92mTesting building succinct trie ...\033[0m"
-	@cd dicutil; go test -v triebuild.go triebuild_test.go -args -wordsJsonDir=$(OUTPUT_PALI_WORDS_JSON_DIR) -trieData=$(TrieData) -trieNodeCount=$(TrieNodeCount) -trieRankDirectoryData=$(TrieRankDirectoryData)
+	@cd dicutil; go test -v triebuild.go triebuild_test.go -args -wordsJsonDir=$(OUTPUT_PALI_WORDS_JSON_DIR) -trieJson=$(TrieJSON)
 
 # test_vfsbuild must run after test_wordparser
 test_vfsbuild: fmt
@@ -127,7 +125,7 @@ test_util: fmt
 ###################
 # Install Library #
 ###################
-install: install_palilib lib_succinct_trie install_goef
+install: install_palilib install_goef
 
 install_palilib:
 	go get -u github.com/siongui/gopalilib/lib
@@ -136,10 +134,6 @@ install_palilib:
 install_goef:
 	@echo "\033[92mInstalling Go file embedder ...\033[0m"
 	go get -u github.com/siongui/goef
-
-lib_succinct_trie:
-	@echo "\033[92mInstalling Go Succinct Trie library ...\033[0m"
-	go get -u github.com/siongui/go-succinct-data-structure-trie
 
 install_local:
 	@echo "\033[92mInstall ${PALILIB} locally ...\033[0m"
@@ -150,6 +144,11 @@ install_local:
 	@rm -rf ${PALIUTIL}
 	@mkdir -p ${PALIUTIL}
 	@cp -r util/*.go ${PALIUTIL}/
+
+# installed by go get -u github.com/siongui/gopalilib/lib (install_palilib)
+lib_succinct_trie:
+	@echo "\033[92mInstalling Go Succinct Trie library ...\033[0m"
+	go get -u github.com/siongui/go-succinct-data-structure-trie
 
 # installed by go get -u github.com/siongui/gopalilib/util (install_palilib)
 install_gojianfan:
