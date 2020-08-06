@@ -14,5 +14,6 @@ func TestBuildSuccinctTrieFromDir(t *testing.T) {
 	err := BuildSuccinctTrieFromDir(*wordsJsonDir, *trieData, *trieNodeCount, *trieRankDirectoryData)
 	if err != nil {
 		t.Error(err)
+		return
 	}
 }
