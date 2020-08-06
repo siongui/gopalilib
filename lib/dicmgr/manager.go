@@ -35,6 +35,13 @@ func init() {
 	}
 }
 
+// Lookup returns if the word is in the dictionary.
 func Lookup(word string) bool {
 	return ft.Lookup(word)
+}
+
+// GetSuggestedWords returns suggested words starting with prefix, and the
+// number of returned suggested words is limited by second argument.
+func GetSuggestedWords(prefix string, limit int) []string {
+	return ft.GetSuggestedWords(prefix, limit)
 }

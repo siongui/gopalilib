@@ -9,4 +9,18 @@ func TestLookup(t *testing.T) {
 		t.Error(`Lookup("sacca")`)
 		return
 	}
+
+	if Lookup("sacc") == true {
+		t.Error(`Lookup("sacc")`)
+		return
+	}
+}
+
+func TestGetSuggestedWords(t *testing.T) {
+	sw := GetSuggestedWords("s", 10)
+	if len(sw) != 11 {
+		t.Error(`len(sw) != 10`)
+		t.Error(sw)
+		return
+	}
 }
