@@ -39,6 +39,8 @@ test_url: fmt
 test_trie: fmt
 	@echo "\033[92mTesting trie methods in common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v trie.go trie_test.go
+	@cd lib; go test -v trie.go savetrie_test.go
+	@cd lib; go test -v trie.go loadtrie_test.go
 
 test_string: fmt
 	@echo "\033[92mTesting string methods in common library for online/offline dictionary/tipitaka ...\033[0m"
