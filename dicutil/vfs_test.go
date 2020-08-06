@@ -11,7 +11,7 @@ import (
 	"testing"
 
 	"github.com/siongui/gopalilib/util"
-	vfs "github.com/siongui/gopaliwordvfs"
+	"pali/words/vfspkg"
 )
 
 var wordsJsonDir = flag.String("wordsJsonDir", ".", "output dir of json files of pali words")
@@ -26,7 +26,7 @@ func TestVFS(t *testing.T) {
 	total := 0
 	for i, file := range files {
 		wordname := strings.TrimSuffix(file.Name(), ".json")
-		bVfs, err := vfs.ReadFile(wordname)
+		bVfs, err := vfspkg.ReadFile(wordname)
 		if err != nil {
 			t.Error(err)
 			return
@@ -48,7 +48,7 @@ func TestVFS(t *testing.T) {
 		total++
 	}
 
-	wordnames := vfs.MapKeys()
+	wordnames := vfspkg.MapKeys()
 	if len(wordnames) == total {
 		fmt.Println("total number of json file correct")
 	} else {
