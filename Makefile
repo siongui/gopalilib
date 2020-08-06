@@ -63,8 +63,9 @@ OUTPUT_METADATA_DIR=$(OUTPUT_DIR)/metadata/
 OutputBookJSON=$(OUTPUT_METADATA_DIR)/BookIdAndInfos.json
 OUTPUT_PALI_WORDS_JSON_DIR=$(OUTPUT_DIR)/json/
 TrieJSON=$(OUTPUT_METADATA_DIR)/trie.json
+OUTPUT_METADATA_GO_FILE=$(CURDIR)/lib/dicmgr/data.go
 
-test_dictionary: test_bookparser test_wordparser test_triebuild test_vfsbuild test_symlink
+test_dictionary: test_bookparser test_wordparser test_triebuild test_vfsbuild test_symlink test_embedmetadata test_check_compile
 
 test_bookparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary books ...\033[0m"
@@ -91,6 +92,16 @@ test_vfsbuild: fmt
 test_symlink: fmt
 	@echo "\033[92mTesting making Pāli Dictionary symlinks for GitHub Pages...\033[0m"
 	@cd dicutil; go test -v symlink.go symlink_test.go -args -outputDir=$(OUTPUT_DIR)
+
+# run after test_bookparser and test_triebuild
+test_embedmetadata: fmt
+	@echo "\033[92mTesting embed metadata into Go code...\033[0m"
+	@cd dicutil; go test -v embedmetadata.go embedmetadata_test.go -args -metadataDir=$(OUTPUT_METADATA_DIR) -outputGoFilePath=$(OUTPUT_METADATA_GO_FILE)
+	@make fmt
+
+test_check_compile: fmt
+	@echo "\033[92mTesting checking compile of dicutil...\033[0m"
+	cd dicutil; go test -v $(shell cd dicutil; ls | grep -v _test.go)
 #####################################
 # End of Bootstrap/Setup Dictionary #
 #####################################
