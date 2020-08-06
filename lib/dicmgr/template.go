@@ -29,6 +29,21 @@ const HtmlTemplateSuggestedWords = `
 <div>{{$word}}</div>
 {{end}}`
 
+// HtmlTemplateWordPreview is html template for word preview
+const HtmlTemplateWordPreview = `
+<span class="previewWordName">{{ .Word }}</span>
+{{range $bnwe := .BookNameShortExps}}
+<div class="shortDicExp">
+  <span>{{$bnwe.BookName}}</span>
+  <span>{{$bnwe.Explanation}}</span>
+</div>
+{{end}}`
+
+type wordPreview struct {
+	Word              string
+	BookNameShortExps []lib.BookNameWordExp
+}
+
 // GetWordDefinitionHtml returns the html string of word definition according to
 // setting and window.navigator.languages
 func GetWordDefinitionHtml(wi lib.BookIdWordExps, setting lib.PaliSetting, navigatorLanguages string) string {
@@ -55,6 +70,28 @@ func GetSuggestedWordsHtml(words []string) string {
 	t1, _ := template.New("suggestedWords").Parse(HtmlTemplateSuggestedWords)
 	var buf bytes.Buffer
 	err := t1.Execute(&buf, words)
+	if err != nil {
+		return err.Error()
+	}
+	return buf.String()
+}
+
+// GetWordPreviewHtml returns the html string of word preview according to
+// setting and window.navigator.languages
+func GetWordPreviewHtml(word string, wi lib.BookIdWordExps, setting lib.PaliSetting, navigatorLanguages string) string {
+	// bnwes: (Book-Name, Word-Explanation)s
+	idexps := lib.BookIdWordExps2IdExpsAccordingToSetting(wi, bookIdAndInfos, setting, navigatorLanguages)
+	bnwes := lib.IdExps2BookNameWordExps(
+		lib.ShortExplanation(idexps, bookIdAndInfos),
+		bookIdAndInfos,
+	)
+	t1, err := template.New("wordExplanationPreview").Parse(HtmlTemplateWordPreview)
+	if err != nil {
+		return err.Error()
+	}
+	wp := wordPreview{word, bnwes}
+	var buf bytes.Buffer
+	err = t1.Execute(&buf, wp)
 	if err != nil {
 		return err.Error()
 	}

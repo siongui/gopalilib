@@ -63,3 +63,47 @@ func TestGetSuggestedWordsHtml(t *testing.T) {
 	}
 	//t.Log(html)
 }
+
+func TestGetWordPreviewHtml(t *testing.T) {
+	word := "sacca"
+	resp, err := http.Get(HttpWordJsonPath(word))
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		t.Error(`resp.StatusCode != 200`)
+		return
+	}
+
+	wi, err := lib.DecodeHttpRespWord(resp.Body)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	setting := lib.PaliSetting{
+		IsShowWordPreview: false,
+		P2en:              true,
+		P2ja:              true,
+		P2zh:              true,
+		P2vi:              true,
+		P2my:              true,
+		DicLangOrder:      "hdr",
+	}
+
+	html := GetWordPreviewHtml(word, wi, setting, `en-US,en,zh-TW`)
+	if !strings.Contains(html, "<span>巴利文-漢文佛學名相辭匯 翻譯：張文明</span>") {
+		t.Error(html)
+		return
+	}
+
+	setting.P2zh = false
+	html = GetWordDefinitionHtml(wi, setting, `en-US,en,zh-TW`)
+	if strings.Contains(html, "<span>巴利文-漢文佛學名相辭匯 翻譯：張文明</span>") {
+		t.Error(html)
+		return
+	}
+	//t.Log(html)
+}
