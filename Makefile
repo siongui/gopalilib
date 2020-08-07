@@ -17,14 +17,15 @@ PALILIB=$(GOPATH)/src/github.com/siongui/gopalilib/lib
 PALIUTIL=$(GOPATH)/src/github.com/siongui/gopalilib/util
 DATA_REPO_DIR=$(CURDIR)/data
 VFSDIR=$(GOPATH)/src/pali/words/vfspkg
+LOCALE_DIR=$(CURDIR)/locale
 
 
-current_working_target: test_dicmgr
+current_working_target: test_lib_gettext
 
 ##########################################################
 # Common library for online/offline, dictionary/tipitaka #
 ##########################################################
-test_lib: test_filter test_string test_lib_url_dictionary test_lib_trie test_dicmgr
+test_lib: test_filter test_string test_lib_url_dictionary test_lib_trie test_lib_dicmgr test_lib_gettext
 	@echo "\033[92mTesting common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v $(shell cd lib; ls *.go)
 
@@ -46,9 +47,13 @@ test_lib_url_dictionary: fmt
 	@echo "\033[92mTesting url methods in common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib/dictionary; go test -v url.go url_test.go
 
-test_dicmgr: fmt
+test_lib_dicmgr: fmt
 	@echo "\033[92mTesting dictionary manager in common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib/dicmgr/; go test -v
+
+test_lib_gettext: fmt
+	@echo "\033[92mTesting gettext in common library for online/offline dictionary/tipitaka ...\033[0m"
+	@cd lib/gettext/; go test -v -args -localeDir=$(LOCALE_DIR)
 #################################################################
 # End of Common library for online/offline, dictionary/tipitaka #
 #################################################################
@@ -191,6 +196,7 @@ fmt:
 	@go fmt lib/dictionary/*.go
 	@go fmt lib/trie/*.go
 	@go fmt lib/dicmgr/*.go
+	@go fmt lib/gettext/*.go
 	@go fmt dicutil/*.go
 	@go fmt tpkutil/*.go
 	@go fmt util/*.go
