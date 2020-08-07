@@ -33,7 +33,7 @@ func TestGettext(t *testing.T) {
 }
 
 func TestEmbedPOJSONInGoCode(t *testing.T) {
-	err := EmbedPOJSONInGoCode("messages", *localeDir, "gettext", *outputGoDataFilePath)
+	err := EmbedPOJSONInGoCode("messages", *localeDir, "jsgettext", *outputGoDataFilePath)
 	if err != nil {
 		t.Error(err)
 		return

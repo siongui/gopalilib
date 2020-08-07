@@ -21,12 +21,12 @@ LOCALE_DIR=$(CURDIR)/locale
 TIPITAKA_XML_DIR=/tmp/tpkxml/
 
 
-current_working_target: test_lib_gettext
+current_working_target: test_lib_jsgettext
 
 ##########################################################
 # Common library for online/offline, dictionary/tipitaka #
 ##########################################################
-test_lib: test_filter test_string test_lib_url_dictionary test_lib_trie test_lib_dicmgr test_lib_gettext
+test_lib: test_filter test_string test_lib_url_dictionary test_lib_trie test_lib_dicmgr test_lib_gettext test_lib_jsgettext
 	@echo "\033[92mTesting common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v $(shell cd lib; ls *.go)
 
@@ -55,6 +55,10 @@ test_lib_dicmgr: fmt
 test_lib_gettext: fmt
 	@echo "\033[92mTesting gettext in common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib/gettext/; go test -v -args -localeDir=$(LOCALE_DIR)
+
+test_lib_jsgettext: fmt
+	@echo "\033[92mTesting jsgettext in common library for online/offline dictionary/tipitaka ...\033[0m"
+	@cd lib/jsgettext/; go test -v
 #################################################################
 # End of Common library for online/offline, dictionary/tipitaka #
 #################################################################
@@ -74,7 +78,7 @@ OutputBookJSON=$(OUTPUT_METADATA_DIR)/BookIdAndInfos.json
 OUTPUT_PALI_WORDS_JSON_DIR=$(OUTPUT_DIR)/json/
 TrieJSON=$(OUTPUT_METADATA_DIR)/trie.json
 OUTPUT_METADATA_GO_FILE=$(CURDIR)/lib/dicmgr/data.go
-OUTPUT_POJSON_GO_FILE=$(CURDIR)/lib/gettext/data.go
+OUTPUT_POJSON_GO_FILE=$(CURDIR)/lib/jsgettext/data.go
 
 test_dictionary: test_po2json test_bookparser test_wordparser test_triebuild test_vfsbuild test_symlink test_embedmetadata test_check_compile
 
@@ -210,6 +214,7 @@ fmt:
 	@go fmt lib/trie/*.go
 	@go fmt lib/dicmgr/*.go
 	@go fmt lib/gettext/*.go
+	@go fmt lib/jsgettext/*.go
 	@go fmt dicutil/*.go
 	@go fmt tpkutil/*.go
 	@go fmt util/*.go
