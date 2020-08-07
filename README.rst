@@ -30,6 +30,7 @@ This repository consist of:
 2. Bootstrap/setup Dictionary (Offline data processing).
    The code is located in `dicutil <dicutil>`_.
 
+   - test_po2json
    - test_bookparser
    - test_wordparser
    - test_triebuild needs test_wordparser

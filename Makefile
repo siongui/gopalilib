@@ -74,12 +74,14 @@ OutputBookJSON=$(OUTPUT_METADATA_DIR)/BookIdAndInfos.json
 OUTPUT_PALI_WORDS_JSON_DIR=$(OUTPUT_DIR)/json/
 TrieJSON=$(OUTPUT_METADATA_DIR)/trie.json
 OUTPUT_METADATA_GO_FILE=$(CURDIR)/lib/dicmgr/data.go
+OUTPUT_POJSON_GO_FILE=$(CURDIR)/lib/gettext/data.go
 
 test_dictionary: test_po2json test_bookparser test_wordparser test_triebuild test_vfsbuild test_symlink test_embedmetadata test_check_compile
 
 test_po2json: fmt
 	@echo "\033[92mTesting converting PO files to JSON file ...\033[0m"
-	cd dicutil; go test -v po2json.go po2json_test.go -args -localeDir=$(LOCALE_DIR)
+	cd dicutil; go test -v po2json.go po2json_test.go -args -localeDir=$(LOCALE_DIR) -outputGoDataFilePath=$(OUTPUT_POJSON_GO_FILE)
+	@make fmt
 
 test_bookparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary books ...\033[0m"
