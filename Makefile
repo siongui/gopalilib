@@ -21,7 +21,7 @@ LOCALE_DIR=$(CURDIR)/locale
 TIPITAKA_XML_DIR=/tmp/tpkxml/
 
 
-current_working_target: test_po2json
+current_working_target: test_lib_gettext
 
 ##########################################################
 # Common library for online/offline, dictionary/tipitaka #
