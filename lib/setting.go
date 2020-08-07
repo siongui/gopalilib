@@ -11,3 +11,15 @@ type PaliSetting struct {
 	P2my              bool   `json:"p2my"`
 	DicLangOrder      string `json:"dicLangOrder"`
 }
+
+func GetDefaultPaliSetting() PaliSetting {
+	return PaliSetting{
+		IsShowWordPreview: false,
+		P2en:              true,
+		P2ja:              true,
+		P2zh:              true,
+		P2vi:              true,
+		P2my:              true,
+		DicLangOrder:      "hdr",
+	}
+}

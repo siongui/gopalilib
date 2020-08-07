@@ -47,11 +47,17 @@ type wordPreview struct {
 // GetWordDefinitionHtml returns the html string of word definition according to
 // setting and window.navigator.languages
 func GetWordDefinitionHtml(wi lib.BookIdWordExps, setting lib.PaliSetting, navigatorLanguages string) string {
+	return GetWordDefinitionHtmlWithCustomTemplate(wi, setting, navigatorLanguages, HtmlTemplateBookNameWordExps)
+}
+
+// GetWordDefinitionHtmlWithCustomTemplate is the same as GetWordDefinitionHtml,
+// except the html template is given by the caller.
+func GetWordDefinitionHtmlWithCustomTemplate(wi lib.BookIdWordExps, setting lib.PaliSetting, navigatorLanguages, tmpl string) string {
 	bnwes := lib.IdExps2BookNameWordExps(
 		lib.BookIdWordExps2IdExpsAccordingToSetting(wi, bookIdAndInfos, setting, navigatorLanguages),
 		bookIdAndInfos)
 
-	t1, err := template.New("wordExplanation").Parse(HtmlTemplateBookNameWordExps)
+	t1, err := template.New("wordExplanation").Parse(tmpl)
 	if err != nil {
 		return err.Error()
 	}
@@ -79,13 +85,19 @@ func GetSuggestedWordsHtml(words []string) string {
 // GetWordPreviewHtml returns the html string of word preview according to
 // setting and window.navigator.languages
 func GetWordPreviewHtml(word string, wi lib.BookIdWordExps, setting lib.PaliSetting, navigatorLanguages string) string {
+	return GetWordPreviewHtmlWithCustomTemplate(word, wi, setting, navigatorLanguages, HtmlTemplateWordPreview)
+}
+
+// GetWordPreviewHtmlWithCustomTemplate is the same as GetWordPreviewHtml,
+// except the html template is given by the caller.
+func GetWordPreviewHtmlWithCustomTemplate(word string, wi lib.BookIdWordExps, setting lib.PaliSetting, navigatorLanguages, tmpl string) string {
 	// bnwes: (Book-Name, Word-Explanation)s
 	idexps := lib.BookIdWordExps2IdExpsAccordingToSetting(wi, bookIdAndInfos, setting, navigatorLanguages)
 	bnwes := lib.IdExps2BookNameWordExps(
 		lib.ShortExplanation(idexps, bookIdAndInfos),
 		bookIdAndInfos,
 	)
-	t1, err := template.New("wordExplanationPreview").Parse(HtmlTemplateWordPreview)
+	t1, err := template.New("wordExplanationPreview").Parse(tmpl)
 	if err != nil {
 		return err.Error()
 	}

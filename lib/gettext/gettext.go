@@ -1,5 +1,8 @@
 // Package gettext provides methods for translations, similar to GNU gettext
-// function.
+// function but much simpler. Call SetupTranslationMapping method to set up
+// translation data before the use of Gettext method.
+// This package consists of common data structures and methods to be shared and
+// used in front-end (browser), back-end (server), and offline data processing.
 package gettext
 
 import (

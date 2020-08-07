@@ -30,15 +30,7 @@ func TestGetWordDefinitionHtml(t *testing.T) {
 		return
 	}
 
-	setting := lib.PaliSetting{
-		IsShowWordPreview: false,
-		P2en:              true,
-		P2ja:              true,
-		P2zh:              true,
-		P2vi:              true,
-		P2my:              true,
-		DicLangOrder:      "hdr",
-	}
+	setting := lib.GetDefaultPaliSetting()
 
 	html := GetWordDefinitionHtml(wi, setting, `en-US,en,zh-TW`)
 	if !strings.Contains(html, "<p>巴利文-漢文佛學名相辭匯 翻譯：張文明</p>") {
@@ -83,15 +75,7 @@ func TestGetWordPreviewHtml(t *testing.T) {
 		return
 	}
 
-	setting := lib.PaliSetting{
-		IsShowWordPreview: false,
-		P2en:              true,
-		P2ja:              true,
-		P2zh:              true,
-		P2vi:              true,
-		P2my:              true,
-		DicLangOrder:      "hdr",
-	}
+	setting := lib.GetDefaultPaliSetting()
 
 	html := GetWordPreviewHtml(word, wi, setting, `en-US,en,zh-TW`)
 	if !strings.Contains(html, "<span>巴利文-漢文佛學名相辭匯 翻譯：張文明</span>") {
