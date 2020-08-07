@@ -22,6 +22,8 @@ test:
   - make test_lib
   # test dictionary
   - make test_dictionary
+  # test tipitaka
+  - make test_tipitaka
   # misc
   - make test_util
   only:

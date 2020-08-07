@@ -18,6 +18,7 @@ PALIUTIL=$(GOPATH)/src/github.com/siongui/gopalilib/util
 DATA_REPO_DIR=$(CURDIR)/data
 VFSDIR=$(GOPATH)/src/pali/words/vfspkg
 LOCALE_DIR=$(CURDIR)/locale
+TIPITAKA_XML_DIR=/tmp/tpkxml/
 
 
 current_working_target: test_lib_gettext
@@ -119,13 +120,19 @@ test_check_compile: fmt
 ############################
 # Bootstrap/Setup Tipiṭaka #
 ############################
+test_tipitaka: test_build_tpk_tree
+
 test_download_tpk: fmt
 	@echo "\033[92mTesting download Tipiṭaka xml from https://www.tipitaka.org/romn/ ...\033[0m"
 	@cd tpkutil; go test -v downloadtpk.go downloadtpk_test.go
 
-test_build_tpk_tree: fmt
+clone_tpk_xml:
+	@echo "\033[92mClone Tipiṭaka XML repo ...\033[0m"
+	@[ -d $(TIPITAKA_XML_DIR) ] || git clone https://github.com/siongui/tipitaka-romn.git $(TIPITAKA_XML_DIR)
+
+test_build_tpk_tree: fmt clone_tpk_xml
 	@echo "\033[92mTesting build Tipiṭaka tree ...\033[0m"
-	@cd tpkutil; go test -v buildtpktree.go buildtpktree_test.go
+	@cd tpkutil; go test -v buildtpktree.go buildtpktree_test.go -args -tpkXmlDir=$(TIPITAKA_XML_DIR)
 ###################################
 # End of Bootstrap/Setup Tipiṭaka #
 ###################################
