@@ -94,7 +94,7 @@ test_bookparser: fmt
 test_wordparser: fmt
 	@echo "\033[92mTesting parse CSV of dictionary words ...\033[0m"
 	#@[ -d /tmp/paliwords/ ] || mkdir /tmp/paliwords/
-	@cd dicutil; go test -v wordparser.go wordparser_test.go lib.go -args -WordCSV1=$(WordCSV1) -WordCSV2=$(WordCSV2) -wordsJsonDir=$(OUTPUT_PALI_WORDS_JSON_DIR)
+	@cd dicutil; go test -v wordparser.go wordparser_test.go -args -WordCSV1=$(WordCSV1) -WordCSV2=$(WordCSV2) -wordsJsonDir=$(OUTPUT_PALI_WORDS_JSON_DIR)
 
 # test_triebuild must run after test_wordparser
 test_triebuild: fmt

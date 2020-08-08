@@ -23,6 +23,24 @@ func isChineseDictionary(id string) bool {
 	}
 }
 
+func getWordPath(word, wordsJsonDir string) string {
+	return wordsJsonDir + "/" + word + ".json"
+}
+
+func getBookIdWordExps(word, wordsJsonDir string) lib.BookIdWordExps {
+	f, err := os.Open(getWordPath(word, wordsJsonDir))
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	wi, err := lib.DecodeHttpRespWord(f)
+	if err != nil {
+		panic(err)
+	}
+	return wi
+}
+
 // The format of record in dict_words_1.csv and dict_words_2.csv:
 //
 // row = [cell1, cell2, cell3, cell4, cell5, cell6, cell7], each row represent
@@ -59,10 +77,10 @@ func processWord(record []string, wordsJsonDir string) {
 	util.LocalPrintln(num, word)
 
 	// Google search: golang check if file exists
-	path := GetWordPath(word, wordsJsonDir)
+	path := getWordPath(word, wordsJsonDir)
 	if _, err := os.Stat(path); err == nil {
 		// append new data to existing json file
-		wi := GetBookIdWordExps(word, wordsJsonDir)
+		wi := getBookIdWordExps(word, wordsJsonDir)
 		if isChineseDictionary(bookId) {
 			// convert simplified chinese to traditional chinese
 			wi = append(wi, [2]string{bookId, util.S2T(explanation)})
