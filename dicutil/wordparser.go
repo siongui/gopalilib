@@ -41,6 +41,16 @@ func getBookIdWordExps(word, wordsJsonDir string) lib.BookIdWordExps {
 	return wi
 }
 
+func appendToBookIdWordExps(wi lib.BookIdWordExps, bookId, explanation string) lib.BookIdWordExps {
+	if isChineseDictionary(bookId) {
+		// convert simplified chinese to traditional chinese
+		wi = append(wi, [2]string{bookId, util.S2T(explanation)})
+	} else {
+		wi = append(wi, [2]string{bookId, explanation})
+	}
+	return wi
+}
+
 // The format of record in dict_words_1.csv and dict_words_2.csv:
 //
 // row = [cell1, cell2, cell3, cell4, cell5, cell6, cell7], each row represent
@@ -81,22 +91,12 @@ func processWord(record []string, wordsJsonDir string) {
 	if _, err := os.Stat(path); err == nil {
 		// append new data to existing json file
 		wi := getBookIdWordExps(word, wordsJsonDir)
-		if isChineseDictionary(bookId) {
-			// convert simplified chinese to traditional chinese
-			wi = append(wi, [2]string{bookId, util.S2T(explanation)})
-		} else {
-			wi = append(wi, [2]string{bookId, explanation})
-		}
+		wi = appendToBookIdWordExps(wi, bookId, explanation)
 		util.SaveJsonFile(wi, path)
 	} else {
 		// create new json file
 		wi := lib.BookIdWordExps{}
-		if isChineseDictionary(bookId) {
-			// convert simplified chinese to traditional chinese
-			wi = append(wi, [2]string{bookId, util.S2T(explanation)})
-		} else {
-			wi = append(wi, [2]string{bookId, explanation})
-		}
+		wi = appendToBookIdWordExps(wi, bookId, explanation)
 		util.SaveJsonFile(wi, path)
 	}
 }
