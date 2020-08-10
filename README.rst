@@ -48,7 +48,7 @@ This repository consist of:
    The code is located at `util <util/>`_.
 
 5. Common frontend code, compiled to JavaScript via GopherJS.
-   The code is located at `libfrontend <libfrontend/>`_
+   The code is located at `libfrontend <libfrontend/>`_.
 
 
 UNLICENSE

@@ -1,3 +1,4 @@
+// Package libfrontend provides common library for frontend code.
 package libfrontend
 
 import (
