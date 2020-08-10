@@ -21,7 +21,18 @@ LOCALE_DIR=$(CURDIR)/locale
 TIPITAKA_XML_DIR=/tmp/tpkxml/
 
 
-current_working_target: test_lib_jsgettext
+current_working_target: test_libfrontend
+
+###############################
+# Common library for frontend #
+###############################
+test_libfrontend: fmt
+	@echo "\033[92mTesting common library for frontend ...\033[0m"
+	@cd libfrontend; echo "do not know how to test"
+###############################
+# Common library for frontend #
+###############################
+
 
 ##########################################################
 # Common library for online/offline, dictionary/tipitaka #
@@ -218,6 +229,7 @@ fmt:
 	@go fmt dicutil/*.go
 	@go fmt tpkutil/*.go
 	@go fmt util/*.go
+	@go fmt libfrontend/*.go
 
 clean:
 	rm -rf pkg/ src/

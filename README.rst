@@ -25,10 +25,10 @@ This repository consist of:
 1. Common Go_ code (library of `Pāli project`_) to be shared and used by
    client-side (front-end browser) and
    server-side (back-end server).
-   The code is located in `lib <lib>`_ directory.
+   The code is located at `lib <lib/>`_ directory.
 
 2. Bootstrap/setup Dictionary (Offline data processing).
-   The code is located in `dicutil <dicutil>`_.
+   The code is located at `dicutil <dicutil/>`_.
 
    - test_po2json
    - test_bookparser
@@ -38,11 +38,17 @@ This repository consist of:
    - test_symlink needs test_vfsbuild
    - test_embedmetadata needs test_bookparser and test_triebuild
 
-2. Bootstrap/setup Tipiṭaka (Offline data processing).
-   The code is located in `tpkutil <tpkutil>`_.
+3. Bootstrap/setup Tipiṭaka (Offline data processing).
+   The code is located at `tpkutil <tpkutil/>`_.
 
    - test_download_tpk
    - test_build_tpk_tree
+
+4. Utility methods for offline data processing.
+   The code is located at `util <util/>`_.
+
+5. Common frontend code, compiled to JavaScript via GopherJS.
+   The code is located at `libfrontend <libfrontend/>`_
 
 
 UNLICENSE
