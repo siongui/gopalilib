@@ -230,6 +230,9 @@ fmt:
 	@go fmt tpkutil/*.go
 	@go fmt util/*.go
 	@go fmt libfrontend/*.go
+	@go fmt libfrontend/everyword/*.go
+	@go fmt libfrontend/treeview/*.go
+	@go fmt libfrontend/xslt/*.go
 
 clean:
 	rm -rf pkg/ src/
