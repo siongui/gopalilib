@@ -21,14 +21,14 @@ LOCALE_DIR=$(CURDIR)/locale
 TIPITAKA_XML_DIR=/tmp/tpkxml/
 
 
-current_working_target: test_libfrontend
+current_working_target: test_lib_tipitaka
 
 ###############################
 # Common library for frontend #
 ###############################
 test_libfrontend: fmt
 	@echo "\033[92mTesting common library for frontend ...\033[0m"
-	@cd libfrontend; echo "do not know how to test"
+	@cd libfrontend; echo "FIXME: do not know how to test"
 ###############################
 # Common library for frontend #
 ###############################
@@ -37,7 +37,7 @@ test_libfrontend: fmt
 ##########################################################
 # Common library for online/offline, dictionary/tipitaka #
 ##########################################################
-test_lib: test_filter test_string test_lib_url_dictionary test_lib_trie test_lib_dicmgr test_lib_gettext test_lib_jsgettext
+test_lib: test_filter test_string test_lib_url_dictionary test_lib_tipitaka test_lib_trie test_lib_dicmgr test_lib_gettext test_lib_jsgettext
 	@echo "\033[92mTesting common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v $(shell cd lib; ls *.go)
 
@@ -48,6 +48,10 @@ test_filter: fmt
 test_string: fmt
 	@echo "\033[92mTesting string methods in common library for online/offline dictionary/tipitaka ...\033[0m"
 	@cd lib; go test -v string.go string_test.go
+
+test_lib_tipitaka: fmt
+	@echo "\033[92mTesting tipitaka methods in common library for online/offline dictionary/tipitaka ...\033[0m"
+	@cd lib; go test -v tipitaka.go tipitaka_test.go
 
 test_lib_trie: fmt
 	@echo "\033[92mTesting trie methods in common library for online/offline dictionary/tipitaka ...\033[0m"
