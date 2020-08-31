@@ -51,7 +51,7 @@ test_string: fmt
 
 test_lib_tipitaka: fmt
 	@echo "\033[92mTesting tipitaka methods in common library for online/offline dictionary/tipitaka ...\033[0m"
-	@cd lib; go test -v tipitaka.go tipitaka_test.go
+	@cd lib/tipitaka; go test -v $(shell cd lib/tipitaka; ls *.go)
 
 test_lib_trie: fmt
 	@echo "\033[92mTesting trie methods in common library for online/offline dictionary/tipitaka ...\033[0m"
