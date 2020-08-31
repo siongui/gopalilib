@@ -226,6 +226,7 @@ fmt:
 	@echo "\033[92mGo fmt source code...\033[0m"
 	@go fmt lib/*.go
 	@go fmt lib/dictionary/*.go
+	@go fmt lib/tipitaka/*.go
 	@go fmt lib/trie/*.go
 	@go fmt lib/dicmgr/*.go
 	@go fmt lib/gettext/*.go

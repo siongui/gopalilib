@@ -1,7 +1,11 @@
 package tipitaka
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"testing"
+
+	"github.com/siongui/gopalilib/lib"
 )
 
 func TestTrimTreeText(t *testing.T) {
@@ -77,4 +81,21 @@ func TestTrimTreeText(t *testing.T) {
 		t.Error(s)
 		return
 	}
+}
+
+func TestTraverseTreeAndSetSubpathProperty(t *testing.T) {
+	b, err := ioutil.ReadFile("tpktoc.json")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	tree := lib.Tree{}
+	err = json.Unmarshal(b, &tree)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	TraverseTreeAndSetSubpathProperty(tree)
 }

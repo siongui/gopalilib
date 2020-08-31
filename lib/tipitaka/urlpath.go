@@ -6,6 +6,8 @@ package tipitaka
 import (
 	"regexp"
 	"strings"
+
+	"github.com/siongui/gopalilib/lib"
 )
 
 // remove leading un-needed characters
@@ -42,4 +44,11 @@ func TrimTreeText(text string) string {
 	text = strings.TrimSuffix(text, "-mūlaṭīkā")
 	text = strings.TrimSuffix(text, "-ṭīkā")
 	return text
+}
+
+func TraverseTreeAndSetSubpathProperty(tree lib.Tree) {
+	println(TrimTreeText(tree.Text))
+	for _, subtree := range tree.SubTrees {
+		TraverseTreeAndSetSubpathProperty(subtree)
+	}
 }
