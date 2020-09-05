@@ -43,12 +43,24 @@ func TrimTreeText(text string) string {
 	text = strings.TrimSuffix(text, "nikāya (ṭīkā)")
 	text = strings.TrimSuffix(text, "-mūlaṭīkā")
 	text = strings.TrimSuffix(text, "-ṭīkā")
+
+	// not in old Python implementation
+	text = strings.TrimSuffix(text, "kathā")
+	text = strings.TrimSuffix(text, "pariccheda")
+	text = strings.TrimSuffix(text, "paricchedo")
+	text = strings.TrimSpace(text)
+
 	return text
 }
 
-func TraverseTreeAndSetSubpathProperty(tree lib.Tree) {
+func traverse(tree lib.Tree, indent int) {
+	print(strings.Repeat(" ", indent))
 	println(TrimTreeText(tree.Text))
 	for _, subtree := range tree.SubTrees {
-		TraverseTreeAndSetSubpathProperty(subtree)
+		traverse(subtree, indent+2)
 	}
+}
+
+func TraverseTreeAndSetSubpathProperty(tree lib.Tree) {
+	traverse(tree, 0)
 }
