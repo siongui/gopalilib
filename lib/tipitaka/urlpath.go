@@ -16,7 +16,8 @@ var tp = regexp.MustCompile(`^[\d\s()-\.]+`)
 // remove trailing un-needed characters
 var ts = regexp.MustCompile(`-\d$`)
 
-// TrimTreeText trims Text property in Tree struct.
+// TrimTreeText trims Text property in Tree struct. The same as old Python
+// implementation.
 //
 // TODO: handle path conflict after TrimTreeText
 // For example,
@@ -43,19 +44,21 @@ func TrimTreeText(text string) string {
 	text = strings.TrimSuffix(text, "nikāya (ṭīkā)")
 	text = strings.TrimSuffix(text, "-mūlaṭīkā")
 	text = strings.TrimSuffix(text, "-ṭīkā")
+	return text
+}
 
+func TrimTreeText2(text string) string {
+	text = TrimTreeText(text)
 	// not in old Python implementation
 	text = strings.TrimSuffix(text, "kathā")
 	text = strings.TrimSuffix(text, "pariccheda")
 	text = strings.TrimSuffix(text, "paricchedo")
-	text = strings.TrimSpace(text)
-
-	return text
+	return strings.TrimSpace(text)
 }
 
 func traverse(tree lib.Tree, indent int) {
-	print(strings.Repeat(" ", indent))
-	println(TrimTreeText(tree.Text))
+	//print(strings.Repeat(" ", indent))
+	//println(TrimTreeText(tree.Text))
 	for _, subtree := range tree.SubTrees {
 		traverse(subtree, indent+2)
 	}

@@ -75,9 +75,23 @@ func TestTrimTreeText(t *testing.T) {
 		return
 	}
 
+	s = TrimTreeText("Abhinīhāra kathā")
+	if s != "abhinīhāra kathā" {
+		t.Error(s)
+		return
+	}
+
 	// TODO: add more test cases
 	s = TrimTreeText("")
 	if s != "" {
+		t.Error(s)
+		return
+	}
+}
+
+func TestTrimTreeText2(t *testing.T) {
+	s := TrimTreeText2("Abhinīhāra kathā")
+	if s != "abhinīhāra" {
 		t.Error(s)
 		return
 	}
