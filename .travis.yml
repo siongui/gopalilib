@@ -1,7 +1,7 @@
 language: go
 go:
   - 1.12.17
-  - 1.14.6
+  - 1.15.1
 install:
 - make clone_pali_data
 - make install
