@@ -137,6 +137,10 @@ test_embedmetadata: fmt
 test_check_compile: fmt
 	@echo "\033[92mTesting checking compile of dicutil...\033[0m"
 	cd dicutil; go test -v $(shell cd dicutil; ls | grep -v _test.go)
+
+test_extract_one_dic: fmt
+	@echo "\033[92mTesting extracting one dictionary...\033[0m"
+	cd dicutil; go test -v onedic.go onedic_test.go -args -WordCSV1=$(WordCSV1) -WordCSV2=$(WordCSV2)
 #####################################
 # End of Bootstrap/Setup Dictionary #
 #####################################
