@@ -13,7 +13,7 @@ var paliWord = regexp.MustCompile(`[AaBbCcDdEeGgHhIiJjKkLlMmNnOoPpRrSsTtUuVvYyĀ
 
 func markPaliWordInSpan(s string) string {
 	return paliWord.ReplaceAllStringFunc(s, func(match string) string {
-		return "<span class='paliword'>" + match + "</span>"
+		return "<span class='paliword' data-paliword='" + match + "'>" + match + "</span>"
 	})
 }
 
