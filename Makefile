@@ -218,6 +218,11 @@ install_gojianfan:
 install_charset:
 	@echo "\033[92mInstalling golang.org/x/net/html/charset ...\033[0m"
 	go get -u golang.org/x/net/html/charset
+
+# installed by go get -u github.com/siongui/gopalilib/util (install_palilib)
+install_rabbit:
+	@echo "\033[92mInstalling github.com/winhtaikaung/Rabbit-Go/rabbit ...\033[0m"
+	go get -u github.com/winhtaikaung/Rabbit-Go/rabbit
 ##########################
 # End of Install Library #
 ##########################
