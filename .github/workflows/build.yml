@@ -1,0 +1,33 @@
+name: Test Package
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [ '1.15', '1.12' ]
+    name: Test Pāli Library Package
+    steps:
+      - uses: actions/checkout@v2.3.1
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Install dependencies
+        run: |
+          make clone_pali_data
+          make install
+      - name: Run tests
+        run: |
+          # test common library for online/offline, dictionary/tipitaka
+          make test_lib
+          # test dictionary
+          make test_dictionary
+          # test tipitaka
+          make test_tipitaka
+          # misc
+          make test_util
