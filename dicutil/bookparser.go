@@ -91,6 +91,9 @@ func parseRecord(record []string) (id string, dict lib.BookInfo) {
 			dict.Lang = "my"
 			// FIXME: is "。" correct separator?
 			dict.Separator = "。"
+			dict.Name = util.Zg2uni(name)
+			dict.Author = util.Zg2uni(author)
+			return
 		default:
 			// English dictionary
 			dict.Lang = "en"

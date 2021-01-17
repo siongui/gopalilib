@@ -23,6 +23,15 @@ func isChineseDictionary(id string) bool {
 	}
 }
 
+func isBurmeseDictionary(id string) bool {
+	switch id {
+	case "B", "K", "O", "R":
+		return true
+	default:
+		return false
+	}
+}
+
 func getWordPath(word, wordsJsonDir string) string {
 	return wordsJsonDir + "/" + word + ".json"
 }
@@ -45,9 +54,16 @@ func appendToBookIdWordExps(wi lib.BookIdWordExps, bookId, explanation string) l
 	if isChineseDictionary(bookId) {
 		// convert simplified chinese to traditional chinese
 		wi = append(wi, [2]string{bookId, util.S2T(explanation)})
-	} else {
-		wi = append(wi, [2]string{bookId, explanation})
+		return wi
 	}
+
+	if isBurmeseDictionary(bookId) {
+		// convert Zawgyi to unicode
+		wi = append(wi, [2]string{bookId, util.Zg2uni(explanation)})
+		return wi
+	}
+
+	wi = append(wi, [2]string{bookId, explanation})
 	return wi
 }
 
