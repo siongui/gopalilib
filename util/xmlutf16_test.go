@@ -16,7 +16,7 @@ type Tree struct {
 
 func TestDecodeUtf16XML(t *testing.T) {
 	dst := "/tmp/romn/cscd/vin01m.mul.toc.xml"
-	err := CheckDownload("https://www.tipitaka.org/romn/cscd/vin01m.mul.toc.xml", dst, false)
+	err := CheckDownload("https://tipitaka.org/romn/cscd/vin01m.mul.toc.xml", dst, false)
 	if err != nil {
 		t.Error(err)
 		return
