@@ -8,8 +8,11 @@ Pāli_ Library and Data Processing
 .. image:: https://godoc.org/github.com/siongui/gopalilib?status.svg
    :target: https://godoc.org/github.com/siongui/gopalilib
 
-.. image:: https://api.travis-ci.org/siongui/gopalilib.svg?branch=master
+.. .. image:: https://api.travis-ci.org/siongui/gopalilib.svg?branch=master
    :target: https://travis-ci.org/siongui/gopalilib
+
+.. image:: https://github.com/siongui/gopalilib/workflows/workflows/Test%20Package/badge.svg
+    :target: https://github.com/siongui/gopalilib/blob/master/.github/workflows/build.yml
 
 .. image:: https://gitlab.com/siongui/gopalilib/badges/master/pipeline.svg
     :target: https://gitlab.com/siongui/gopalilib/-/commits/master

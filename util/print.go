@@ -22,5 +22,8 @@ func LocalPrintln(a ...interface{}) {
 	if IsRunOnGitLabCI() {
 		return
 	}
+	if IsRunOnGitHubActions() {
+		return
+	}
 	fmt.Println(a...)
 }

@@ -17,3 +17,9 @@ func IsRunOnGitLabCI() bool {
 	_, ok := os.LookupEnv("GITLAB_CI")
 	return ok
 }
+
+// IsRunOnGitHubActions checks if running on GitHub Actions environment.
+func IsRunOnGitHubActions() bool {
+	_, ok := os.LookupEnv("GITHUB_ACTIONS")
+	return ok
+}
