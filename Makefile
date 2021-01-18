@@ -14,6 +14,14 @@ ifdef GITHUB_ACTIONS
 	export GOPATH=$(realpath $(CURDIR))
 endif
 
+ifndef GITHUB_ACTIONS
+ifndef GITLAB_CI
+	export GOROOT=$(realpath $(PRJDIR)/go)
+	export GOPATH=$(realpath $(PRJDIR))
+	export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
+endif
+endif
+
 PALILIB=$(GOPATH)/src/github.com/siongui/gopalilib/lib
 PALIUTIL=$(GOPATH)/src/github.com/siongui/gopalilib/util
 DATA_REPO_DIR=$(CURDIR)/data
