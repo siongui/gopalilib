@@ -11,7 +11,7 @@ Pāli_ Library and Data Processing
 .. .. image:: https://api.travis-ci.org/siongui/gopalilib.svg?branch=master
    :target: https://travis-ci.org/siongui/gopalilib
 
-.. image:: https://github.com/siongui/gopalilib/workflows/workflows/Test%20Package/badge.svg
+.. image:: https://github.com/siongui/gopalilib/workflows/Test%20Package/badge.svg
     :target: https://github.com/siongui/gopalilib/blob/master/.github/workflows/build.yml
 
 .. image:: https://gitlab.com/siongui/gopalilib/badges/master/pipeline.svg
