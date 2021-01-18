@@ -17,8 +17,6 @@ jobs:
       - uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
-        env:
-          GOPATH: ${{ github.workspace }}/go
       - name: Install dependencies
         run: |
           make clone_pali_data

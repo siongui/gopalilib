@@ -2,15 +2,16 @@
 #   export GOROOT=../go  (=> 6g not found)
 # it is also not allowed to use relative path in GOPATH
 GO_VERSION=1.12.17
-PRJDIR=$(CURDIR)
-ifndef GITLAB_CI
 PRJDIR=../paligo/
-endif
-ifndef TRAVIS
+ifdef GITLAB_CI
 	# set environment variables on local machine or GitLab CI
+	export PRJDIR=$(CURDIR)
 	export GOROOT=$(realpath $(PRJDIR)/go)
 	export GOPATH=$(realpath $(PRJDIR))
 	export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
+endif
+ifdef GITHUB_ACTIONS
+	export GOPATH=$(realpath $(CURDIR))
 endif
 
 PALILIB=$(GOPATH)/src/github.com/siongui/gopalilib/lib
