@@ -13,18 +13,16 @@ jobs:
         go: [ '1.15', '1.12' ]
     name: Test Pāli Library Package
     steps:
+      - name: Set GOPATH
+        # see https://github.com/actions/setup-go/issues/14
+        run: |
+          echo "::set-env name=GOPATH::${{ github.workspace }}/go"
+          echo "::add-path::${{ github.workspace }}/go/bin"
+        shell: bash
       - uses: actions/checkout@v2.3.1
       - uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
-      - name: Set GOPATH
-        # temporary fix
-        # see https://github.com/actions/setup-go/issues/14
-        # see https://github.com/actions/setup-go/issues/12
-        run: |
-          echo "##[set-env name=GOPATH;]$(dirname $GITHUB_WORKSPACE)"
-          echo "##[add-path]$(dirname $GITHUB_WORKSPACE)/bin"
-        shell: bash
       - name: Install dependencies
         run: |
           make clone_pali_data
