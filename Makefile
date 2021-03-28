@@ -171,6 +171,12 @@ clone_tpk_xml:
 test_build_tpk_tree: fmt clone_tpk_xml
 	@echo "\033[92mTesting build Tipiṭaka tree ...\033[0m"
 	@cd tpkutil; go test -v buildtpktree.go buildtpktree_test.go -args -tpkXmlDir=$(TIPITAKA_XML_DIR)
+
+OUTPUT_TIPITAKA_TOC_GO_FILE=$(CURDIR)/lib/tipitaka/toc/data.go
+test_embed_tpk_toc: fmt clone_tpk_xml
+	@echo "\033[92mTesting embedding Tipiṭaka Table of content data into Go code ...\033[0m"
+	@cd tpkutil; go test -v buildtpktree.go embedtpktoc_test.go -args -tpkXmlDir=$(TIPITAKA_XML_DIR) -outputGoFilePath=$(OUTPUT_TIPITAKA_TOC_GO_FILE)
+	@make fmt
 ###################################
 # End of Bootstrap/Setup Tipiṭaka #
 ###################################
@@ -245,6 +251,7 @@ fmt:
 	@go fmt lib/*.go
 	@go fmt lib/dictionary/*.go
 	@go fmt lib/tipitaka/*.go
+	@go fmt lib/tipitaka/toc/*.go
 	@go fmt lib/trie/*.go
 	@go fmt lib/dicmgr/*.go
 	@go fmt lib/gettext/*.go
