@@ -204,6 +204,7 @@ install_palilib:
 	go get -u github.com/siongui/gopalilib/lib/dictionary
 	go get -u github.com/siongui/gopalilib/lib/dicmgr
 	go get -u github.com/siongui/gopalilib/util
+	go get -u github.com/siongui/gopalilib/lib/tipitaka/toc
 
 install_goef:
 	@echo "\033[92mInstalling Go file embedder ...\033[0m"
