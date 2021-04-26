@@ -8,5 +8,5 @@ import (
 // ActionToUrlPath converts action string to url path.
 func ActionToUrlPath(action string) string {
 	noext := strings.TrimSuffix(action, filepath.Ext(action))
-	return "/" + strings.Replace(noext, ".", "/", -1)
+	return "/" + strings.Replace(noext, ".", "/", -1) + "/"
 }
