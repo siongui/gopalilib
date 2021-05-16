@@ -1,7 +1,7 @@
 # cannot use relative path in GOROOT, otherwise 6g not found. For example,
 #   export GOROOT=../go  (=> 6g not found)
 # it is also not allowed to use relative path in GOPATH
-GO_VERSION=1.12.17
+GO_VERSION=1.16.4
 PRJDIR=../paligo/
 ifdef GITLAB_CI
 	# set environment variables on local machine or GitLab CI
