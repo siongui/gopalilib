@@ -9,5 +9,5 @@ require (
 	github.com/siongui/goef v0.0.0-20210610184109-d3b60554c5f3
 	github.com/siongui/gojianfan v0.0.0-20190106124005-c2554383e6c5
 	github.com/winhtaikaung/Rabbit-Go v0.0.0-20190314045429-213403fa9212
-	golang.org/x/net v0.0.0-20210610132358-84b48f89b13b
+	golang.org/x/net v0.0.0-20210614182718-04defd469f4e
 )

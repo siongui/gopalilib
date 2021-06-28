@@ -3,21 +3,17 @@
 # it is also not allowed to use relative path in GOPATH
 GO_VERSION=1.16.5
 PRJDIR=../paligo/
+#export GO111MODULE=off
+export GOPATH=$(realpath $(CURDIR)/util)
 ifdef GITLAB_CI
 	# set environment variables on local machine or GitLab CI
 	export PRJDIR=$(CURDIR)
 	export GOROOT=$(realpath $(PRJDIR)/go)
-	export GOPATH=$(realpath $(PRJDIR))
 	export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 endif
-ifdef GITHUB_ACTIONS
-	export GOPATH=$(realpath $(CURDIR))
-endif
-
 ifndef GITHUB_ACTIONS
 ifndef GITLAB_CI
 	export GOROOT=$(realpath $(PRJDIR)/go)
-	export GOPATH=$(realpath $(PRJDIR))
 	export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 endif
 endif
