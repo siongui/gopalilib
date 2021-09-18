@@ -4,24 +4,23 @@
 GO_VERSION=1.16.5
 PRJDIR=../paligo/
 #export GO111MODULE=off
-export GOPATH=$(realpath $(CURDIR)/util)
+
 ifdef GITLAB_CI
 	# set environment variables on local machine or GitLab CI
 	export PRJDIR=$(CURDIR)
 	export GOROOT=$(realpath $(PRJDIR)/go)
-	export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
+	export PATH := $(GOROOT)/bin:$(PATH)
 endif
+
 ifndef GITHUB_ACTIONS
 ifndef GITLAB_CI
 	export GOROOT=$(realpath $(PRJDIR)/go)
-	export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
+	export PATH := $(GOROOT)/bin:$(PATH)
 endif
 endif
 
-PALILIB=$(GOPATH)/src/github.com/siongui/gopalilib/lib
-PALIUTIL=$(GOPATH)/src/github.com/siongui/gopalilib/util
 DATA_REPO_DIR=$(CURDIR)/data
-VFSDIR=$(GOPATH)/src/pali/words/vfspkg
+VFSDIR=$(GOROOT)/src/pali/words/vfspkg
 LOCALE_DIR=$(CURDIR)/locale
 TIPITAKA_XML_DIR=/tmp/tpkxml/
 
@@ -205,16 +204,6 @@ install_palilib:
 install_goef:
 	@echo "\033[92mInstalling Go file embedder ...\033[0m"
 	go get -u github.com/siongui/goef
-
-install_local:
-	@echo "\033[92mInstall ${PALILIB} locally ...\033[0m"
-	@rm -rf ${PALILIB}
-	@mkdir -p ${PALILIB}
-	@cp -r lib/* ${PALILIB}/
-	@echo "\033[92mInstall ${PALIUTIL} locally ...\033[0m"
-	@rm -rf ${PALIUTIL}
-	@mkdir -p ${PALIUTIL}
-	@cp -r util/* ${PALIUTIL}/
 
 # installed by go get -u github.com/siongui/gopalilib/lib (install_palilib)
 lib_succinct_trie:

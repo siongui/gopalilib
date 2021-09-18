@@ -1,6 +1,3 @@
-util/bin/
-util/pkg/
-util/src/
 data/
 *.mo
 locale/zh_CN/
