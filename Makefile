@@ -188,47 +188,6 @@ test_util: fmt
 #####################
 
 
-###################
-# Install Library #
-###################
-install: install_palilib install_goef
-
-install_palilib:
-	#go get -u github.com/siongui/gopalilib/lib
-	#go get -u github.com/siongui/gopalilib/lib/trie
-	go get -u github.com/siongui/gopalilib/lib/dictionary
-	go get -u github.com/siongui/gopalilib/lib/dicmgr
-	go get -u github.com/siongui/gopalilib/util
-	go get -u github.com/siongui/gopalilib/lib/tipitaka
-
-install_goef:
-	@echo "\033[92mInstalling Go file embedder ...\033[0m"
-	go get -u github.com/siongui/goef
-
-# installed by go get -u github.com/siongui/gopalilib/lib (install_palilib)
-lib_succinct_trie:
-	@echo "\033[92mInstalling Go Succinct Trie library ...\033[0m"
-	go get -u github.com/siongui/go-succinct-data-structure-trie
-
-# installed by go get -u github.com/siongui/gopalilib/util (install_palilib)
-install_gojianfan:
-	@echo "\033[92mInstalling Go Chinese conversion package ...\033[0m"
-	go get -u github.com/siongui/gojianfan
-
-# installed by go get -u github.com/siongui/gopalilib/util (install_palilib)
-install_charset:
-	@echo "\033[92mInstalling golang.org/x/net/html/charset ...\033[0m"
-	go get -u golang.org/x/net/html/charset
-
-# installed by go get -u github.com/siongui/gopalilib/util (install_palilib)
-install_rabbit:
-	@echo "\033[92mInstalling github.com/winhtaikaung/Rabbit-Go/rabbit ...\033[0m"
-	go get -u github.com/winhtaikaung/Rabbit-Go/rabbit
-##########################
-# End of Install Library #
-##########################
-
-
 ########
 # Misc #
 ########

@@ -17,7 +17,6 @@ test:
   - apt-get install -y wget make git gettext gcc
   - make clone_pali_data
   - make download_go
-  - make install
   # test common library for online/offline, dictionary/tipitaka
   - make test_lib
   # test dictionary
