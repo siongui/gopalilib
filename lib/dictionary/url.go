@@ -128,12 +128,20 @@ func AddRootPathAndCurrentLocaleToUrlPath(urlpath string) string {
 	return urlpath
 }
 
+// GetNormalizedUrlPath unescape the given url path, strip rootPath and
+// currentLocale from the url path.
+func GetNormalizedUrlPath(urlpath string) (s string, err error) {
+	s, err = url.PathUnescape(urlpath)
+	if err == nil {
+		s = StripRootPathAndCurrentLocaleInUrlPath(s)
+	}
+	return
+}
+
 // DeterminePageType determines the type of the webpage according to path of
 // URL.
 func DeterminePageType(urlpath string) PageType {
-	// handle url.PathUnescape error?
-	urlpath, _ = url.PathUnescape(urlpath)
-	urlpath = StripRootPathAndCurrentLocaleInUrlPath(urlpath)
+	urlpath, _ = GetNormalizedUrlPath(urlpath)
 
 	if urlpath == "/" {
 		return RootPage
@@ -154,9 +162,7 @@ func DeterminePageType(urlpath string) PageType {
 // IsValidPrefixUrlPath will return true if the path of the url is a possible
 // prefix of Pāli words.
 func IsValidPrefixUrlPath(urlpath string) bool {
-	// handle url.PathUnescape error?
-	urlpath, _ = url.PathUnescape(urlpath)
-	urlpath = StripRootPathAndCurrentLocaleInUrlPath(urlpath)
+	urlpath, _ = GetNormalizedUrlPath(urlpath)
 
 	ss := strings.Split(urlpath, "/")
 
@@ -186,9 +192,7 @@ func IsValidPrefixUrlPath(urlpath string) bool {
 // IsValidWordUrlPath will return true if the path of the url is a possible Pāli
 // word.
 func IsValidWordUrlPath(urlpath string) bool {
-	// handle url.PathUnescape error?
-	urlpath, _ = url.PathUnescape(urlpath)
-	urlpath = StripRootPathAndCurrentLocaleInUrlPath(urlpath)
+	urlpath, _ = GetNormalizedUrlPath(urlpath)
 
 	ss := strings.Split(urlpath, "/")
 
@@ -225,9 +229,7 @@ func IsValidWordUrlPath(urlpath string) bool {
 //
 // "/browse/āā/" will return ""
 func GetPrefixFromUrlPath(urlpath string) string {
-	// handle url.PathUnescape error?
-	urlpath, _ = url.PathUnescape(urlpath)
-	urlpath = StripRootPathAndCurrentLocaleInUrlPath(urlpath)
+	urlpath, _ = GetNormalizedUrlPath(urlpath)
 
 	if IsValidPrefixUrlPath(urlpath) {
 		ss := strings.Split(urlpath, "/")
@@ -247,9 +249,7 @@ func GetPrefixFromUrlPath(urlpath string) string {
 //
 // "/browse/s/āpadā/" will return ""
 func GetWordFromUrlPath(urlpath string) string {
-	// handle url.PathUnescape error?
-	urlpath, _ = url.PathUnescape(urlpath)
-	urlpath = StripRootPathAndCurrentLocaleInUrlPath(urlpath)
+	urlpath, _ = GetNormalizedUrlPath(urlpath)
 
 	if IsValidWordUrlPath(urlpath) {
 		ss := strings.Split(urlpath, "/")

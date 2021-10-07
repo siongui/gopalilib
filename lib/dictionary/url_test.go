@@ -33,6 +33,24 @@ func TestSetCurrentLocale(t *testing.T) {
 	}
 }
 
+func TestGetNormalizedUrlPath(t *testing.T) {
+	SetSiteUrl("")
+	SetCurrentLocale("")
+	if s, err := GetNormalizedUrlPath("/pali-dictionary/zh_TW/browse/āa/"); s != "/pali-dictionary/zh_TW/browse/āa/" || err != nil {
+		t.Error(`GetNormalizedUrlPath not "/pali-dictionary/zh_TW/browse/āa/"`)
+	}
+
+	SetSiteUrl("https://siongui.gitlab.io/pali-dictionary")
+	if s, err := GetNormalizedUrlPath("/pali-dictionary/zh_TW/browse/āa/"); s != "/zh_TW/browse/āa/" || err != nil {
+		t.Error(`GetNormalizedUrlPath not "/zh_TW/browse/āa/"`)
+	}
+
+	SetCurrentLocale("zh_TW")
+	if s, err := GetNormalizedUrlPath("/pali-dictionary/zh_TW/browse/āa/"); s != "/browse/āa/" || err != nil {
+		t.Error(`GetNormalizedUrlPath not "/browse/āa/"`)
+	}
+}
+
 func TestDeterminePageType(t *testing.T) {
 	SetSiteUrl("")
 	SetCurrentLocale("")
