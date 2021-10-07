@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/siongui/gopalilib/lib"
+	"github.com/siongui/gopalilib/lib/dictionary"
 	"github.com/siongui/gopalilib/lib/tipitaka/toc"
 )
 
@@ -44,4 +45,56 @@ func init() {
 func ActionToCanonPath(action string) string {
 	noext := strings.TrimSuffix(action, filepath.Ext(action))
 	return "/" + strings.Replace(noext, ".", "/", -1) + "/"
+}
+
+// PageType represents the type of the webpage, determined according to path of
+// URL.
+//go:generate stringer -type=PageType
+type PageType int
+
+const (
+	RootPage PageType = iota
+	CanonPage
+	NoSuchPage
+)
+
+// SetSiteUrl is the same as the method of the same name in the package of
+// github.com/siongui/gopalilib/lib/dictionary
+func SetSiteUrl(rawurl string) {
+	dictionary.SetSiteUrl(rawurl)
+}
+
+// SetCurrentLocale is the same as the method of the same name in the package of
+// github.com/siongui/gopalilib/lib/dictionary
+func SetCurrentLocale(locale string) {
+	dictionary.SetCurrentLocale(locale)
+}
+
+// DeterminePageType determines the type of the webpage according to path of
+// URL.
+func DeterminePageType(urlpath string) PageType {
+	urlpath, _ = dictionary.GetNormalizedUrlPath(urlpath)
+
+	if urlpath == "/" {
+		return RootPage
+	}
+	if IsValidCanonUrlPath(urlpath) {
+		return CanonPage
+	}
+
+	return NoSuchPage
+}
+
+// IsValidCanonUrlPath will return true if the path of the url is a possible
+// canon page.
+func IsValidCanonUrlPath(urlpath string) bool {
+	urlpath, _ = dictionary.GetNormalizedUrlPath(urlpath)
+
+	_, ok := urlActionMap[urlpath]
+	return ok
+}
+
+// ActionToUrlPath converts action string to url path.
+func ActionToUrlPath(action string) string {
+	return dictionary.AddRootPathAndCurrentLocaleToUrlPath(ActionToCanonPath(action))
 }
