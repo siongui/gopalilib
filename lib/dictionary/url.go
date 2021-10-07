@@ -9,7 +9,7 @@ import (
 	"unicode/utf8"
 )
 
-// The url of Pali dictionary website except about page will be
+// The url path of Pali dictionary website except about page will be
 //
 //   [rootPath]/[locale]/browse/[prefix]/[word]
 //
@@ -36,6 +36,21 @@ var currentLocale = ""
 
 // rootPath is not set directly. This is automatically derived from siteurl.
 var rootPath = ""
+
+// GetSiteUrl returns internal siteurl variable.
+func GetSiteUrl() string {
+	return siteurl
+}
+
+// GetCurrentLocale returns internal currentLocale variable.
+func GetCurrentLocale() string {
+	return currentLocale
+}
+
+// GetRootPath returns internal rootPath variable.
+func GetRootPath() string {
+	return rootPath
+}
 
 // SetSiteUrl sets the website url. Used to check path validity and create path
 // for pages. Default is none. It's ok not to set this. If the root path of
@@ -67,7 +82,7 @@ func SetCurrentLocale(locale string) {
 	currentLocale = locale
 }
 
-// The url of Pali dictionary website except about page will be
+// The url path of Pali dictionary website except about page will be
 //
 //   [rootPath]/[locale]/browse/[prefix]/[word]
 //
@@ -92,7 +107,7 @@ func StripRootPathAndCurrentLocaleInUrlPath(urlpath string) string {
 	return urlpath
 }
 
-// The url of Pali dictionary website except about page will be
+// The url path of Pali dictionary website except about page will be
 //
 //   [rootPath]/[locale]/browse/[prefix]/[word]
 //
