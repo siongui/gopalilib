@@ -10,6 +10,7 @@ import (
 )
 
 var actionUrlMap map[string]string
+var urlActionMap map[string]string
 
 func traverse(tree lib.Tree, indent int) {
 	//print(strings.Repeat(" ", indent))
@@ -17,28 +18,22 @@ func traverse(tree lib.Tree, indent int) {
 	if tree.Action != "" {
 		//println(tree.Action)
 		actionUrlMap[tree.Action] = ActionToUrlPath(tree.Action)
+		urlActionMap[ActionToUrlPath(tree.Action)] = tree.Action
 	}
 	for _, subtree := range tree.SubTrees {
 		traverse(subtree, indent+2)
 	}
 }
 
-func printActionUrlMap(m map[string]string) {
-	for k, v := range m {
-		println(k + " " + v)
-	}
-}
-
 func init() {
 	actionUrlMap = make(map[string]string)
+	urlActionMap = make(map[string]string)
 
 	b, _ := toc.ReadFile("tpktoc.json")
 	//println(string(b))
 	tree := lib.Tree{}
 	json.Unmarshal(b, &tree)
 	traverse(tree, 0)
-
-	//printActionUrlMap(actionUrlMap)
 }
 
 // ActionToUrlPath converts action string to url path.

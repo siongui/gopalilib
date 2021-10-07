@@ -11,3 +11,12 @@ func TestActionToUrlPath(t *testing.T) {
 		return
 	}
 }
+
+func TestUrlActionMap(t *testing.T) {
+	for k, v := range actionUrlMap {
+		if k2, ok := urlActionMap[v]; !ok && k2 != k {
+			t.Error(k, v, k2)
+			return
+		}
+	}
+}

@@ -16,6 +16,7 @@ var ts = regexp.MustCompile(`-\d$`)
 
 // TrimTreeText trims Text property in Tree struct. The same as old Python
 // implementation.
+// Not used right now.
 //
 // TODO: handle path conflict after TrimTreeText
 // For example,
@@ -45,6 +46,7 @@ func TrimTreeText(text string) string {
 	return text
 }
 
+// TrimTreeText2 is not used right now.
 func TrimTreeText2(text string) string {
 	text = TrimTreeText(text)
 	// not in old Python implementation
