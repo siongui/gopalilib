@@ -1,8 +1,8 @@
 # cannot use relative path in GOROOT, otherwise 6g not found. For example,
 #   export GOROOT=../go  (=> 6g not found)
 # it is also not allowed to use relative path in GOPATH
-GO_VERSION=1.17.1
-GODIR=../
+GO_VERSION=1.18.10
+GODIR=../paligo
 #export GO111MODULE=off
 
 ifdef GITLAB_CI

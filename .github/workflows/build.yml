@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: [ '1.17' ]
+        go: [ '1.18.10' ]
     name: Test Pāli Library Package
     steps:
       - uses: actions/checkout@v2.3.1
