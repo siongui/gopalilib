@@ -151,8 +151,8 @@ test_extract_one_dic: fmt
 test_tipitaka: test_build_tpk_tree
 
 test_download_tpk: fmt
-	@echo "\033[92mTesting download Tipiṭaka xml from https://www.tipitaka.org/romn/ ...\033[0m"
-	@cd tpkutil; go test -v downloadtpk.go downloadtpk_test.go
+	@echo "\033[92mTesting download Tipiṭaka xml from https://tipitaka.org/romn/ ...\033[0m"
+	@cd tpkutil; go test -timeout=300m -v downloadtpk.go downloadtpk_test.go
 
 clone_tpk_xml:
 	@echo "\033[92mClone Tipiṭaka XML repo ...\033[0m"

@@ -79,7 +79,7 @@ func DownloadTipitaka(dir string, overwrite bool) (err error) {
 	// observation:
 	//  1. All meaningful node has attribute 'text'
 	//  2. node with 'action' attribute is leaf
-	urlPrefix := "https://www.tipitaka.org/romn/"
+	urlPrefix := "https://tipitaka.org/romn/"
 	rootTocXmlSrc := "tipitaka_toc.xml"
 
 	err = GetAllXml(urlPrefix, rootTocXmlSrc, dir, overwrite)
