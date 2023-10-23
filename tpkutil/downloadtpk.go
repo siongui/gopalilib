@@ -70,16 +70,16 @@ func GetAllXml(urlPrefix, xmlSrc, dir string, overwrite bool) (err error) {
 }
 
 // DownloadTipitaka downloads all Tipiṭaka XMLs from
-// https://www.tipitaka.org/romn/ to dir. This method will overwrite existing
-// XMLs if overwrite set to true.
-func DownloadTipitaka(dir string, overwrite bool) (err error) {
+// https://www.tipitaka.org/{{script}}/ to {{dir}}. This method will overwrite
+// existing XMLs if overwrite set to true.
+func DownloadTipitaka(script, dir string, overwrite bool) (err error) {
 	// Python version
 	// https://github.com/siongui/pali/blob/master/tipitaka/setup/init1getTocs.py
 
 	// observation:
 	//  1. All meaningful node has attribute 'text'
 	//  2. node with 'action' attribute is leaf
-	urlPrefix := "https://tipitaka.org/romn/"
+	urlPrefix := "https://tipitaka.org/" + script + "/"
 	rootTocXmlSrc := "tipitaka_toc.xml"
 
 	err = GetAllXml(urlPrefix, rootTocXmlSrc, dir, overwrite)
@@ -87,12 +87,17 @@ func DownloadTipitaka(dir string, overwrite bool) (err error) {
 		return
 	}
 
-	xsl := "cscd/tipitaka-latn.xsl"
+	// The XSL and CSS filename for romn script is *latn*, not *romn*
+	if script == "romn" {
+		script = "latn"
+	}
+
+	xsl := "cscd/tipitaka-" + script + ".xsl"
 	err = util.CheckDownload(urlPrefix+xsl, path.Join(dir, xsl), overwrite)
 	if err != nil {
 		return
 	}
-	css := "cscd/tipitaka-latn.css"
+	css := "cscd/tipitaka-" + script + ".css"
 	err = util.CheckDownload(urlPrefix+css, path.Join(dir, css), overwrite)
 	return
 }
