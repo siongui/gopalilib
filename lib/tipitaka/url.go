@@ -44,7 +44,8 @@ func init() {
 // ActionToCanonPath converts action string to canon path in URL.
 func ActionToCanonPath(action string) string {
 	noext := strings.TrimSuffix(action, filepath.Ext(action))
-	return "/" + strings.Replace(noext, ".", "/", -1) + "/"
+	// TODO: FIXME: elegant way to support different script and edition.
+	return "/romn/" + strings.Replace(noext, ".", "/", -1) + "/"
 }
 
 // PageType represents the type of the webpage, determined according to path of
