@@ -148,7 +148,7 @@ test_extract_one_dic: fmt
 ############################
 # Bootstrap/Setup Tipiṭaka #
 ############################
-test_tipitaka: test_build_tpk_tree
+test_tipitaka: test_build_tpk_tree test_tipitaka_symlink
 
 test_download_tpk: fmt
 	@echo "\033[92mTesting download Tipiṭaka xml from https://tipitaka.org/romn/ ...\033[0m"
@@ -167,6 +167,10 @@ test_embed_tpk_toc: fmt clone_tpk_xml
 	@echo "\033[92mTesting embedding Tipiṭaka Table of content data into Go code ...\033[0m"
 	@cd tpkutil; go test -v buildtpktree.go embedtpktoc_test.go -args -tpkXmlDir=$(TIPITAKA_XML_DIR) -outputGoFilePath=$(OUTPUT_TIPITAKA_TOC_GO_FILE)
 	@make fmt
+
+test_tipitaka_symlink: fmt
+	@echo "\033[92mTesting making Pāli Tipiṭaka symlinks for GitHub Pages...\033[0m"
+	@cd tpkutil; go test -v symlink.go symlink_test.go -args -outputDir=$(OUTPUT_DIR)
 ###################################
 # End of Bootstrap/Setup Tipiṭaka #
 ###################################

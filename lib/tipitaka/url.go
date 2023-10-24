@@ -48,6 +48,21 @@ func ActionToCanonPath(action string) string {
 	return "/romn/" + strings.Replace(noext, ".", "/", -1) + "/"
 }
 
+// GetAllCanonPath returns all canon paths according to given script.
+func GetAllCanonPath(script string) []string {
+	// FIXME TODO: script param is not respected right now. return only romn
+
+	// https://stackoverflow.com/a/27848197
+	keys := make([]string, len(urlActionMap))
+	i := 0
+	for k := range urlActionMap {
+		keys[i] = k
+		i++
+	}
+
+	return keys
+}
+
 // PageType represents the type of the webpage, determined according to path of
 // URL.
 //go:generate stringer -type=PageType

@@ -46,6 +46,8 @@ This repository consist of:
 
    - test_download_tpk
    - test_build_tpk_tree
+   - test_embed_tpk_toc
+   - test_tipitaka_symlink
 
 4. Utility methods for offline data processing.
    The code is located at `util <util/>`_.
