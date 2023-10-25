@@ -73,21 +73,24 @@ func TestIsValidPaliTextUrlPath(t *testing.T) {
 	SetSiteUrl("")
 	SetCurrentLocale("")
 
-	if IsValidPaliTextUrlPath("/romn/cscd/vin01m/mul2/") != true {
+	ok, paliTextPath := IsValidPaliTextUrlPath("/romn/cscd/vin01m/mul2/")
+	if !(ok == true && paliTextPath == "/romn/cscd/vin01m/mul2/") {
 		t.Error("/romn/cscd/vin01m/mul2/")
 	}
 
-	if IsValidPaliTextUrlPath("/abc/cscd/vin01m/mul2/") != false {
+	if ok, _ := IsValidPaliTextUrlPath("/abc/cscd/vin01m/mul2/"); ok != false {
 		t.Error("/abc/cscd/vin01m/mul2/")
 	}
 
 	SetSiteUrl("https://siongui.gitlab.io/pali-dictionary/")
-	if IsValidPaliTextUrlPath("/pali-dictionary/romn/cscd/vin01m/mul2/") != true {
+	ok, paliTextPath = IsValidPaliTextUrlPath("/pali-dictionary/romn/cscd/vin01m/mul2/")
+	if !(ok == true && paliTextPath == "/romn/cscd/vin01m/mul2/") {
 		t.Error("/pali-dictionary/romn/cscd/vin01m/mul2/")
 	}
 
 	SetCurrentLocale("zh_TW")
-	if IsValidPaliTextUrlPath("/pali-dictionary/zh_TW/romn/cscd/vin01m/mul2/") != true {
+	ok, paliTextPath = IsValidPaliTextUrlPath("/pali-dictionary/zh_TW/romn/cscd/vin01m/mul2/")
+	if !(ok == true && paliTextPath == "/romn/cscd/vin01m/mul2/") {
 		t.Error("/pali-dictionary/zh_TW/romn/cscd/vin01m/mul2/")
 	}
 }

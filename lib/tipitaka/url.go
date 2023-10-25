@@ -50,7 +50,7 @@ func ActionToPaliTextPath(action string) string {
 	return "/romn/" + strings.Replace(noext, ".", "/", -1) + "/"
 }
 
-// GetAllPaliTextPath returns all canon paths according to given script.
+// GetAllPaliTextPath returns all pali text paths according to given script.
 // TODO FIXME: add *edition* parameter in the future.
 func GetAllPaliTextPath(script string) []string {
 	// FIXME TODO: script param is not respected right now. return only romn
@@ -97,20 +97,20 @@ func DeterminePageType(urlpath string) PageType {
 	if urlpath == "/" {
 		return RootPage
 	}
-	if IsValidPaliTextUrlPath(urlpath) {
+	if ok, _ := IsValidPaliTextUrlPath(urlpath); ok {
 		return PaliTextPage
 	}
 
 	return NoSuchPage
 }
 
-// IsValidPaliTextUrlPath will return true if the path of the url is a possible
-// canon page.
-func IsValidPaliTextUrlPath(urlpath string) bool {
-	urlpath, _ = dictionary.GetNormalizedUrlPath(urlpath)
+// IsValidPaliTextUrlPath will return both true and pali text path if the path
+// of the url is a possible pali text page.
+func IsValidPaliTextUrlPath(urlpath string) (ok bool, paliTextPath string) {
+	paliTextPath, _ = dictionary.GetNormalizedUrlPath(urlpath)
 
-	_, ok := paliTextPathToActionMap[urlpath]
-	return ok
+	_, ok = paliTextPathToActionMap[paliTextPath]
+	return
 }
 
 // ActionToUrlPath converts action string to url path.
