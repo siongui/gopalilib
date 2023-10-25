@@ -5,6 +5,7 @@ package treeview
 import (
 	. "github.com/siongui/godom"
 	"github.com/siongui/gopalilib/lib"
+	"github.com/siongui/gopalilib/lib/tipitaka"
 )
 
 func traverseTreeviewData(tree lib.Tree, actionFunc func(lib.Tree)) *Object {
@@ -50,6 +51,7 @@ func traverseTreeviewData(tree lib.Tree, actionFunc func(lib.Tree)) *Object {
 
 		span := Document.CreateElement("span")
 		span.ClassList().Add("treeNode")
+		span.Dataset().Set("paliTextPath", tipitaka.ActionToPaliTextPath(tree.Action))
 		span.SetInnerHTML(tree.Text)
 		span.AddEventListener("click", func(e Event) {
 			actionFunc(tree)
