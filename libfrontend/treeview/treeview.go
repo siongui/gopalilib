@@ -52,6 +52,7 @@ func traverseTreeviewData(tree lib.Tree, actionFunc func(lib.Tree)) *Object {
 		span := Document.CreateElement("span")
 		span.ClassList().Add("treeNode")
 		span.Dataset().Set("paliTextPath", tipitaka.ActionToPaliTextPath(tree.Action))
+		span.Dataset().Set("action", tree.Action)
 		span.SetInnerHTML(tree.Text)
 		span.AddEventListener("click", func(e Event) {
 			actionFunc(tree)
