@@ -12,18 +12,18 @@ import (
 
 // The url path of Pali tipitaka website will be
 //
-//   [rootPath]/[locale]/[canonPath]
+//   [rootPath]/[locale]/[paliTextPath]
 
-var actionUrlMap map[string]string
-var urlActionMap map[string]string
+var actionToPaliTextPathMap map[string]string
+var paliTextPathToActionMap map[string]string
 
 func traverse(tree lib.Tree, indent int) {
 	//print(strings.Repeat(" ", indent))
 	//println(TrimTreeText(tree.Text))
 	if tree.Action != "" {
 		//println(tree.Action)
-		actionUrlMap[tree.Action] = ActionToCanonPath(tree.Action)
-		urlActionMap[ActionToCanonPath(tree.Action)] = tree.Action
+		actionToPaliTextPathMap[tree.Action] = ActionToPaliTextPath(tree.Action)
+		paliTextPathToActionMap[ActionToPaliTextPath(tree.Action)] = tree.Action
 	}
 	for _, subtree := range tree.SubTrees {
 		traverse(subtree, indent+2)
@@ -31,8 +31,8 @@ func traverse(tree lib.Tree, indent int) {
 }
 
 func init() {
-	actionUrlMap = make(map[string]string)
-	urlActionMap = make(map[string]string)
+	actionToPaliTextPathMap = make(map[string]string)
+	paliTextPathToActionMap = make(map[string]string)
 
 	b, _ := toc.ReadFile("tpktoc.json")
 	//println(string(b))
@@ -41,21 +41,24 @@ func init() {
 	traverse(tree, 0)
 }
 
-// ActionToCanonPath converts action string to canon path in URL.
-func ActionToCanonPath(action string) string {
+// ActionToPaliTextPath converts action string to pali text path in URL.
+// For example, "cscd/vin01m.mul2.xml" to "/romn/cscd/vin01m/mul2/".
+// TODO FIXME: add *script* and *edition* parameters in the future.
+func ActionToPaliTextPath(action string) string {
 	noext := strings.TrimSuffix(action, filepath.Ext(action))
-	// TODO: FIXME: elegant way to support different script and edition.
+	// TODO FIXME: find elegant way to support different script and edition.
 	return "/romn/" + strings.Replace(noext, ".", "/", -1) + "/"
 }
 
-// GetAllCanonPath returns all canon paths according to given script.
-func GetAllCanonPath(script string) []string {
+// GetAllPaliTextPath returns all canon paths according to given script.
+// TODO FIXME: add *edition* parameter in the future.
+func GetAllPaliTextPath(script string) []string {
 	// FIXME TODO: script param is not respected right now. return only romn
 
 	// https://stackoverflow.com/a/27848197
-	keys := make([]string, len(urlActionMap))
+	keys := make([]string, len(paliTextPathToActionMap))
 	i := 0
-	for k := range urlActionMap {
+	for k := range paliTextPathToActionMap {
 		keys[i] = k
 		i++
 	}
@@ -70,7 +73,7 @@ type PageType int
 
 const (
 	RootPage PageType = iota
-	CanonPage
+	PaliTextPage
 	NoSuchPage
 )
 
@@ -94,23 +97,23 @@ func DeterminePageType(urlpath string) PageType {
 	if urlpath == "/" {
 		return RootPage
 	}
-	if IsValidCanonUrlPath(urlpath) {
-		return CanonPage
+	if IsValidPaliTextUrlPath(urlpath) {
+		return PaliTextPage
 	}
 
 	return NoSuchPage
 }
 
-// IsValidCanonUrlPath will return true if the path of the url is a possible
+// IsValidPaliTextUrlPath will return true if the path of the url is a possible
 // canon page.
-func IsValidCanonUrlPath(urlpath string) bool {
+func IsValidPaliTextUrlPath(urlpath string) bool {
 	urlpath, _ = dictionary.GetNormalizedUrlPath(urlpath)
 
-	_, ok := urlActionMap[urlpath]
+	_, ok := paliTextPathToActionMap[urlpath]
 	return ok
 }
 
 // ActionToUrlPath converts action string to url path.
 func ActionToUrlPath(action string) string {
-	return dictionary.AddRootPathAndCurrentLocaleToUrlPath(ActionToCanonPath(action))
+	return dictionary.AddRootPathAndCurrentLocaleToUrlPath(ActionToPaliTextPath(action))
 }

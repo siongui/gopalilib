@@ -76,7 +76,7 @@ func SymlinkToRootIndexHtml(websiteroot string, script string) (err error) {
 	//fmt.Println(websiteroot)
 	//return
 
-	paths := tpk.GetAllCanonPath("romn")
+	paths := tpk.GetAllPaliTextPath("romn")
 	for _, p := range paths {
 		err = CreatePageSymlink(p, websiteroot)
 		if err != nil {
